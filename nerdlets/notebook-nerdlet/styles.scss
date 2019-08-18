@@ -34,6 +34,9 @@
 
 .cell-out-value {
   margin: 14px;
+  &> ul {
+    background-color: none !important; //Fix this
+  }
 }
 
 .graphiql-container {

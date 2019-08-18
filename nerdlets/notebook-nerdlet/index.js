@@ -4,7 +4,11 @@ import { NerdGraphQuery } from 'nr1';
 import { Button, TextField, Stack, StackItem } from 'nr1'
 import NotebookCell from './notebook-cell';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
+/*
 
+Add some functionality that hijacks the query vars and allows you to refer to another cell......??
+
+*/
 export default class NotebookNerdlet extends React.Component {
     static propTypes = {
         width: PropTypes.number,
@@ -69,6 +73,17 @@ export default class NotebookNerdlet extends React.Component {
             </div>
 
             {Array(this.state.cellCount).fill(<NotebookCell schema={this.state.schema} />)}
+
+            {
+                this.state.cellCount > 1 && <div className="notebook-tool-bar">
+                    <Button
+                        onClick={() => this.incrementCellCount()}
+                        type={Button.TYPE.PRIMARY}
+                        iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
+                        Add new Query
+                    </Button>
+                </div>
+            }
 
         </div>
     }
