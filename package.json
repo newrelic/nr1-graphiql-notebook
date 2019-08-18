@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "graphiql-notebook",
+    "description": "NR1 UI Package graphiql-notebook",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "nr1 package:serve",
+        "test": "exit 0"
+    },
+    "nr1": {
+        "uuid": "db8ec189-67f8-48b4-bfbe-052e09047e26",
+        "sdkVersion": 2
+    },
+    "dependencies": {
+        "graphiql": "^0.13.2",
+        "graphql": "^14.0.2",
+        "prop-types": "^15.6.2",
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3",
+        "react-json-tree": "^0.11.2"
+    },
+    "browserslist": [
+        "last 2 versions",
+        "not ie < 11",
+        "not dead"
+    ]
+}

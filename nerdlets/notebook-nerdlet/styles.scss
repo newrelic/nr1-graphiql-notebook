@@ -1,0 +1,85 @@
+@import '~graphiql/graphiql.css';
+
+.notebook {
+  margin: 12px;
+}
+
+.notebook-tool-bar {
+  margin: 0 14px;
+}
+
+.notebook-cell {
+  border: 1px solid #ddd;
+  margin: 14px;
+
+  &:nth-child(odd) {
+    background: #F9F9F9;
+  }
+}
+
+.cell-label {
+  font-size:18px;
+}
+
+.cell-in-label {
+  @extend .cell-label;
+  color: #9B61A7;
+}
+
+.cell-out-label {
+  @extend .cell-label;
+  margin: 14px;
+  color: #00B9D9;
+}
+
+.cell-out-value {
+  margin: 14px;
+}
+
+.graphiql-container {
+  min-height: 500px;
+  height: auto;
+  border-bottom: 1px solid #eee;
+
+  .title {
+    @extend .cell-in-label;
+  }
+
+  .topBar {
+    background: none;
+  }
+
+  .historyShow, .docExplorerShow {
+    background: none;
+  }
+
+  .docExplorerShow {
+    border-left: none;
+  }
+
+  .execute-button, .toolbar-button {
+    background: #eee;
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    font-size: 12px;
+  }
+
+  .execute-button {
+    padding: 0;
+    margin-top: 4px;
+    display: inline-block;
+    min-height: 27px;
+    height:27px;
+    min-width: 53px;
+    width:53px;
+
+    svg {
+      display: none;
+    }
+
+    &:before {
+      content:"▶";
+    }
+  }
+}

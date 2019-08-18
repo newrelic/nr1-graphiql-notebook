@@ -1,0 +1,6 @@
+{
+    "schemaType": "NERDLET",
+    "id": "notebook-nerdlet",
+    "description": "",
+    "displayName": "GraphiQL Notebook"
+}
