@@ -2,7 +2,7 @@ import React from 'react';
 import { NerdGraphQuery } from 'nr1';
 import GraphiQL from 'graphiql';
 import JSONTree from 'react-json-tree';
-import { TextField, Button, Stack, StackItem } from 'nr1';
+import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
 import gql from 'graphql-tag';
 
 export default class NotebookCell extends React.Component {
@@ -11,7 +11,7 @@ export default class NotebookCell extends React.Component {
   constructor(props) {
     super(props)
     this.cellId = NotebookCell.cellCounter
-    this.queryDocument = gql(props.queryDocument)
+    this.queryDocument = null; //ehhhhhh
     console.log(this.queryDocument)
     this.state = {
       queryResponse: {}
@@ -34,7 +34,7 @@ export default class NotebookCell extends React.Component {
   }
 
   render() {
-    if (!this.props.schema) return null;
+    if (!this.props.schema) return <Spinner fillContainer />;
 
     return <div className="notebook-cell">
       <Stack gapType={Stack.GAP_TYPE.BASE}>
@@ -59,7 +59,10 @@ export default class NotebookCell extends React.Component {
         <GraphiQL
           fetcher={this.fetcher}
           schema={this.props.schema}
-          onEditQuery={(query) => this.queryDocument = gql(query)}
+          onEditQuery={(query) => {
+            this.queryDocument = gql(query)
+            console.log(this.queryDocument)
+          }}
         >
           <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
         </GraphiQL>

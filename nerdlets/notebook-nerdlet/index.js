@@ -4,7 +4,14 @@ import { NerdGraphQuery } from 'nr1';
 import { Button, TextField, Stack, StackItem } from 'nr1'
 import NotebookCell from './notebook-cell';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
+
+import Select from 'react-select'
+
+
 /*
+deal with state stuff of getting query document on first render for the json tree
+  can handle updates with onQueryEdit after that
+  worry about variables........? yeah, because we need account ids and they could be in the vars. later.
 
 Add some functionality that hijacks the query vars and allows you to refer to another cell......??
 
@@ -40,7 +47,33 @@ export default class NotebookNerdlet extends React.Component {
     }
 
     render() {
+        const options = [
+            { value: 'great', label: 'My Great Notebok' },
+            { value: 'nerdstorage', label: 'NerdStorage Examples' },
+            { value: 'scratch', label: 'Scratchpad' }
+          ]
+
         return <div className="notebook">
+            <div className="notebook-tool-header">
+                <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
+                    <StackItem grow={true}/>
+                    <StackItem>
+                        <div style={{width: "300px" }}>
+                            <Select options={options} defaultValue={options[0]}/>
+                        </div>
+                    </StackItem>
+                    <StackItem shrink={true}>
+                        <Button
+                            style={{marginLeft: "14px"}}
+                            onClick={() => alert('Hello World!')}
+                            type={Button.TYPE.NORMAL}
+                            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}>
+                            Import Notebook
+                        </Button>
+                    </StackItem>
+                </Stack>
+            </div>
+
             <div className="notebook-tool-bar">
                 <TextField style={{fontSize:"20px"}} label='Notebook Name' placeholder='My Great Notebook' />
                 <Stack gapType={Stack.GAP_TYPE.BASE}>

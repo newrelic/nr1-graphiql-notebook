@@ -1,0 +1,8 @@
+{
+    "schemaType": "LAUNCHER",
+    "id": "notebook-launcher",
+    "displayName": "GraphiQL Notebook",
+    "description": "Create Notebooks of GraphQL Queries",
+    "icon": "documents_documents_notes_a-edit",
+    "rootNerdletId": "db8ec189-67f8-48b4-bfbe-052e09047e26.notebook-nerdlet"
+}
