@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NerdGraphQuery } from 'nr1';
+import Select from 'react-select'
 import { Button, TextField, Stack, StackItem } from 'nr1'
 import NotebookCell from './notebook-cell';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
-
-import Select from 'react-select'
-
+import NotebookToolbar from "./notebook-toolbar.js"
 
 /*
 deal with state stuff of getting query document on first render for the json tree
@@ -74,36 +73,7 @@ export default class NotebookNerdlet extends React.Component {
                 </Stack>
             </div>
 
-            <div className="notebook-tool-bar">
-                <TextField style={{fontSize:"20px"}} label='Notebook Name' placeholder='My Great Notebook' />
-                <Stack gapType={Stack.GAP_TYPE.BASE}>
-                    <StackItem grow={true}>
-                        <Button
-                            onClick={() => this.incrementCellCount()}
-                            type={Button.TYPE.PRIMARY}
-                            iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
-                            Add new Query
-                        </Button>
-                    </StackItem>
-                    <StackItem>
-                        <Button
-                            onClick={() => alert('Hello World!')}
-                            type={Button.TYPE.NORMAL}
-                            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__DOWNLOAD}>
-                            Save this Notebook
-                        </Button>
-                        <Button
-                            style={{marginLeft: "14px"}}
-                            onClick={() => alert('Hello World!')}
-                            type={Button.TYPE.NORMAL}
-                            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__SHARE_LINK}>
-                            Share this Notebook
-                        </Button>
-                    </StackItem>
-                </Stack>
-
-
-            </div>
+            <NotebookToolbar/>
 
             {Array(this.state.cellCount).fill(<NotebookCell schema={this.state.schema} />)}
 

@@ -4,6 +4,7 @@ import GraphiQL from 'graphiql';
 import JSONTree from 'react-json-tree';
 import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
 import gql from 'graphql-tag';
+import { expandResponse } from "./response-augmentation.js"
 
 export default class NotebookCell extends React.Component {
   static cellCounter = 0
@@ -11,8 +12,6 @@ export default class NotebookCell extends React.Component {
   constructor(props) {
     super(props)
     this.cellId = NotebookCell.cellCounter
-    this.queryDocument = null; //ehhhhhh
-    console.log(this.queryDocument)
     this.state = {
       queryResponse: {}
     }
@@ -28,7 +27,7 @@ export default class NotebookCell extends React.Component {
     return NerdGraphQuery
       .query({ query, variables, fetchPolicyType: 'no-cache' })
       .then(({ data, errors }) => {
-        this.setState({ queryResponse: data })
+        this.setState({ queryResponse: expandResponse(this.props.schema, data), queryDocument: gql(query), queryVariables: variables })
         return { data: this.stripTypeName(data), errors }
       })
   }
@@ -59,10 +58,6 @@ export default class NotebookCell extends React.Component {
         <GraphiQL
           fetcher={this.fetcher}
           schema={this.props.schema}
-          onEditQuery={(query) => {
-            this.queryDocument = gql(query)
-            console.log(this.queryDocument)
-          }}
         >
           <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
         </GraphiQL>
