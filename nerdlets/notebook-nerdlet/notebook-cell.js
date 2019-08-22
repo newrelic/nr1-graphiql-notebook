@@ -14,6 +14,7 @@ export default class NotebookCell extends React.Component {
     super(props)
     this.cellId = NotebookCell.cellCounter
     this.state = {
+      query: this.props.query,
       queryResponse: {}
     }
     NotebookCell.cellCounter++
@@ -40,7 +41,7 @@ export default class NotebookCell extends React.Component {
   render() {
     if (!this.props.schema) return <Spinner fillContainer />;
 
-    return <div className="notebook-cell">
+    return <div ref={this.props.cellRef} className="notebook-cell">
       <Stack gapType={Stack.GAP_TYPE.BASE}>
         <StackItem grow={true}>
           <TextField
@@ -55,7 +56,6 @@ export default class NotebookCell extends React.Component {
             onClick={() => alert("remove")}
             type={Button.TYPE.PLAIN_NEUTRAL}
             iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE} />
-
         </StackItem>
       </Stack>
 
@@ -63,6 +63,7 @@ export default class NotebookCell extends React.Component {
         <GraphiQL
           fetcher={this.fetcher}
           schema={this.props.schema}
+          query={this.state.query}
         >
           <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
         </GraphiQL>
@@ -88,8 +89,8 @@ export default class NotebookCell extends React.Component {
           valueRenderer = {(node) => {
             return node.__custom || node
           }}
-          isCustomNode={(node) => node && node.__custom}
-          data={CustomRender.renderTree(this.state.queryResponse)}
+          isCustomNode={React.isValidElement}
+          data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
           theme={ourStyling()}
           shouldExpandNode={() => true}
         />

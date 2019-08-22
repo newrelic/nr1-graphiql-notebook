@@ -102,8 +102,9 @@ export function ourStyling() {
         WebkitUserSelect: 'text',
         MozUserSelect: 'text',
         wordWrap: 'break-word',
-        paddingLeft: keyPath.length > 1 ? '2.125em' : '1.25em',
-        textIndent: '-0.5em',
+        // paddingLeft: keyPath.length > 1 ? '2.125em' : '1.25em',
+        paddingLeft: '1.25em',
+        textIndent: '0em',
         wordBreak: 'break-all'
       }
     }),

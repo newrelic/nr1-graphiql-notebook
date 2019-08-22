@@ -11,7 +11,8 @@ TODO: deal with state stuff of getting query document on first render for the js
   can handle updates with onQueryEdit after that
   worry about variables........? yeah, because we need account ids and they could be in the vars. later.
 
-TODO: Add some functionality that hijacks the query vars and allows you to refer to another cell......?
+TODO: aliases
+TODO: "Add to variables below" button on all leaf nodes?
 */
 export default class NotebookNerdlet extends React.Component {
     static propTypes = {
@@ -23,7 +24,7 @@ export default class NotebookNerdlet extends React.Component {
         super(props)
         this.state = {
             schema: null,
-            cellCount: 1
+            cells: [{query: undefined, ref: React.createRef()}]
         }
     }
 
@@ -35,12 +36,15 @@ export default class NotebookNerdlet extends React.Component {
             })
     }
 
-    decrementCellCount() {
-        this.setState({ cellCount: Math.max(0, this.state.cellCount - 1) })
+    popCell() {
+        this.setState({ cells: this.state.cells.slice(0, -1)})
     }
 
-    incrementCellCount() {
-        this.setState({ cellCount: this.state.cellCount + 1 })
+    addCell = (query) => {
+        let newCell = {query: query, ref: React.createRef()}
+        this.setState({ cells: this.state.cells.concat([newCell])}, () => {
+            newCell.ref.current.scrollIntoView()
+        })
     }
 
     renderLauncherToolbar() {
@@ -77,7 +81,7 @@ export default class NotebookNerdlet extends React.Component {
             <Stack gapType={Stack.GAP_TYPE.BASE}>
                 <StackItem grow={true}>
                     <Button
-                        onClick={() => this.incrementCellCount()}
+                        onClick={() => this.addCell()}
                         type={Button.TYPE.PRIMARY}
                         iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
                         Add new Query
@@ -103,15 +107,18 @@ export default class NotebookNerdlet extends React.Component {
     }
 
     render() {
+        let { cells } = this.state
         return <div className="notebook">
             {this.renderLauncherToolbar()}
             {this.renderNotebookToolbar()}
-            {Array(this.state.cellCount).fill(<NotebookCell schema={this.state.schema} />)}
+            {cells.map((cell, i) => {
+                return <NotebookCell cellRef={cell.ref} key={`notebook-cell-${i}`} schema={this.state.schema} query={cell.query} addCell={this.addCell} />
+            })}
 
             {
-                this.state.cellCount > 1 && <div className="notebook-tool-bar">
+                cells.length > 1 && <div className="notebook-tool-bar">
                     <Button
-                        onClick={() => this.incrementCellCount()}
+                        onClick={() => this.addCell()}
                         type={Button.TYPE.PRIMARY}
                         iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
                         Add new Query
