@@ -2,18 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NerdGraphQuery } from 'nr1';
 import Select from 'react-select'
-import { Button, TextField, Stack, StackItem } from 'nr1'
+import { Button, Stack, StackItem, TextField} from 'nr1'
 import NotebookCell from './notebook-cell';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
-import NotebookToolbar from "./notebook-toolbar.js"
 
 /*
-deal with state stuff of getting query document on first render for the json tree
+TODO: deal with state stuff of getting query document on first render for the json tree
   can handle updates with onQueryEdit after that
   worry about variables........? yeah, because we need account ids and they could be in the vars. later.
 
-Add some functionality that hijacks the query vars and allows you to refer to another cell......??
-
+TODO: Add some functionality that hijacks the query vars and allows you to refer to another cell......?
 */
 export default class NotebookNerdlet extends React.Component {
     static propTypes = {
@@ -45,36 +43,69 @@ export default class NotebookNerdlet extends React.Component {
         this.setState({ cellCount: this.state.cellCount + 1 })
     }
 
-    render() {
+    renderLauncherToolbar() {
         const options = [
             { value: 'great', label: 'My Great Notebok' },
             { value: 'nerdstorage', label: 'NerdStorage Examples' },
             { value: 'scratch', label: 'Scratchpad' }
-          ]
+        ]
 
+        return <div className="notebook-tool-header">
+            <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
+                <StackItem grow={true} />
+                <StackItem>
+                    <div style={{ width: "300px" }}>
+                        <Select options={options} defaultValue={options[0]} />
+                    </div>
+                </StackItem>
+                <StackItem shrink={true}>
+                    <Button
+                        style={{ marginLeft: "14px" }}
+                        onClick={() => alert('Hello World!')}
+                        type={Button.TYPE.NORMAL}
+                        iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}>
+                        Import Notebook
+                    </Button>
+                </StackItem>
+            </Stack>
+        </div>
+    }
+
+    renderNotebookToolbar() {
+        return <div className="notebook-tool-bar">
+            <TextField style={{ fontSize: "20px" }} label='Notebook Name' placeholder='My Great Notebook' />
+            <Stack gapType={Stack.GAP_TYPE.BASE}>
+                <StackItem grow={true}>
+                    <Button
+                        onClick={() => this.incrementCellCount()}
+                        type={Button.TYPE.PRIMARY}
+                        iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
+                        Add new Query
+                    </Button>
+                </StackItem>
+                <StackItem>
+                    <Button
+                        onClick={() => alert('Hello World!')}
+                        type={Button.TYPE.NORMAL}
+                        iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__DOWNLOAD}>
+                        Save this Notebook
+                    </Button>
+                    <Button
+                        style={{ marginLeft: "14px" }}
+                        onClick={() => alert('Hello World!')}
+                        type={Button.TYPE.NORMAL}
+                        iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__SHARE_LINK}>
+                        Share this Notebook
+                    </Button>
+                </StackItem>
+            </Stack>
+        </div>
+    }
+
+    render() {
         return <div className="notebook">
-            <div className="notebook-tool-header">
-                <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
-                    <StackItem grow={true}/>
-                    <StackItem>
-                        <div style={{width: "300px" }}>
-                            <Select options={options} defaultValue={options[0]}/>
-                        </div>
-                    </StackItem>
-                    <StackItem shrink={true}>
-                        <Button
-                            style={{marginLeft: "14px"}}
-                            onClick={() => alert('Hello World!')}
-                            type={Button.TYPE.NORMAL}
-                            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}>
-                            Import Notebook
-                        </Button>
-                    </StackItem>
-                </Stack>
-            </div>
-
-            <NotebookToolbar/>
-
+            {this.renderLauncherToolbar()}
+            {this.renderNotebookToolbar()}
             {Array(this.state.cellCount).fill(<NotebookCell schema={this.state.schema} />)}
 
             {

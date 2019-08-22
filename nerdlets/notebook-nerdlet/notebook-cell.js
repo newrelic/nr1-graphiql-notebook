@@ -3,8 +3,9 @@ import { NerdGraphQuery } from 'nr1';
 import GraphiQL from 'graphiql';
 import JSONTree from 'react-json-tree';
 import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
-import gql from 'graphql-tag';
 import { expandResponse } from "./response-augmentation.js"
+const CustomRender = require('./custom-render.js')
+import { ourStyling } from "./json-tree-styling.js"
 
 export default class NotebookCell extends React.Component {
   static cellCounter = 0
@@ -27,7 +28,11 @@ export default class NotebookCell extends React.Component {
     return NerdGraphQuery
       .query({ query, variables, fetchPolicyType: 'no-cache' })
       .then(({ data, errors }) => {
-        this.setState({ queryResponse: expandResponse(this.props.schema, data), queryDocument: gql(query), queryVariables: variables })
+        this.setState({ jsonTreeLoading: true}, () => {
+          setTimeout(() => {
+            this.setState({ jsonTreeLoading: false, queryResponse: expandResponse(this.props.schema, query, variables, data) })
+          }, 0)
+        })
         return { data: this.stripTypeName(data), errors }
       })
   }
@@ -68,11 +73,27 @@ export default class NotebookCell extends React.Component {
       </div>
 
       <div className="cell-out-value">
+        { this.state.jsonTreeLoading ?
+        <Spinner/> :
         <JSONTree
-          data={this.state.queryResponse}
-          theme="summerfruit"
+          sortObjectKeys={false}
+          postprocessValue = {(node) => {
+            if (node.__meta) {
+              let { __meta, ...nodeWithoutMeta } = node
+              return nodeWithoutMeta
+            } else {
+              return node
+            }
+          }}
+          valueRenderer = {(node) => {
+            return node.__custom || node
+          }}
+          isCustomNode={(node) => node && node.__custom}
+          data={CustomRender.renderTree(this.state.queryResponse)}
+          theme={ourStyling()}
           shouldExpandNode={() => true}
         />
+      }
       </div>
     </div>
   }

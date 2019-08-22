@@ -1,5 +1,4 @@
 
-import gql from 'graphql-tag';
 const { visit } = require('graphql/language/visitor');
 
 const listToMap = (list, keyAccessor, valueAccessor) => {
@@ -30,7 +29,7 @@ const buildNamedFragmentMap = (queryDoc) => {
 
 const inlineFragments = (queryDoc) => {
   const namedFragments = buildNamedFragmentMap(queryDoc)
-  return visit(doc, {
+  return visit(queryDoc, {
     enter: {
       FragmentSpread(node) { return namedFragments[node.name.value] },
       InlineFragment(node) { return node.selectionSet && node.selectionSet.selections }
@@ -47,52 +46,67 @@ const inlineFragments = (queryDoc) => {
   })
 }
 
+const buildContextTree = (queryDoc) => {
+  return visit(queryDoc, {
+    enter: {
+      FragmentDefinition() {
+        return null
+      }
+    },
+    leave: {
+      Document(node) {
+        return {
+          ...node.definitions[0],
+          context: {}
+        } //TODO too fragile?
+      },
 
-let doc = gql`
-query HeroForEpisode($ep: Episode!) {
-  hero(episode: $ep) {
-    aliased: name
-    ... on Droid {
-      primaryFunction
+      Name(node) {
+        return node.value
+      },
+
+      SelectionSet(node) {
+        return listToMap(node.selections, ({name}) => name)
+      },
+
+      Argument(node) {
+        return {
+          name: node.name,
+          kind: node.value.kind,
+          value: node.value.value
+        }
+      },
+
+      Field(node) {
+        let name = node.alias || node.name
+        return {
+          name,
+          context: {
+            arguments: listToMap(node.arguments, ({name}) => name),
+          },
+          selectionSet: node.selectionSet
+        }
+      }
     }
-    ... PictureFragment
-  }
+  })
 }
 
-fragment PictureFragment on Picture {
-  uri(id: 1001)
-  width
-  height
+function pop(list) {
+  return [last(list), list.slice(0, -1)]
 }
-`
-console.log(inlineFragments(doc))
-// console.log(JSON.stringify(x, null, 2))
 
-  // OperationDefinition(node) {
-    //   return {
-    //     variables: node.variableDefinitions,
-    //     selections: node.selectionSet
-    //   }
-    // },
+function last(list) {
+  return list[list.length-1]
+}
 
-    // Document(node) {
-    //   return node.definitions[0]
-    // },
+export function generate(queryDoc) {
+  return buildContextTree(inlineFragments(queryDoc))
+}
 
-    // could it be enough to just build a map of <PATHKEY, ARGUMENT>
-    // using the Argument visitor? Other things to consider:
-    //   - named fragment values some how (maybe an initial visit
-    //     pass just to create a map of named fragments)
-    //   - variable substitution?
-    //   - account for substituting magic var ref strings?
-    // don't forget aliases
-      // console.log("node", node)
-      // console.log("key", key)
-      // console.log("parent", parent)
-      // console.log("path", path)
-      // console.log("ancestors", ancestors)
-      // ancestors.forEach((a) => {
-      //   console.log(a)
-      // })
-      // console.log("===============================")
-      // Eventually sub value out of variables json here?
+export function findFieldContext(contextNode, path) {
+  if (Number.isInteger(last(path))) return findFieldContext(contextNode, path.slice(0,-1))
+  if (path.length === 0) return contextNode.context || {}
+  let [nextField, remainingPath] = pop(path)
+  let nextNode = contextNode.selectionSet[nextField]
+  return findFieldContext(nextNode, remainingPath)
+}

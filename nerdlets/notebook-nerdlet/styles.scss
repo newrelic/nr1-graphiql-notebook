@@ -1,4 +1,6 @@
 @import '~graphiql/graphiql.css';
+@import './_colors.scss';
+
 
 .notebook {
   margin: 12px;
@@ -9,11 +11,11 @@
 }
 
 .notebook-cell {
-  border: 1px solid #ddd;
+  border: 1px solid $neutral-400;
   margin: 14px;
 
   &:nth-child(odd) {
-    background: #F9F9F9;
+    background: $neutral-extended-050;
   }
 }
 
@@ -29,7 +31,7 @@
 .cell-out-label {
   @extend .cell-label;
   margin: 14px;
-  color: #00B9D9;
+  color: $brand-400;
 }
 
 .cell-out-value {
@@ -85,4 +87,14 @@
       content:"▶";
     }
   }
+}
+
+.json-tree-text-field {
+  color: $red-400;
+}
+
+.json-tree-value-widget {
+  display: inline-block;
+  padding: 6px;
+  border: 1px solid #f0f0f0;
 }
