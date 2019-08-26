@@ -9,12 +9,10 @@ export default class EntityAlertSeverityRenderer extends React.Component {
   }
 
   getEntityGuid() {
-    console.log(this.props.node.__meta.parent)
     let guid = searchAncestors(this.props.node,
       (ancestor) => ancestor.__meta.typename == 'ApmApplicationEntity' ||
                     ancestor.__meta.typename == 'AlertableEntity',
       (ancestor) => ancestor.__meta.context.arguments.guid.value)
-    console.log(guid)
     return guid
   }
 

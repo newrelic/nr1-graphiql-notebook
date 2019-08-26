@@ -4,7 +4,9 @@ import { normalizeWhitespace } from '../renderer-util.js'
 
 export default class EntityTagsRenderer extends React.Component {
   static test(node) {
-    return node.__meta.list && node.__meta.ofTypeName == "EntityTag"
+    return node.__meta.list &&
+           node.__meta.ofTypeName == "EntityTag" &&
+           !node.value.find((tag) => tag.value == undefined || tag.value == null)
   }
 
   render() {
@@ -35,7 +37,10 @@ export default class EntityTagsRenderer extends React.Component {
     let suggestedQuery = `
   {
     actor {
-      entitySearch(queryBuilder: {tags: {key: "${tagKey}", value: "${tagValue}"}}) {
+      entitySearch(
+        queryBuilder: {
+          tags: {key: "${tagKey}", value: "${tagValue}"}
+        }) {
         query
         results {
           entities {

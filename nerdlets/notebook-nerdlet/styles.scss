@@ -93,6 +93,10 @@
   color: $red-400;
 }
 
+.json-tree-date-field {
+  color: $green-400;
+}
+
 .json-tree-value-widget {
   display: inline-block;
   padding: 6px;
@@ -141,7 +145,7 @@
   }
 
   .historyPaneWrap {
-    width: auto !important;
+    width: 250px !important;
   }
 
   span.graphiql-explorer-click-docs {

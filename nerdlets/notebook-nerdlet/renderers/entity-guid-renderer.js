@@ -14,16 +14,28 @@ export default class EntityGuidRenderer extends React.Component {
 {
   actor {
     entity(guid: "${entityGuid}") {
+      name
       accountId
-      type
+      guid
       domain
       entityType
-      name
-      indexedAt
-      guid
+      reporting
+      relationships {
+        source {
+          entity {
+            name
+          }
+        }
+        target {
+          entity {
+            name
+          }
+        }
+      }
     }
   }
-}`
+}
+`
     return <div className="json-tree-text-field json-tree-value-widget">
       &nbsp;
       "{entityGuid}"

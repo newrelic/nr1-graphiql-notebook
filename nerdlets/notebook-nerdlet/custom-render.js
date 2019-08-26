@@ -1,11 +1,12 @@
 import EntityGuidRenderer from './renderers/entity-guid-renderer.js'
 import EntityTagsRenderer from './renderers/entity-tags-renderer.js'
 import EntityAlertSeverityRenderer from './renderers/entity-alert-severity-renderer.js'
+import EpochMillisecondsRenderer from './renderers/epoch-milliseconds-renderer.js'
 import NRQLRenderer from './renderers/nrql-renderer.js'
-import { EpochMillisecondsTransformer } from './transformers/epoch-milliseconds.js'
 import { LeafNodeTransformer } from './transformers/leaf-node-transformer.js'
 
 let RENDERERS = [
+  EpochMillisecondsRenderer,
   EntityAlertSeverityRenderer,
   EntityTagsRenderer,
   NRQLRenderer,
@@ -13,7 +14,6 @@ let RENDERERS = [
 ]
 
 let TRANSFORMERS = [
-  EpochMillisecondsTransformer,
   LeafNodeTransformer
 ]
 
