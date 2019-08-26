@@ -7,18 +7,21 @@ import { expandResponse } from "./response-augmentation.js"
 const CustomRender = require('./custom-render.js')
 import { ourStyling } from "./json-tree-styling.js"
 import GraphiQLExplorer from "graphiql-explorer"
+import NotebookStorage from './graphiql/notebook-storage.js';
 
 export default class NotebookCell extends React.Component {
   static cellCounter = 0
 
   constructor(props) {
     super(props)
-    console.log(props.query)
+
     this.cellId = NotebookCell.cellCounter
     this.state = {
       query: this.props.query,
       queryResponse: {}
     }
+
+    //Get rid of this at some point
     NotebookCell.cellCounter++
   }
 
@@ -88,6 +91,7 @@ export default class NotebookCell extends React.Component {
             ref={(ref) => { this.graphiQLInstance = ref }}
             fetcher={this.fetcher}
             schema={this.props.schema}
+            storage={ new NotebookStorage(this.cellId)}
             query={this.state.query}
             onEditQuery={this.onEditQuery}
           >
