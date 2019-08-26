@@ -1,16 +1,18 @@
 import EntityGuidRenderer from './renderers/entity-guid-renderer.js'
+import EntityTagsRenderer from './renderers/entity-tags-renderer.js'
 import NRQLRenderer from './renderers/nrql-renderer.js'
 import { EpochMillisecondsTransformer } from './transformers/epoch-milliseconds.js'
-import { LeafTransformer } from './transformers/leaf-transformer.js'
+import { LeafNodeTransformer } from './transformers/leaf-node-transformer.js'
 
 let RENDERERS = [
   EntityGuidRenderer,
-  NRQLRenderer
+  EntityTagsRenderer,
+  NRQLRenderer,
 ]
 
 let TRANSFORMERS = [
   EpochMillisecondsTransformer,
-  LeafTransformer
+  LeafNodeTransformer
 ]
 
 //TODO This logic all feels clunky, it should be simplified
@@ -31,18 +33,19 @@ export function renderTree(node, addCell) {
     if (transformer) {
       newNode = transformer.transform({ ...node })
     }
-    renderChildren(newNode, addCell)
+    newNode = renderChildren(newNode, addCell)
     return newNode
   }
 }
 
 function renderChildren(node, addCell) {
-  if (!node.__meta) return
+  if (!node.__meta) return node
   if (node.__meta.list) {
-    node.value = node.value.map((listItem) => renderTree(listItem, addCell))
+    return node.value.map((listItem) => renderTree(listItem, addCell))
   } else {
     Object.entries(node).forEach(([field, value]) => {
       node[field] = renderTree(value, addCell)
     })
+    return node
   }
 }

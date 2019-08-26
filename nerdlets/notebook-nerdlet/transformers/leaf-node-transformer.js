@@ -1,6 +1,6 @@
-let LeafTransformer =   {
+let LeafNodeTransformer =   {
   test: (node) => node.__meta.leaf,
   transform: (node) => node.value
 }
 
-export { LeafTransformer }
+export { LeafNodeTransformer }

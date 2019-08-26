@@ -3,6 +3,9 @@
     "name": "graphiql-notebook",
     "description": "NR1 UI Package graphiql-notebook",
     "version": "0.1.0",
+    "bugs": {
+        "email": "opensource@newrelic.com"
+    },
     "scripts": {
         "start": "nr1 package:serve",
         "test": "exit 0"

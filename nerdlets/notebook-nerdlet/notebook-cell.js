@@ -18,7 +18,7 @@ export default class NotebookCell extends React.Component {
     this.cellId = NotebookCell.cellCounter
     this.storage = new NotebookStorage(this.cellId)
     this.state = {
-      notes: this.props.notes || null,
+      notes: this.props.notes || undefined,
       query: this.props.query || this.storage.getSavedQuery() || undefined,
       queryResponse: {}
     }
