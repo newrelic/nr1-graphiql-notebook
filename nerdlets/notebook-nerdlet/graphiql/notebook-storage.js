@@ -24,4 +24,8 @@ export default class NotebookStorage {
   getKey(key) {
     return `${this.cell}--${key}`
   }
+
+  getSavedQuery() {
+    return this.getItem("graphiql:query")
+  }
 }

@@ -45,7 +45,12 @@ export default class EntityGuidRenderer extends React.Component {
         type={Button.TYPE.PLAIN_NEUTRAL}
         sizeType={Button.SIZE_TYPE.SLIM}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
-        onClick={() => { addCell(suggestedQuery) }}
+        onClick={() => {
+          return addCell({
+            query: suggestedQuery,
+            notes: "The 'entity' field allows you to access more information about an entity than a simple entity search."
+          })
+        }}
       >
         Query NerdGraph for more details
       </Button>

@@ -16,8 +16,10 @@ export default class NotebookCell extends React.Component {
     super(props)
 
     this.cellId = NotebookCell.cellCounter
+    this.storage = new NotebookStorage(this.cellId)
     this.state = {
-      query: this.props.query,
+      notes: this.props.notes || null,
+      query: this.props.query || this.storage.getSavedQuery() || undefined,
       queryResponse: {}
     }
 
@@ -64,6 +66,7 @@ export default class NotebookCell extends React.Component {
             multiline
             label={`Notes [${this.cellId}]`}
             placeholder='e.g. Lorem Ipsum'
+            value={this.state.notes}
           />
         </StackItem>
         <StackItem shrink={true}>
@@ -91,7 +94,7 @@ export default class NotebookCell extends React.Component {
             ref={(ref) => { this.graphiQLInstance = ref }}
             fetcher={this.fetcher}
             schema={this.props.schema}
-            storage={ new NotebookStorage(this.cellId)}
+            storage={ this.storage }
             query={this.state.query}
             onEditQuery={this.onEditQuery}
           >

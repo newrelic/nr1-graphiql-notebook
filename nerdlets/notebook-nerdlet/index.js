@@ -40,8 +40,8 @@ export default class NotebookNerdlet extends React.Component {
         this.setState({ cells: this.state.cells.slice(0, -1)})
     }
 
-    addCell = (query) => {
-        let newCell = {query: query, ref: React.createRef()}
+    addCell = (cell) => {
+        let newCell = {query: cell.query, notes: cell.notes, ref: React.createRef()}
         this.setState({ cells: this.state.cells.concat([newCell])}, () => {
             newCell.ref.current.scrollIntoView()
         })
@@ -112,7 +112,14 @@ export default class NotebookNerdlet extends React.Component {
             {this.renderLauncherToolbar()}
             {this.renderNotebookToolbar()}
             {cells.map((cell, i) => {
-                return <NotebookCell cellRef={cell.ref} key={`notebook-cell-${i}`} schema={this.state.schema} query={cell.query} addCell={this.addCell} />
+                return <NotebookCell
+                            cellRef={cell.ref}
+                            key={`notebook-cell-${i}`}
+                            schema={this.state.schema}
+                            query={cell.query}
+                            notes={cell.notes}
+                            addCell={this.addCell}
+                        />
             })}
 
             {

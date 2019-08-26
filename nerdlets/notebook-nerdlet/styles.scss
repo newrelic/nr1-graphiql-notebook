@@ -103,6 +103,27 @@
   width: 800px;
 }
 
+// Overrides for GraphiQL
+
+.graphiql-container {
+  .historyPaneWrap {
+    background: none;
+    box-shadow: none;
+    border-right: 1px solid $neutral-400;
+
+    .history-title-bar {
+      background: none;
+    }
+
+    .history-title {
+      color: #464e4e;
+      font-weight: 400;
+      font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+      font-size: 14px;
+    }
+  }
+}
+
 // Overrides for OneGraph's GraphiQL Explorer package
 .notebook-graphiql-container {
   display: inline-block;
@@ -121,20 +142,6 @@
 
   .historyPaneWrap {
     width: auto !important;
-    background: none;
-    box-shadow: none;
-    border-right: 1px solid $neutral-400;
-
-    .history-title-bar {
-      background: none;
-    }
-
-    .history-title {
-      color: #464e4e;
-      font-weight: 400;
-      font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
-      font-size: 14px;
-    }
   }
 
   span.graphiql-explorer-click-docs {
