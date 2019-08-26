@@ -102,3 +102,46 @@
 .nrql-renderer {
   width: 800px;
 }
+
+// Overrides for OneGraph's GraphiQL Explorer package
+.notebook-graphiql-container {
+  display: inline-block;
+  height: 500px;
+  width: auto;
+
+  .graphiql-explorer-node {
+    font-size: 14px;
+    line-height: 20px;
+
+    input[type=checkbox] {
+      vertical-align: text-bottom;
+      margin-right: 4px;
+    }
+  }
+
+  .historyPaneWrap {
+    width: auto !important;
+    background: none;
+    box-shadow: none;
+    border-right: 1px solid $neutral-400;
+
+    .history-title-bar {
+      background: none;
+    }
+
+    .history-title {
+      color: #464e4e;
+      font-weight: 400;
+      font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
+      font-size: 14px;
+    }
+  }
+
+  span.graphiql-explorer-click-docs {
+    display: none;
+  }
+
+  .graphiql-explorer-node:hover > span.graphiql-explorer-click-docs {
+    display: inline;
+  }
+}

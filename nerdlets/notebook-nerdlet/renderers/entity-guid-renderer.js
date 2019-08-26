@@ -33,7 +33,7 @@ export default class EntityGuidRenderer extends React.Component {
           sizeType={Button.SIZE_TYPE.SLIM}
           iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER__S_OK}
           onClick={() => {
-            navigation.openCard({
+            navigation.openStackedNerdlet({
               id: 'slicer-dicer.apm-overview',
               urlState: { entityId: entityGuid }
             });

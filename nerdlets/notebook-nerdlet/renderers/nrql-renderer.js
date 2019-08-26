@@ -80,7 +80,7 @@ export default class NRQLRenderer extends React.Component {
           sizeType={Button.SIZE_TYPE.SLIM}
           iconType={Button.ICON_TYPE.DATAVIZ__DATAVIZ__CHART__A_EDIT}
           onClick={() => {
-            navigation.openCard({
+            navigation.openStackedNerdlet({
               id: 'wanda-data-exploration.data-explorer',
               urlState: {
                 initialActiveInterface: "nrqlEditor",

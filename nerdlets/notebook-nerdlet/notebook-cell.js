@@ -6,12 +6,14 @@ import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
 import { expandResponse } from "./response-augmentation.js"
 const CustomRender = require('./custom-render.js')
 import { ourStyling } from "./json-tree-styling.js"
+import GraphiQLExplorer from "graphiql-explorer"
 
 export default class NotebookCell extends React.Component {
   static cellCounter = 0
 
   constructor(props) {
     super(props)
+    console.log(props.query)
     this.cellId = NotebookCell.cellCounter
     this.state = {
       query: this.props.query,
@@ -25,11 +27,21 @@ export default class NotebookCell extends React.Component {
     return JSON.parse(JSON.stringify(results), omitTypename)
   }
 
+  onEditQuery = (query) => {
+    this.setState({ query })
+  }
+
+  onClickDocsLink = (fieldOrType) => {
+    this.graphiQLInstance && this.graphiQLInstance.setState({ docExplorerOpen: true }, () => {
+      this.graphiQLInstance.docExplorerComponent.showDoc(fieldOrType)
+    })
+  }
+
   fetcher = ({ query, variables }) => {
     return NerdGraphQuery
       .query({ query, variables, fetchPolicyType: 'no-cache' })
       .then(({ data, errors }) => {
-        this.setState({ jsonTreeLoading: true}, () => {
+        this.setState({ jsonTreeLoading: true }, () => {
           setTimeout(() => {
             this.setState({ jsonTreeLoading: false, queryResponse: expandResponse(this.props.schema, query, variables, data) })
           }, 0)
@@ -60,13 +72,29 @@ export default class NotebookCell extends React.Component {
       </Stack>
 
       <div>
-        <GraphiQL
-          fetcher={this.fetcher}
-          schema={this.props.schema}
-          query={this.state.query}
-        >
-          <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
-        </GraphiQL>
+        <div className="graphiql-container">
+          <div className="notebook-graphiql-container">
+          <GraphiQLExplorer
+            schema={this.props.schema}
+            query={this.state.query}
+            onEdit={this.onEditQuery}
+            onClickDocsLink={this.onClickDocsLink}
+            explorerIsOpen={true}
+            getDefaultScalarArgValue={ this.getDefaultScalarArgValue }
+          />
+
+          </div>
+          <GraphiQL
+            ref={(ref) => { this.graphiQLInstance = ref }}
+            fetcher={this.fetcher}
+            schema={this.props.schema}
+            query={this.state.query}
+            onEditQuery={this.onEditQuery}
+          >
+            <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
+          </GraphiQL>
+        </div>
+
       </div>
 
       <div className="cell-out-label">
@@ -74,27 +102,27 @@ export default class NotebookCell extends React.Component {
       </div>
 
       <div className="cell-out-value">
-        { this.state.jsonTreeLoading ?
-        <Spinner/> :
-        <JSONTree
-          sortObjectKeys={false}
-          postprocessValue = {(node) => {
-            if (node.__meta) {
-              let { __meta, ...nodeWithoutMeta } = node
-              return nodeWithoutMeta
-            } else {
-              return node
-            }
-          }}
-          valueRenderer = {(node) => {
-            return node.__custom || node
-          }}
-          isCustomNode={React.isValidElement}
-          data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
-          theme={ourStyling()}
-          shouldExpandNode={() => true}
-        />
-      }
+        {this.state.jsonTreeLoading ?
+          <Spinner /> :
+          <JSONTree
+            sortObjectKeys={false}
+            postprocessValue={(node) => {
+              if (node.__meta) {
+                let { __meta, ...nodeWithoutMeta } = node
+                return nodeWithoutMeta
+              } else {
+                return node
+              }
+            }}
+            valueRenderer={(node) => {
+              return node.__custom || node
+            }}
+            isCustomNode={React.isValidElement}
+            data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
+            theme={ourStyling()}
+            shouldExpandNode={() => true}
+          />
+        }
       </div>
     </div>
   }

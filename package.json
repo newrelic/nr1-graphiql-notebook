@@ -19,7 +19,8 @@
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-json-tree": "^0.11.2",
-        "react-select": "^3.0.4"
+        "react-select": "^3.0.4",
+        "graphiql-explorer": "git@github.com:mattbaker/graphiql-explorer.git"
     },
     "browserslist": [
         "last 2 versions",
