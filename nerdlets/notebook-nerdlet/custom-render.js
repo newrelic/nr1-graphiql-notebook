@@ -1,13 +1,15 @@
 import EntityGuidRenderer from './renderers/entity-guid-renderer.js'
 import EntityTagsRenderer from './renderers/entity-tags-renderer.js'
+import EntityAlertSeverityRenderer from './renderers/entity-alert-severity-renderer.js'
 import NRQLRenderer from './renderers/nrql-renderer.js'
 import { EpochMillisecondsTransformer } from './transformers/epoch-milliseconds.js'
 import { LeafNodeTransformer } from './transformers/leaf-node-transformer.js'
 
 let RENDERERS = [
-  EntityGuidRenderer,
+  EntityAlertSeverityRenderer,
   EntityTagsRenderer,
   NRQLRenderer,
+  EntityGuidRenderer
 ]
 
 let TRANSFORMERS = [
@@ -22,7 +24,6 @@ let TRANSFORMERS = [
 //  - traverse
 export function renderTree(node, addCell) {
   if (!node.__meta) return node
-
 
   let CustomRenderer = RENDERERS.find((renderer) => renderer.test(node))
   if (CustomRenderer) {

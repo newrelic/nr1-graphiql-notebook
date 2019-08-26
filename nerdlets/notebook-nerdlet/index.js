@@ -81,7 +81,7 @@ export default class NotebookNerdlet extends React.Component {
             <Stack gapType={Stack.GAP_TYPE.BASE}>
                 <StackItem grow={true}>
                     <Button
-                        onClick={() => this.addCell()}
+                        onClick={() => this.addCell({})}
                         type={Button.TYPE.PRIMARY}
                         iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
                         Add new Query
@@ -125,7 +125,7 @@ export default class NotebookNerdlet extends React.Component {
             {
                 cells.length > 1 && <div className="notebook-tool-bar">
                     <Button
-                        onClick={() => this.addCell()}
+                        onClick={() => this.addCell({})}
                         type={Button.TYPE.PRIMARY}
                         iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_ADD}>
                         Add new Query

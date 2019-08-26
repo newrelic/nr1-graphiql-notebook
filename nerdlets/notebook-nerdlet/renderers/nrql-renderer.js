@@ -1,17 +1,6 @@
 import React from 'react';
 import { navigation, Button, LineChart, BarChart, PieChart } from 'nr1';
-
-
-//TODO — move this somewhere it can be re-used
-function searchAncestors(node, condition, accessor) {
-  if (condition(node)) {
-    return accessor(node)
-  }
-  if (node.__meta && node.__meta.parent) {
-    return searchAncestors(node.__meta.parent, condition, accessor)
-  }
-  return null
-}
+import { searchAncestors } from '../augmentation-util.js'
 
 export default class NRQLRenderer extends React.Component {
 
@@ -120,7 +109,7 @@ export default class NRQLRenderer extends React.Component {
           type={Button.TYPE.PLAIN_NEUTRAL}
           sizeType={Button.SIZE_TYPE.SLIM}
           iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
-          onClick={() => { addCell(suggestedQuery) }}
+          onClick={() => { addCell({query: suggestedQuery, notes: "It's easy to make NRQL queries in GraphQL."}) }}
         >
           Run NRQL in NerdGraph
         </Button>

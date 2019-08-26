@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, ListItem, Button } from 'nr1'
+import { normalizeWhitespace } from '../renderer-util.js'
 
 export default class EntityTagsRenderer extends React.Component {
   static test(node) {
@@ -69,8 +70,4 @@ function flatMap(list, fn) {
   return list.reduce((result, element) => {
     return result.concat(fn(element) || [])
   }, [])
-}
-
-function normalizeWhitespace(string) {
-  return string.replace(/\n/g, "").replace(/\s+/g, " ")
 }
