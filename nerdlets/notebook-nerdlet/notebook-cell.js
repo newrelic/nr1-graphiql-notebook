@@ -86,7 +86,7 @@ export default class NotebookCell extends React.Component {
             value={this.state.notes} />
         </div>
 
-      <div className="notebook-cell-input-summary-bar" style={{display: this.props.collapsed ? null : "none"}}>
+      <div className="notebook-cell-input-summary-bar" onClick={this.props.onExpand} style={{display: this.props.collapsed ? null : "none"}}>
         <Stack alignmentType={Stack.ALIGNMENT_TYPE.TRAILING}>
           <StackItem grow={true} className="notebook-cell-input-summary">
             {this.state.query}
@@ -94,7 +94,6 @@ export default class NotebookCell extends React.Component {
           <StackItem>
             <Button
               className="notebook-cell-input-expand"
-              onClick={this.props.onExpand}
               type={Button.TYPE.PLAIN_NEUTRAL}
               iconType={Button.ICON_TYPE.INTERFACE__ARROW__EXPAND} />
           </StackItem>

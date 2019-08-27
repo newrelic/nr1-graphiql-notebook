@@ -3,7 +3,11 @@
 
 
 .notebook {
-  margin: 12px;
+  margin: 28px 42px 42px;
+}
+
+.notebook-header {
+  margin: 0px 14px 42px 14px;
 }
 
 .notebook-tool-bar {
@@ -12,8 +16,11 @@
 
 .notebook-cell {
   border: 1px solid $neutral-400;
-  margin: 14px;
-  background: $neutral-extended-050;
+  margin: 14px 14px 28px 14px;
+
+  &:nth-child(odd) {
+    background: $neutral-extended-050;
+  }
 }
 
 .notebook-cell-header {
@@ -34,6 +41,7 @@
   white-space: pre;
   border-bottom: 1px dashed $neutral-extended-400;
   margin: 14px;
+  cursor: pointer;
 }
 
 .notebook-cell-input-summary {

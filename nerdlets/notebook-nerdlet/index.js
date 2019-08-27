@@ -65,9 +65,8 @@ export default class NotebookNerdlet extends React.Component {
             { value: 'scratch', label: 'Scratchpad' }
         ]
 
-        return <div className="notebook-tool-header">
+        return <div className="notebook-header">
             <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
-                <StackItem grow={true} />
                 <StackItem>
                     <div style={{ width: "300px" }}>
                         <Select options={options} defaultValue={options[0]} />
