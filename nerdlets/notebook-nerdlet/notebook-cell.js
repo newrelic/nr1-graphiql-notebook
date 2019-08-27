@@ -59,36 +59,41 @@ export default class NotebookCell extends React.Component {
     if (!this.props.schema) return <Spinner fillContainer />;
 
     return <div ref={this.props.cellRef} className="notebook-cell">
-      <Stack gapType={Stack.GAP_TYPE.BASE}>
-        <StackItem grow={true}>
+        <div className="notebook-cell-header">
+          <Stack gapType={Stack.GAP_TYPE.NONE}>
+            <StackItem shrink={true}>
+              <div className="cell-in-label">In [{this.cellId}]</div>
+            </StackItem>
+            <StackItem grow={true} style={{textAlign: "right"}}>
+              <Button
+                style={{paddingRight: "0px"}}
+                onClick={() => alert("remove")}
+                type={Button.TYPE.PLAIN_NEUTRAL}
+                iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE} />
+            </StackItem>
+          </Stack>
+        </div>
+
+        <div className="notebook-cell-notes">
           <TextField
-            style={{ margin: "14px" }}
+            style={{marginBottom: "7px"}}
             multiline
-            label={`Notes [${this.cellId}]`}
+            label="Notes"
             placeholder='e.g. Lorem Ipsum'
-            value={this.state.notes}
-          />
-        </StackItem>
-        <StackItem shrink={true}>
-          <Button
-            onClick={() => alert("remove")}
-            type={Button.TYPE.PLAIN_NEUTRAL}
-            iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE} />
-        </StackItem>
-      </Stack>
+            value={this.state.notes} />
+        </div>
 
-      <div>
+
         <div className="graphiql-container">
-          <div className="notebook-graphiql-container">
-          <GraphiQLExplorer
-            schema={this.props.schema}
-            query={this.state.query}
-            onEdit={this.onEditQuery}
-            onClickDocsLink={this.onClickDocsLink}
-            explorerIsOpen={true}
-            getDefaultScalarArgValue={ this.getDefaultScalarArgValue }
-          />
-
+          <div className="notebook-graphiql-explorer-container">
+            <GraphiQLExplorer
+              schema={this.props.schema}
+              query={this.state.query}
+              onEdit={this.onEditQuery}
+              onClickDocsLink={this.onClickDocsLink}
+              explorerIsOpen={true}
+              getDefaultScalarArgValue={ this.getDefaultScalarArgValue }
+            />
           </div>
           <GraphiQL
             ref={(ref) => { this.graphiQLInstance = ref }}
@@ -96,14 +101,12 @@ export default class NotebookCell extends React.Component {
             schema={this.props.schema}
             storage={ this.storage }
             query={this.state.query}
-            onEditQuery={this.onEditQuery}
-          >
-            <GraphiQL.Logo className="cell-label cell-in">In [{this.cellId}]</GraphiQL.Logo>
+            onEditQuery={this.onEditQuery}>
+            <GraphiQL.Logo>{<span></span>}</GraphiQL.Logo>
           </GraphiQL>
         </div>
 
-      </div>
-
+      <div className="notebook-cell-header">
       <div className="cell-out-label">
         Out [{this.cellId}]
       </div>
@@ -113,17 +116,8 @@ export default class NotebookCell extends React.Component {
           <Spinner /> :
           <JSONTree
             sortObjectKeys={false}
-            postprocessValue={(node) => {
-              if (node.__meta) {
-                let { __meta, ...nodeWithoutMeta } = node
-                return nodeWithoutMeta
-              } else {
-                return node
-              }
-            }}
-            valueRenderer={(node) => {
-              return node.__custom || node
-            }}
+            postprocessValue={treeHelpers.postprocessValue}
+            valueRenderer={treeHelpers.valueRenderer}
             isCustomNode={React.isValidElement}
             data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
             theme={ourStyling()}
@@ -131,6 +125,20 @@ export default class NotebookCell extends React.Component {
           />
         }
       </div>
+      </div>
     </div>
   }
+}
+
+let treeHelpers = {
+  postprocessValue: (node) => {
+    if (node.__meta) {
+      let { __meta, ...nodeWithoutMeta } = node
+      return nodeWithoutMeta
+    } else {
+      return node
+    }
+  },
+
+  valueRenderer: (node) => node.__custom || node
 }

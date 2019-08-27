@@ -19,6 +19,18 @@
   }
 }
 
+.notebook-cell-header {
+  padding: 14px 14px 0 14px;
+}
+
+.notebook-cell-notes {
+  padding: 7px 14px 0 14px;
+}
+
+.notebook-cell-footer {
+  padding: 0 14px 14px 14px;
+}
+
 .cell-label {
   font-size:18px;
 }
@@ -30,7 +42,6 @@
 
 .cell-out-label {
   @extend .cell-label;
-  margin: 14px;
   color: $brand-400;
 }
 
@@ -110,6 +121,10 @@
 // Overrides for GraphiQL
 
 .graphiql-container {
+  .resultWrap {
+    display: none;
+  }
+
   .historyPaneWrap {
     background: none;
     box-shadow: none;
@@ -129,7 +144,7 @@
 }
 
 // Overrides for OneGraph's GraphiQL Explorer package
-.notebook-graphiql-container {
+.notebook-graphiql-explorer-container {
   display: inline-block;
   height: 500px;
   width: auto;
@@ -145,7 +160,7 @@
   }
 
   .historyPaneWrap {
-    width: 250px !important;
+    width: 350px !important;
   }
 
   span.graphiql-explorer-click-docs {
