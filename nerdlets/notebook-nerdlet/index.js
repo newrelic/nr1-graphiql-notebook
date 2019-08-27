@@ -41,10 +41,21 @@ export default class NotebookNerdlet extends React.Component {
     }
 
     addCell = (cell) => {
+        let cells = this.state.cells.slice(0).map((cell) => {
+            return {...cell, collapsed: true}
+        } )
+
         let newCell = {query: cell.query, notes: cell.notes, ref: React.createRef()}
-        this.setState({ cells: this.state.cells.concat([newCell])}, () => {
-            newCell.ref.current.scrollIntoView()
-        })
+
+        cells.push(newCell)
+
+        this.setState({ cells: cells}, () => newCell.ref.current.scrollIntoView())
+    }
+
+    updateCell = (cellIndex, cellUpdate) => {
+        let cells = this.state.cells.slice(0)
+        Object.assign(cells[cellIndex], cellUpdate)
+        this.setState({cells: cells})
     }
 
     renderLauncherToolbar() {
@@ -118,7 +129,10 @@ export default class NotebookNerdlet extends React.Component {
                             schema={this.state.schema}
                             query={cell.query}
                             notes={cell.notes}
+                            collapsed={cell.collapsed}
                             addCell={this.addCell}
+                            onExpand={() => this.updateCell(i, {collapsed: false})}
+                            onCollapse={() => this.updateCell(i, {collapsed: true})}
                         />
             })}
 

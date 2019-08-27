@@ -17,10 +17,11 @@ export default class NotebookCell extends React.Component {
 
     this.cellId = NotebookCell.cellCounter
     this.storage = new NotebookStorage(this.cellId)
+    this.resultsRef = React.createRef()
     this.state = {
       notes: this.props.notes || undefined,
       query: this.props.query || this.storage.getSavedQuery() || undefined,
-      queryResponse: {}
+      queryResponse: {},
     }
 
     //Get rid of this at some point
@@ -48,7 +49,10 @@ export default class NotebookCell extends React.Component {
       .then(({ data, errors }) => {
         this.setState({ jsonTreeLoading: true }, () => {
           setTimeout(() => {
-            this.setState({ jsonTreeLoading: false, queryResponse: expandResponse(this.props.schema, query, variables, data) })
+            this.setState({
+              jsonTreeLoading: false,
+              queryResponse: expandResponse(this.props.schema, query, variables, data) },
+              () => { this.resultsRef.current.scrollIntoView() })
           }, 0)
         })
         return { data: this.stripTypeName(data), errors }
@@ -57,7 +61,6 @@ export default class NotebookCell extends React.Component {
 
   render() {
     if (!this.props.schema) return <Spinner fillContainer />;
-
     return <div ref={this.props.cellRef} className="notebook-cell">
         <div className="notebook-cell-header">
           <Stack gapType={Stack.GAP_TYPE.NONE}>
@@ -83,48 +86,72 @@ export default class NotebookCell extends React.Component {
             value={this.state.notes} />
         </div>
 
+      <div className="notebook-cell-input-summary-bar" style={{display: this.props.collapsed ? null : "none"}}>
+        <Stack alignmentType={Stack.ALIGNMENT_TYPE.TRAILING}>
+          <StackItem grow={true} className="notebook-cell-input-summary">
+            {this.state.query}
+          </StackItem>
+          <StackItem>
+            <Button
+              className="notebook-cell-input-expand"
+              onClick={this.props.onExpand}
+              type={Button.TYPE.PLAIN_NEUTRAL}
+              iconType={Button.ICON_TYPE.INTERFACE__ARROW__EXPAND} />
+          </StackItem>
+        </Stack>
+      </div>
 
-        <div className="graphiql-container">
-          <div className="notebook-graphiql-explorer-container">
-            <GraphiQLExplorer
-              schema={this.props.schema}
-              query={this.state.query}
-              onEdit={this.onEditQuery}
-              onClickDocsLink={this.onClickDocsLink}
-              explorerIsOpen={true}
-              getDefaultScalarArgValue={ this.getDefaultScalarArgValue }
-            />
-          </div>
-          <GraphiQL
-            ref={(ref) => { this.graphiQLInstance = ref }}
-            fetcher={this.fetcher}
+
+      <div style={{textAlign: "right", display: this.props.collapsed ? "none" : null}}>
+        <Button
+              className="notebook-cell-input-collapse"
+              onClick={this.props.onCollapse}
+              type={Button.TYPE.PLAIN_NEUTRAL}
+              iconType={Button.ICON_TYPE.INTERFACE__ARROW__SHRINK} />
+      </div>
+
+      <div className="graphiql-container" style={{display: this.props.collapsed ? "none" : null}}>
+        <div className="notebook-graphiql-explorer-container">
+          <GraphiQLExplorer
             schema={this.props.schema}
-            storage={ this.storage }
             query={this.state.query}
-            onEditQuery={this.onEditQuery}>
-            <GraphiQL.Logo>{<span></span>}</GraphiQL.Logo>
-          </GraphiQL>
+            onEdit={this.onEditQuery}
+            onClickDocsLink={this.onClickDocsLink}
+            explorerIsOpen={true}
+            getDefaultScalarArgValue={ this.getDefaultScalarArgValue }
+          />
+        </div>
+        <GraphiQL
+          ref={(ref) => { this.graphiQLInstance = ref }}
+          fetcher={this.fetcher}
+          schema={this.props.schema}
+          storage={ this.storage }
+          query={this.state.query}
+          onEditQuery={this.onEditQuery}>
+          <GraphiQL.Logo>{<span></span>}</GraphiQL.Logo>
+        </GraphiQL>
+      </div>
+
+      <div ref={this.resultsRef} className="notebook-cell-footer">
+        <div className="cell-out-label">
+          Out [{this.cellId}]
         </div>
 
-      <div className="notebook-cell-header">
-      <div className="cell-out-label">
-        Out [{this.cellId}]
-      </div>
-
-      <div className="cell-out-value">
-        {this.state.jsonTreeLoading ?
-          <Spinner /> :
-          <JSONTree
-            sortObjectKeys={false}
-            postprocessValue={treeHelpers.postprocessValue}
-            valueRenderer={treeHelpers.valueRenderer}
-            isCustomNode={React.isValidElement}
-            data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
-            theme={ourStyling()}
-            shouldExpandNode={() => true}
-          />
-        }
-      </div>
+        <div className="cell-out-value">
+          {this.state.jsonTreeLoading ?
+            <Spinner /> :
+            <JSONTree
+              sortObjectKeys={false}
+              postprocessValue={treeHelpers.postprocessValue}
+              valueRenderer={treeHelpers.valueRenderer}
+              isCustomNode={React.isValidElement}
+              data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
+              theme={ourStyling()}
+              hideRoot={true}
+              shouldExpandNode={() => true}
+            />
+          }
+        </div>
       </div>
     </div>
   }

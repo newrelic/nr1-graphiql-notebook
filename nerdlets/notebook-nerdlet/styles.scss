@@ -13,22 +13,53 @@
 .notebook-cell {
   border: 1px solid $neutral-400;
   margin: 14px;
-
-  &:nth-child(odd) {
-    background: $neutral-extended-050;
-  }
+  background: $neutral-extended-050;
 }
 
 .notebook-cell-header {
   padding: 14px 14px 0 14px;
 }
 
-.notebook-cell-notes {
-  padding: 7px 14px 0 14px;
+.notebook-cell-footer {
+  padding: 14px;
+  max-height: 400px;
+  overflow: scroll;
 }
 
-.notebook-cell-footer {
-  padding: 0 14px 14px 14px;
+.notebook-cell-input-summary-bar {
+  color: $neutral-extended-600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: monospace;
+  white-space: pre;
+  border-bottom: 1px dashed $neutral-extended-400;
+  margin: 14px;
+}
+
+.notebook-cell-input-summary {
+  height: 75px;
+}
+
+.notebook-cell-input-toggle {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
+  padding: 0px;
+}
+
+.notebook-cell-input-expand {
+  @extend .notebook-cell-input-toggle;
+  margin-bottom: 4px;
+}
+
+.notebook-cell-input-collapse {
+  @extend .notebook-cell-input-toggle;
+  margin-right: 14px;
+}
+
+.notebook-cell-notes {
+  padding: 7px 14px 0 14px;
 }
 
 .cell-label {
@@ -53,8 +84,8 @@
 }
 
 .graphiql-container {
-  min-height: 500px;
-  height: auto;
+  min-height: 400px;
+  height: 400px;
   border-bottom: 1px solid #eee;
 
   .title {
@@ -140,6 +171,10 @@
       font-family: Open Sans,Segoe UI,Tahoma,sans-serif;
       font-size: 14px;
     }
+  }
+
+  .docExplorerShow {
+    padding: 0 14px;
   }
 }
 
