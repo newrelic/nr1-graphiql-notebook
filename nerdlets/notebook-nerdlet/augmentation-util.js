@@ -1,5 +1,6 @@
 //TODO — move this somewhere it can be re-used
 function searchAncestors(node, condition, accessor) {
+  console.log(node)
   if (condition(node)) {
     return accessor(node)
   }

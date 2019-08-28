@@ -28,7 +28,7 @@ export function renderTree(node, addCell) {
 
   let CustomRenderer = RENDERERS.find((renderer) => renderer.test(node))
   if (CustomRenderer) {
-    return <CustomRenderer node={node} addCell={addCell}/>
+    return {custom: <CustomRenderer node={node} addCell={addCell}/>, ...node}
   } else {
     let transformer = TRANSFORMERS.find((transformer) => transformer.test(node))
     let newNode = node

@@ -1,8 +1,6 @@
 import React from 'react';
-import { NerdGraphQuery } from 'nr1';
 import { Button, Stack, StackItem, TextField} from 'nr1'
 import NotebookCell from './notebook-cell';
-import { getIntrospectionQuery, buildClientSchema } from "graphql";
 
 export default class Notebook extends React.Component {
   constructor(props) {
@@ -20,27 +18,33 @@ export default class Notebook extends React.Component {
 
     let emptyCells = [{query: defaultQuery, domRef: React.createRef(), ref: React.createRef()}]
     this.state = {
-        schema: null, //move this up to parent
-        title: this.props.title,
-        cells: this.props.cells || emptyCells,
+        title: this.props.ephemeral ? undefined : this.props.title,
+        cells: this.props.cells ?
+          this.props.cells.map((cell) => { return {domRef: React.createRef(), ref: React.createRef(), ...cell} }) :
+          emptyCells,
+        ephemeral: this.props.ephemeral,
         titleError: false
     }
-}
-
-componentDidMount() {
-    NerdGraphQuery
-        .query({ query: getIntrospectionQuery(), fetchPolicyType: 'no-cache' })
-        .then(({ data }) => {
-            this.setState({ schema: buildClientSchema(data) })
-        })
 }
 
 onSave = () => {
   if (this.state.title) {
     this.props.onSave(this.serialize())
+    this.setState({ephemeral: false})
   } else {
     this.setState({titleError: true})
   }
+}
+
+onDelete = () => {
+  this.props.onDelete(this.props.uuid)
+}
+
+onDeleteCell = (cellId) => {
+  let cells = this.state.cells.filter((_cell, i) => {
+    return i != cellId
+  })
+  this.setState({ cells })
 }
 
 serialize = () => {
@@ -88,13 +92,14 @@ updateCell = (cellIndex, cellUpdate) => {
 }
 
 renderNotebookToolbar() {
+    console.log(this.state.ephemeral)
     return <div className="notebook-tool-bar">
         <TextField
           style={{ fontSize: "20px" }}
           label='Notebook Name'
           placeholder='My Great Notebook'
           className={ this.state.titleError ? "notebook-name-error" : ""}
-          value={this.state.title}
+          value={this.state.title || undefined}
           onChange={this.onEditTitle} />
         <Stack gapType={Stack.GAP_TYPE.BASE}>
             <StackItem grow={true}>
@@ -108,9 +113,17 @@ renderNotebookToolbar() {
             <StackItem>
                 <Button
                     onClick={this.onSave}
-                    type={Button.TYPE.NORMAL}
+                    type={Button.TYPE.PRIMARY}
                     iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__DOWNLOAD}>
                     Save this Notebook
+                </Button>
+                <Button
+                  style={{ marginLeft: "14px" }}
+                  onClick={this.onDelete}
+                  type={Button.TYPE.DESTRUCTIVE}
+                  disabled={this.state.ephemeral}
+                  iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__TRASH}>
+                  Delete this Notebook
                 </Button>
                 <Button
                     style={{ marginLeft: "14px" }}
@@ -134,7 +147,7 @@ render() {
                         domRef={cell.domRef}
                         key={`notebook-cell-${i}`}
                         cellId={i}
-                        schema={this.state.schema}
+                        schema={this.props.schema}
                         query={cell.query}
                         notes={cell.notes}
                         collapsed={cell.collapsed}
@@ -142,6 +155,7 @@ render() {
                         onExpand={() => this.updateCell(i, {collapsed: false})}
                         onCollapse={() => this.updateCell(i, {collapsed: true})}
                         onChange={() => { this.serialize() }}
+                        onDelete={() => this.onDeleteCell(i)}
                     />
         })}
 

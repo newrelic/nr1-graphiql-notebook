@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Notebook from './notebook.js'
 import Select from 'react-select' //replace w/ dropdown
 import { Button, Stack, StackItem, UserStorageQuery, UserStorageMutation} from 'nr1'
+import { NerdGraphQuery } from 'nr1';
+import { getIntrospectionQuery, buildClientSchema } from "graphql";
 
 /*
 TODO: deal with state stuff of getting query document on first render for the json tree
@@ -23,50 +25,92 @@ export default class NotebookNerdlet extends React.Component {
 
     constructor(props) {
         super(props)
-        this.emptyNotebook = {
-            uuid: uuidv4(),
-            title: "New Notebook",
-            cells: null,
-            placeholder: true
-        }
+        let emptyNotebook = this.newEmptyNotebook()
         this.state = {
-            notebooks: [this.emptyNotebook],
-            currentNotebook: this.emptyNotebook
+            emptyNotebook: emptyNotebook,
+            notebooks: [],
+            currentNotebook: emptyNotebook
         }
     }
 
-    // componentDidMount() {
-    //     NerdGraphQuery
-    //         .query({ query: getIntrospectionQuery(), fetchPolicyType: 'no-cache' })
-    //         .then(({ data }) => {
-    //             this.setState({ schema: buildClientSchema(data) })
-    //         })
-    // }
+    newEmptyNotebook() {
+        return {
+            uuid: uuidv4(),
+            title: "New Notebook",
+            cells: null,
+            ephemeral: true
+        }
+    }
 
     getNotebook(uuid) {
-        return this.state.notebooks.find((notebook) => {
+        return this.getNotebooks().find((notebook) => {
             return notebook.uuid == uuid
         })
     }
 
+    getNotebooks() {
+        return [this.state.emptyNotebook].concat(this.state.notebooks)
+    }
+
     componentDidMount() {
-        UserStorageQuery.query({
-            collection: COLLECTION
-        }).then(({_loading, _error, data}) => {
-            if (data) {
-                let {actor: { nerdStorage: { collection: collection } } } = data
-                let notebooks = collection.map(({document}) => document)
-                this.setState({notebooks: [this.emptyNotebook].concat(notebooks)})
-            }
+        Promise.all([
+            this.initializeSchema(),
+            this.initializeNotebooks()
+        ]).then(([schemaResponse, collectionResponse]) => {
+            let schema = schemaResponse.data
+            let {actor: { nerdStorage: { collection: collection } } } = collectionResponse.data
+            let notebooks = collection.map(({document}) => document)
+
+            this.setState({
+                schema: buildClientSchema(schema),
+                notebooks: notebooks
+            })
         })
     }
 
-    onSave = (serializedNotebook) => {
+    initializeSchema() {
+        return NerdGraphQuery.query({ query: getIntrospectionQuery(), fetchPolicyType: 'no-cache' })
+    }
+
+    initializeNotebooks() {
+        return UserStorageQuery.query({ collection: COLLECTION })
+    }
+
+    onSave = (newNotebook) => {
         UserStorageMutation.mutate({
             actionType: UserStorageMutation.ACTION_TYPE.WRITE_DOCUMENT,
             collection: COLLECTION,
-            documentId: serializedNotebook.uuid,
-            document: serializedNotebook
+            documentId: newNotebook.uuid,
+            document: newNotebook
+        }).then(() => {
+            let emptyNotebook = newNotebook.uuid === this.state.emptyNotebook.uuid ?
+                this.newEmptyNotebook() : this.state.emptyNotebook
+
+            let notesbooks = this.state.notebooks.indexOf(newNotebook) > -1 ?
+                this.state.notebooks.slice(0).concat([newNotebook]) :
+                this.state.notebooks
+
+            this.setState({
+                notebooks: notesbooks,
+                currentNotebook: newNotebook,
+                emptyNotebook: emptyNotebook
+            })
+        })
+    }
+
+    onDelete = (uuid) => {
+        UserStorageMutation.mutate({
+            actionType: UserStorageMutation.ACTION_TYPE.DELETE_DOCUMENT,
+            collection: COLLECTION,
+            documentId: uuid
+        }).then(() => {
+            let notebooks = this.state.notebooks.slice(0).filter((notebook) => {
+                return notebook.uuid != uuid
+            })
+            this.setState({
+                notebooks: notebooks,
+                currentNotebook: this.getNotebook(this.state.emptyNotebook.uuid)
+            })
         })
     }
 
@@ -79,17 +123,20 @@ export default class NotebookNerdlet extends React.Component {
         return <div className="notebook">
             {this.renderHeader()}
             <Notebook
-                key={ this.state.currentNotebook.uuid }
-                uuid={ this.state.currentNotebook.uuid }
-                title={ notebook.placeholder ? null : notebook.title }
-                cells={ notebook.placeholder? null : this.state.currentNotebook.cells }
+                key={ notebook.uuid }
+                uuid={ notebook.uuid }
+                schema={ this.state.schema }
+                title={ notebook.title }
+                cells={ notebook.cells }
+                ephemeral={ !!notebook.ephemeral }
                 onSave={ this.onSave }
+                onDelete={ this.onDelete }
             />
         </div>
     }
 
     notebookOptions = () => {
-        return this.state.notebooks.map((notebook) => {
+        return this.getNotebooks().map((notebook) => {
             return {
                 value: notebook.uuid,
                 label: notebook.title
@@ -99,13 +146,15 @@ export default class NotebookNerdlet extends React.Component {
 
     renderHeader() {
         const options = this.notebookOptions()
-
+        const currentNotebook = this.state.currentNotebook
+        console.log(this.getNotebooks())
         return <div className="notebook-header">
                 <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
                     <StackItem>
                         <div style={{ width: "300px" }}>
                             <Select
                                 options={options}
+                                value={{value: currentNotebook.uuid, label: currentNotebook.title}}
                                 defaultValue={options[0]}
                                 onChange={this.onNotebookSelect}
                             />

@@ -20,7 +20,7 @@ export default class NotebookCell extends React.Component {
     this.resultsRef = React.createRef()
     this.state = {
       notes: this.props.notes || undefined,
-      query: this.props.query || this.storage.getSavedQuery() || undefined,
+      query: this.props.query || "",
       queryResponse: {},
     }
   }
@@ -78,8 +78,9 @@ export default class NotebookCell extends React.Component {
             <StackItem grow={true} style={{textAlign: "right"}}>
               <Button
                 style={{paddingRight: "0px"}}
-                onClick={() => alert("remove")}
+                onClick={this.props.onDelete}
                 type={Button.TYPE.PLAIN_NEUTRAL}
+                disabled={ this.cellId == 0 }
                 iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE} />
             </StackItem>
           </Stack>
@@ -152,7 +153,7 @@ export default class NotebookCell extends React.Component {
               sortObjectKeys={false}
               postprocessValue={treeHelpers.postprocessValue}
               valueRenderer={treeHelpers.valueRenderer}
-              isCustomNode={React.isValidElement}
+              isCustomNode={(node) => node.custom && React.isValidElement(node.custom)}
               data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
               theme={ourStyling()}
               hideRoot={true}
@@ -175,6 +176,5 @@ let treeHelpers = {
     }
   },
 
-  // TODO really need dis?
-  valueRenderer: (node) => node.__custom || node
+  valueRenderer: (node) => node.custom || node
 }
