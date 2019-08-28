@@ -5,6 +5,7 @@ import Select from 'react-select'
 import { Button, Stack, StackItem, TextField} from 'nr1'
 import NotebookCell from './notebook-cell';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
+import { UserStorageMutation } from 'nr1'
 
 /*
 TODO: deal with state stuff of getting query document on first render for the json tree
@@ -24,7 +25,7 @@ export default class NotebookNerdlet extends React.Component {
         super(props)
         this.state = {
             schema: null,
-            cells: [{query: undefined, ref: React.createRef()}]
+            cells: [{query: undefined, domRef: React.createRef(), ref: React.createRef()}]
         }
     }
 
@@ -36,6 +37,18 @@ export default class NotebookNerdlet extends React.Component {
             })
     }
 
+    serialize = () => {
+        let serialized = this.state.cells.reduce((nerdStorageDocument, cell, i) => {
+            nerdStorageDocument[i] = cell.ref.current.serialize()
+            return nerdStorageDocument
+        }, {})
+
+        // UserStorageMutation.mutate({
+        //     collection: "graphiql-notebook",
+        //     document:
+        // })
+    }
+
     popCell() {
         this.setState({ cells: this.state.cells.slice(0, -1)})
     }
@@ -45,11 +58,16 @@ export default class NotebookNerdlet extends React.Component {
             return {...cell, collapsed: true}
         } )
 
-        let newCell = {query: cell.query, notes: cell.notes, ref: React.createRef()}
+        let newCell = {
+            query: cell.query && cell.query.trim(),
+            notes: cell.notes,
+            domRef: React.createRef(),
+            ref: React.createRef()
+        }
 
         cells.push(newCell)
 
-        this.setState({ cells: cells}, () => newCell.ref.current.scrollIntoView())
+        this.setState({ cells: cells}, () => newCell.domRef.current.scrollIntoView())
     }
 
     updateCell = (cellIndex, cellUpdate) => {
@@ -64,7 +82,6 @@ export default class NotebookNerdlet extends React.Component {
             { value: 'nerdstorage', label: 'NerdStorage Examples' },
             { value: 'scratch', label: 'Scratchpad' }
         ]
-
         return <div className="notebook-header">
             <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
                 <StackItem>
@@ -123,8 +140,10 @@ export default class NotebookNerdlet extends React.Component {
             {this.renderNotebookToolbar()}
             {cells.map((cell, i) => {
                 return <NotebookCell
-                            cellRef={cell.ref}
+                            ref={cell.ref}
+                            domRef={cell.domRef}
                             key={`notebook-cell-${i}`}
+                            cellId={i}
                             schema={this.state.schema}
                             query={cell.query}
                             notes={cell.notes}
@@ -132,6 +151,7 @@ export default class NotebookNerdlet extends React.Component {
                             addCell={this.addCell}
                             onExpand={() => this.updateCell(i, {collapsed: false})}
                             onCollapse={() => this.updateCell(i, {collapsed: true})}
+                            onChange={() => { this.serialize() }}
                         />
             })}
 

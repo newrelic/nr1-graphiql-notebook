@@ -41,11 +41,11 @@
   white-space: pre;
   border-bottom: 1px dashed $neutral-extended-400;
   margin: 14px;
-  cursor: pointer;
 }
 
 .notebook-cell-input-summary {
   height: 75px;
+  cursor: pointer;
 }
 
 .notebook-cell-input-toggle {

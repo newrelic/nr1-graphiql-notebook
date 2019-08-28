@@ -6,16 +6,16 @@ export default class EntityTagsRenderer extends React.Component {
   static test(node) {
     return node.__meta.list &&
            node.__meta.ofTypeName == "EntityTag" &&
-           !node.value.find((tag) => tag.value == undefined || tag.value == null)
+           !node.value.find((tag) => tag.values == undefined || tag.values == null)
   }
 
   render() {
     let tags = this.props.node.value
-    return <List rowHeight={30}>
+    return <List rowHeight={30} style={{display: "inline-block", width: "auto"}}>
       {
         this.expandTags(tags).map((tag) => {
-          return <ListItem key={tag.key}>
-            <b>{tag.key}</b>={tag.value}
+          return <ListItem key={`${tag.key}-${tag.value}`}>
+            <b style={{color: "#464E4E"}}>{tag.key}</b>={tag.value}
             &nbsp;
             {this.renderEntitySearchButton(tag.key, tag.value)}
             </ListItem>

@@ -15,7 +15,7 @@ export default class NotebookCell extends React.Component {
   constructor(props) {
     super(props)
 
-    this.cellId = NotebookCell.cellCounter
+    this.cellId = this.props.cellId
     this.storage = new NotebookStorage(this.cellId)
     this.resultsRef = React.createRef()
     this.state = {
@@ -23,10 +23,10 @@ export default class NotebookCell extends React.Component {
       query: this.props.query || this.storage.getSavedQuery() || undefined,
       queryResponse: {},
     }
-
-    //Get rid of this at some point
-    NotebookCell.cellCounter++
   }
+
+  // I know I know...
+  serialize = () => { return {query: this.state.query, notes: this.state.notes} }
 
   stripTypeName = (results) => {
     const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
@@ -34,7 +34,15 @@ export default class NotebookCell extends React.Component {
   }
 
   onEditQuery = (query) => {
-    this.setState({ query })
+    this.setState({ query }, () => {
+      this.props.onChange(this.serialize())
+    })
+  }
+
+  onEditNotes = (evt) => {
+    this.setState({ notes: evt.target.value }, () => {
+      this.props.onChange(this.serialize())
+    })
   }
 
   onClickDocsLink = (fieldOrType) => {
@@ -61,7 +69,7 @@ export default class NotebookCell extends React.Component {
 
   render() {
     if (!this.props.schema) return <Spinner fillContainer />;
-    return <div ref={this.props.cellRef} className="notebook-cell">
+    return <div ref={this.props.domRef} className="notebook-cell">
         <div className="notebook-cell-header">
           <Stack gapType={Stack.GAP_TYPE.NONE}>
             <StackItem shrink={true}>
@@ -83,7 +91,8 @@ export default class NotebookCell extends React.Component {
             multiline
             label="Notes"
             placeholder='e.g. Lorem Ipsum'
-            value={this.state.notes} />
+            value={this.state.notes}
+            onChange={this.onEditNotes} />
         </div>
 
       <div className="notebook-cell-input-summary-bar" onClick={this.props.onExpand} style={{display: this.props.collapsed ? null : "none"}}>
@@ -158,7 +167,7 @@ export default class NotebookCell extends React.Component {
 
 let treeHelpers = {
   postprocessValue: (node) => {
-    if (node.__meta) {
+    if (node && node.__meta) {
       let { __meta, ...nodeWithoutMeta } = node
       return nodeWithoutMeta
     } else {
@@ -166,5 +175,6 @@ let treeHelpers = {
     }
   },
 
+  // TODO really need dis?
   valueRenderer: (node) => node.__custom || node
 }

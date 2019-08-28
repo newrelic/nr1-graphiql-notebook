@@ -20,17 +20,8 @@ export default class EntityGuidRenderer extends React.Component {
       domain
       entityType
       reporting
-      relationships {
-        source {
-          entity {
-            name
-          }
-        }
-        target {
-          entity {
-            name
-          }
-        }
+      ... on AlertableEntity {
+        alertSeverity
       }
     }
   }

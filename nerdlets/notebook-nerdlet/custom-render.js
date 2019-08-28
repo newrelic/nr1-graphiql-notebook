@@ -18,12 +18,13 @@ let TRANSFORMERS = [
 ]
 
 //TODO This logic all feels clunky, it should be simplified
+// currently —
 //  - render if custom renderer and stop traversing
 //  - else
 //  - transform if transformer
 //  - traverse
 export function renderTree(node, addCell) {
-  if (!node.__meta) return node
+  if (!node || !node.__meta) return node
 
   let CustomRenderer = RENDERERS.find((renderer) => renderer.test(node))
   if (CustomRenderer) {
@@ -40,7 +41,7 @@ export function renderTree(node, addCell) {
 }
 
 function renderChildren(node, addCell) {
-  if (!node.__meta) return node
+  if (!node || !node.__meta) return node
   if (node.__meta.list) {
     return node.value.map((listItem) => renderTree(listItem, addCell))
   } else {
