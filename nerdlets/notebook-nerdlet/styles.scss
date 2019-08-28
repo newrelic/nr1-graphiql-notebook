@@ -14,6 +14,10 @@
   margin: 0 14px;
 }
 
+.notebook-name-error ::placeholder {
+  color: $red-800;
+}
+
 .notebook-cell {
   border: 1px solid $neutral-400;
   margin: 14px 14px 28px 14px;
