@@ -165,14 +165,14 @@ export default class NotebookCell extends React.Component {
                 let exampleNerdlet = examples[typename]
                 if (exampleNerdlet) {
                   return <div style={{display: "inline-block"}}>
-                          {path[0]}
+                          {path[0]}&nbsp;
                           <Button
                             onClick={() => this.props.openExample(
                               exampleNerdlet,
                               this.state.query,
                               path.slice(0)
                             )}
-                            iconType={Icon.TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__CODE}
+                            iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__CODE}
                             sizeType={Button.SIZE_TYPE.SLIM}>
                             React Me
                           </Button>
