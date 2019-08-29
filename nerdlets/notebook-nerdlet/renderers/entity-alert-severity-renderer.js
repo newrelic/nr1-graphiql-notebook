@@ -29,7 +29,7 @@ export default class EntityAlertSeverityRenderer extends React.Component {
   }
 
   renderJumpStartButton(entityGuid) {
-    let addCell = this.props.addCell
+    let { addCell } = this.props.util
     let suggestedQuery = `
 mutation {
   jumpStartApmApplicationEntityAlerts(
@@ -46,7 +46,7 @@ mutation {
         sizeType={Button.SIZE_TYPE.SLIM}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
-          return addCell({
+          addCell({
             query: suggestedQuery,
             notes: normalizeWhitespace(`
             Jump start your alerting config for an APM Application Entity!

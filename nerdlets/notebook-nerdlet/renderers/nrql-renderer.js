@@ -47,7 +47,7 @@ export default class NRQLRenderer extends React.Component {
 
   render() {
     let {nrqlQuery, accountId} = this.state
-    let addCell = this.props.addCell
+    let { addCell } = this.props.util
     let suggestedQuery = `
 {
   actor {

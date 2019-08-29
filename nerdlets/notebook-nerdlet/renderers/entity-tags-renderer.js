@@ -52,7 +52,7 @@ export default class EntityTagsRenderer extends React.Component {
   }
 
   renderEntitySearchButton(tagKey, tagValue) {
-    let addCell = this.props.addCell
+    let { addCell } = this.props.util
     let suggestedQuery = `
   {
     actor {
@@ -76,7 +76,7 @@ export default class EntityTagsRenderer extends React.Component {
         sizeType={Button.SIZE_TYPE.SLIM}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
-          return addCell({
+          addCell({
             query: suggestedQuery,
             notes: normalizeWhitespace(`
             Search for entities tagged with ${tagKey}=${tagValue}.
@@ -90,7 +90,7 @@ export default class EntityTagsRenderer extends React.Component {
   }
 
   renderEntityTagMutationButton(guid) {
-    let addCell = this.props.addCell
+    let { addCell } = this.props.util
     let suggestedQuery = `
 mutation {
   taggingAddTagsToEntity(guid: "${guid}", tags: {key: "hello", values: "world"}) {
@@ -105,7 +105,7 @@ mutation {
         sizeType={Button.SIZE_TYPE.SLIM}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
-          return addCell({
+          addCell({
             query: suggestedQuery,
             notes: 'This mutation will tag the Entity with the key "hello" and the value "world".'
           })

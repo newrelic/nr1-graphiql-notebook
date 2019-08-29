@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Stack, StackItem, TextField} from 'nr1'
+import { BlockText, Button, Stack, StackItem, TextField, Modal} from 'nr1'
 import NotebookCell from './notebook-cell';
 
 export default class Notebook extends React.Component {
@@ -23,7 +23,9 @@ export default class Notebook extends React.Component {
           this.props.cells.map((cell) => { return {domRef: React.createRef(), ref: React.createRef(), ...cell} }) :
           emptyCells,
         ephemeral: this.props.ephemeral,
-        titleError: false
+        titleError: false,
+        modalHidden: true,
+        modalText: ""
     }
 }
 
@@ -91,6 +93,10 @@ updateCell = (cellIndex, cellUpdate) => {
     this.setState({cells: cells})
 }
 
+openModal = (text) => {
+  this.setState({modalHidden: false, modalText: text})
+}
+
 renderNotebookToolbar() {
     return <div className="notebook-tool-bar">
         <TextField
@@ -136,6 +142,10 @@ renderNotebookToolbar() {
     </div>
 }
 
+onModalClose = () => {
+  this.setState({ modalHidden: true });
+}
+
 render() {
     let { cells } = this.state
     return <>
@@ -151,6 +161,7 @@ render() {
                         notes={cell.notes}
                         collapsed={cell.collapsed}
                         addCell={this.addCell}
+                        openModal={this.openModal}
                         onExpand={() => this.updateCell(i, {collapsed: false})}
                         onCollapse={() => this.updateCell(i, {collapsed: true})}
                         onChange={() => { this.serialize() }}
@@ -169,6 +180,15 @@ render() {
           </div>
         }
 
+          <Modal hidden={this.state.modalHidden} onClose={this.onModalClose}>
+              <pre>
+                  {this.state.modalText}
+              </pre>
+              <Button onClick={this.onModalClose}>Close</Button>
+          </Modal>
+          <Button onClick={() => this.setState({ modalHidden: false })}>
+              Open Modal
+          </Button>
     </>
 }
 }
