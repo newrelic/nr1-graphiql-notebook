@@ -92,7 +92,6 @@ updateCell = (cellIndex, cellUpdate) => {
 }
 
 renderNotebookToolbar() {
-    console.log(this.state.ephemeral)
     return <div className="notebook-tool-bar">
         <TextField
           style={{ fontSize: "20px" }}

@@ -147,7 +147,6 @@ export default class NotebookNerdlet extends React.Component {
     renderHeader() {
         const options = this.notebookOptions()
         const currentNotebook = this.state.currentNotebook
-        console.log(this.getNotebooks())
         return <div className="notebook-header">
                 <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
                     <StackItem>
