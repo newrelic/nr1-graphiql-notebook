@@ -4,7 +4,6 @@ import EntityAlertSeverityRenderer from './renderers/entity-alert-severity-rende
 import EpochMillisecondsRenderer from './renderers/epoch-milliseconds-renderer.js'
 import NRQLRenderer from './renderers/nrql-renderer.js'
 import { LeafNodeTransformer } from './transformers/leaf-node-transformer.js'
-import { Button } from 'nr1'
 
 let RENDERERS = [
   EpochMillisecondsRenderer,
@@ -53,20 +52,7 @@ function renderChildren(node, util) {
   }
 }
 
-// TODO Move this somewhere else
-export function renderLabel(root, path) {
-  let node = getIn(root, path)
-  console.log("path[0]", path[0], node)
-  return <div style={{display: "inline-block"}}>
-            {path[0]}
-            { node.__meta ?
-                <Button sizeType={Button.SIZE_TYPE.SLIM}>React Me</Button> :
-                null
-            }
-          </div>
-}
-
-function getIn(node, path) {
+export function getIn(node, path) {
   if (path.length == 0) {
     return node
   } else {

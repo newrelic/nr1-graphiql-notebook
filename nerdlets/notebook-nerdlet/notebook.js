@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockText, Button, Stack, StackItem, TextField, Modal} from 'nr1'
+import { navigation, Button, Stack, StackItem, TextField } from 'nr1'
 import NotebookCell from './notebook-cell';
 
 export default class Notebook extends React.Component {
@@ -23,9 +23,7 @@ export default class Notebook extends React.Component {
           this.props.cells.map((cell) => { return {domRef: React.createRef(), ref: React.createRef(), ...cell} }) :
           emptyCells,
         ephemeral: this.props.ephemeral,
-        titleError: false,
-        modalHidden: true,
-        modalText: ""
+        titleError: false
     }
 }
 
@@ -93,8 +91,14 @@ updateCell = (cellIndex, cellUpdate) => {
     this.setState({cells: cells})
 }
 
-openModal = (text) => {
-  this.setState({modalHidden: false, modalText: text})
+openExample = (nerdlet, query, path) => {
+  navigation.openStackedNerdlet({
+    id: `db8ec189-67f8-48b4-bfbe-052e09047e26.${nerdlet}`,
+    urlState: {
+      query: query,
+      path: path.reverse()
+    }
+  })
 }
 
 renderNotebookToolbar() {
@@ -142,10 +146,6 @@ renderNotebookToolbar() {
     </div>
 }
 
-onModalClose = () => {
-  this.setState({ modalHidden: true });
-}
-
 render() {
     let { cells } = this.state
     return <>
@@ -161,7 +161,7 @@ render() {
                         notes={cell.notes}
                         collapsed={cell.collapsed}
                         addCell={this.addCell}
-                        openModal={this.openModal}
+                        openExample={this.openExample}
                         onExpand={() => this.updateCell(i, {collapsed: false})}
                         onCollapse={() => this.updateCell(i, {collapsed: true})}
                         onChange={() => { this.serialize() }}
@@ -179,16 +179,6 @@ render() {
               </Button>
           </div>
         }
-
-          <Modal hidden={this.state.modalHidden} onClose={this.onModalClose}>
-              <pre>
-                  {this.state.modalText}
-              </pre>
-              <Button onClick={this.onModalClose}>Close</Button>
-          </Modal>
-          <Button onClick={() => this.setState({ modalHidden: false })}>
-              Open Modal
-          </Button>
     </>
 }
 }
