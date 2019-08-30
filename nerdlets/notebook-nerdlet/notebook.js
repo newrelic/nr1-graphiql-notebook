@@ -97,7 +97,7 @@ updateCell = (cellIndex, cellUpdate) => {
 renderNotebookToolbar() {
     return <div className="notebook-tool-bar">
         <TextField
-          style={{ fontSize: "20px" }}
+          style={{ fontSize: "20px", marginBottom: "14px" }}
           label='Notebook Name'
           placeholder='My Great Notebook'
           className={ this.state.titleError ? "notebook-name-error" : ""}

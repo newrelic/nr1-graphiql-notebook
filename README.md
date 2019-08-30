@@ -109,7 +109,6 @@ Note: metadata is omitted from the rendered results.
 
 ## Known Issues
 
-* Mutations will run, but their output will not render and may crash the page. (Fix known, response-augmentation, custom-render)
 * The delete button only removes the last cell
 * GraphQL errors are not displayed (UI work needed)
 * The multiline notes box may be too small in some cases (SDK component issue?)

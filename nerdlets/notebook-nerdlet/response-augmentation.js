@@ -5,7 +5,21 @@ import gql from 'graphql-tag'
 //TODO: Don't assume this is a Query document (could be mutation, subscription)
 export function expandResponse(schema, query, _variables, root) {
   let context = QueryDocumentContext.generate(gql(query))
-  root.__typename = schema.getQueryType().name
+  let operationType;
+
+  switch (context.operation) {
+    case "mutation":
+      operationType = schema.getMutationType().name
+      break
+    case "query":
+      operationType = schema.getQueryType().name
+      break
+    case "subscription":
+      operationType = schema.getSubscriptionType().name
+      break
+  }
+
+  root.__typename = operationType
   return expandNode(null, null, root, [], schema.getTypeMap(), context)
 }
 
