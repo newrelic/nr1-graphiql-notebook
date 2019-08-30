@@ -134,7 +134,7 @@ npm install
 npm start
 ```
 
-Visit https://one.newrelic.com/?nerdpacks=local, navigate to the Nerdpack.
+Visit https://one.newrelic.com/?nerdpacks=local and look for the "GraphiQL Notebook" launcher on NR1's landing page.
 
 If you'd like a jumping-off point, click "**Import Notebook**" in the UI and paste in this _"Getting Started"_ notebook:
 
