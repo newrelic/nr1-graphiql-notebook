@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "graphiql": "^0.13.2",
-        "graphiql-explorer": "git+ssh://git@github.com/mattbaker/graphiql-explorer.git",
+        "graphiql-explorer": "https://github.com/mattbaker/graphiql-explorer.git",
         "graphql": "^14.0.2",
         "graphql-tag": "^2.10.1",
         "prop-types": "^15.6.2",
