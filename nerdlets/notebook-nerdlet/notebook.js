@@ -182,7 +182,7 @@ render() {
         <Modal hidden={this.state.shareHidden} onClose={ this.closeModal } >
           <HeadingText>Copy the contents of the box below</HeadingText>
           <textarea
-            readonly
+            readOnly
             className="notebook-import-export-box"
             value={
               btoa(unescape(encodeURIComponent(JSON.stringify(this.state.sharedContents))))
