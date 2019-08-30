@@ -59,8 +59,8 @@ export default class NotebookCell extends React.Component {
           setTimeout(() => {
             this.setState({
               jsonTreeLoading: false,
-              queryResponse: expandResponse(this.props.schema, query, variables, data) },
-              () => { this.resultsRef.current.scrollIntoView() })
+              queryResponse: expandResponse(this.props.schema, query, variables, data) })//,
+              // () => { this.resultsRef.current.scrollIntoView() })
           }, 0)
         })
         return { data: this.stripTypeName(data), errors }
