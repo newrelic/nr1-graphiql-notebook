@@ -7,7 +7,7 @@
         "email": "opensource@newrelic.com"
     },
     "scripts": {
-        "start": "nr1 package:serve",
+        "start": "nr1 nerdpack:serve",
         "test": "exit 0"
     },
     "nr1": {
