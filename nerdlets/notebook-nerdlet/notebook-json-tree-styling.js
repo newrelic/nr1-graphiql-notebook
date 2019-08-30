@@ -1,6 +1,6 @@
 // This... is the way react-json-tree does styling. So. I guess this is how we're going to style react-json-tree.
 
-export function ourStyling() {
+export function notebookJsonTreeStyling() {
   const palette = {
     "brand-050": "#f0fcfc",
     "brand-100": "#c9f3f5",
