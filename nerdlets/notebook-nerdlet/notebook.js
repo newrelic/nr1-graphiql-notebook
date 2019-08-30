@@ -153,7 +153,7 @@ render() {
             return <NotebookCell
                         ref={cell.ref}
                         domRef={cell.domRef}
-                        key={cell.uuid}
+                        key={cell.uuid+"-"+i}
                         cellId={i}
                         schema={this.props.schema}
                         query={cell.query}
@@ -182,6 +182,7 @@ render() {
         <Modal hidden={this.state.shareHidden} onClose={ this.closeModal } >
           <HeadingText>Copy the contents of the box below</HeadingText>
           <textarea
+            readonly
             className="notebook-import-export-box"
             value={
               btoa(unescape(encodeURIComponent(JSON.stringify(this.state.sharedContents))))
