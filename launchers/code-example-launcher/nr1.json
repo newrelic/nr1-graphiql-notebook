@@ -1,8 +1,0 @@
-{
-    "schemaType": "LAUNCHER",
-    "id": "code-example-launcher",
-    "displayName": "CodeExampleLauncher",
-    "description": "",
-    "icon": "interface_placeholders_icon-placeholder",
-    "rootNerdletId": "db8ec189-67f8-48b4-bfbe-052e09047e26.code-example-nerdlet"
-}
