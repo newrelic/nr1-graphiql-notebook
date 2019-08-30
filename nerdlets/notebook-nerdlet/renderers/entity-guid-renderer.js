@@ -9,7 +9,7 @@ export default class EntityGuidRenderer extends React.Component {
   render() {
     let entityGuid = this.props.node.value
 
-    let addCell = this.props.addCell
+    let { addCell } = this.props.util
     let suggestedQuery = `
 {
   actor {
@@ -49,7 +49,7 @@ export default class EntityGuidRenderer extends React.Component {
         sizeType={Button.SIZE_TYPE.SLIM}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
-          return addCell({
+          addCell({
             query: suggestedQuery,
             notes: "The 'entity' field allows you to access more information about an entity than a simple entity search."
           })

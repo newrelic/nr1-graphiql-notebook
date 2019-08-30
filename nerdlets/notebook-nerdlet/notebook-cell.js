@@ -153,8 +153,8 @@ export default class NotebookCell extends React.Component {
               sortObjectKeys={false}
               postprocessValue={treeHelpers.postprocessValue}
               valueRenderer={treeHelpers.valueRenderer}
-              isCustomNode={(node) => node.custom && React.isValidElement(node.custom)}
-              data={CustomRender.renderTree(this.state.queryResponse, this.props.addCell)}
+              isCustomNode={(node) => node.__custom && React.isValidElement(node.__custom)}
+              data={CustomRender.renderTree(this.state.queryResponse, {addCell: this.props.addCell})}
               theme={ourStyling()}
               hideRoot={true}
               shouldExpandNode={() => true}
@@ -176,5 +176,5 @@ let treeHelpers = {
     }
   },
 
-  valueRenderer: (node) => node.custom || node
+  valueRenderer: (node) => node.__custom || node
 }

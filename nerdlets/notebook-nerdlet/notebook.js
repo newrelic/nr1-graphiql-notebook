@@ -1,16 +1,17 @@
 import React from 'react';
-import { Button, Stack, StackItem, TextField} from 'nr1'
+import { Button, Stack, StackItem, TextField } from 'nr1'
 import NotebookCell from './notebook-cell';
 
 export default class Notebook extends React.Component {
   constructor(props) {
     super(props)
-    //better plz
+    //better default query plz
     let defaultQuery = `
 {
   actor {
     user {
       email
+      name
     }
   }
 }
@@ -92,7 +93,6 @@ updateCell = (cellIndex, cellUpdate) => {
 }
 
 renderNotebookToolbar() {
-    console.log(this.state.ephemeral)
     return <div className="notebook-tool-bar">
         <TextField
           style={{ fontSize: "20px" }}
@@ -169,7 +169,6 @@ render() {
               </Button>
           </div>
         }
-
     </>
 }
 }
