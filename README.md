@@ -109,8 +109,9 @@ Note: metadata is omitted from the rendered results.
 
 * Mutations will run, but their output will not render and may crash the page.
 * GraphQL errors are not displayed
-* The multiline notes box may be too small in some cases (component issue?)
+* The multiline notes box may be too small in some cases (SDK component issue?)
 * Field aliases do not work yet, but it shouldn't be hard to add
+* The modals seem to be triggering errors but also don't seem to be breaking anything (SDK component issue?)
 
 ## Open Source License
 
