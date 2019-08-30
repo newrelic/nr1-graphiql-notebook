@@ -6,18 +6,18 @@ import gql from 'graphql-tag'
 export function expandResponse(schema, query, _variables, root) {
   let context = QueryDocumentContext.generate(gql(query))
   root.__typename = schema.getQueryType().name
-  return expandNode(null, root, [], schema.getTypeMap(), context)
+  return expandNode(null, null, root, [], schema.getTypeMap(), context)
 }
 
 // TODO: Aliases aren't handled yet
-function expandNode(parent, node, path, typeMap, context) {
+function expandNode(parent, currentFieldName, node, path, typeMap, context) {
   let typeName = node.__typename
   let type = typeMap[typeName]
   let fields = type.getFields()
   let expandedNode = {
     __meta: {
       typename: typeName,
-      type: type, //needed?
+      fieldName: currentFieldName,
       path: path,
       context: QueryDocumentContext.findFieldContext(context, path),
       parent: parent
@@ -30,41 +30,39 @@ function expandNode(parent, node, path, typeMap, context) {
     let fieldPath = [fieldName, ...path]
 
     if (isListOfLeaves(field.type)) {
-      expandedNode[fieldName] = expandListLeaves(expandedNode, fieldValue, field.type, fieldPath, context)
+      expandedNode[fieldName] = expandListLeaves(expandedNode, fieldName, fieldValue, field.type, fieldPath, context)
     } else if (isListOfNodes(field.type)) {
-      expandedNode[fieldName] = expandListNodes(expandedNode, fieldValue, field.type, fieldPath, typeMap, context)
+      expandedNode[fieldName] = expandListNodes(expandedNode, fieldName, fieldValue, field.type, fieldPath, typeMap, context)
     } else if (isDefinitelyLeafType(field.type)) {
-      expandedNode[fieldName] = expandLeafNode(expandedNode, fieldValue, field.type, fieldPath, context)
+      expandedNode[fieldName] = expandLeafNode(expandedNode, fieldName, fieldValue, field.type, fieldPath, context)
     } else {
-      expandedNode[fieldName] = expandNode(expandedNode, fieldValue, fieldPath, typeMap, context)
+      expandedNode[fieldName] = expandNode(expandedNode, fieldName, fieldValue, fieldPath, typeMap, context)
     }
   })
 
   return expandedNode
 }
 
-function expandListNodes(parent, list, type, path, typeMap, context) {
+function expandListNodes(parent, fieldName, list, type, path, typeMap, context) {
   let unwrappedType = getNamedType(type)
   let listNode = {
     __meta: {
-      type: type,
-      of: unwrappedType,
+      fieldName: fieldName,
       ofTypeName: unwrappedType.name,
       list: true,
       path: path,
       parent: parent
     }
   }
-  listNode.value = list.map((node, i) => expandNode(listNode, node, [i, ...path], typeMap, context))
+  listNode.value = list.map((node, i) => expandNode(listNode, i, node, [i, ...path], typeMap, context))
   return listNode
 }
 
-function expandListLeaves(parent, list, type, path, context) {
+function expandListLeaves(parent, fieldName, list, type, path, context) {
   let unwrappedType = getNamedType(type)
   let listNode = {
     __meta: {
-      type: type,
-      of: unwrappedType,
+      fieldName: fieldName,
       ofTypeName: unwrappedType.name,
       list: true,
       path: path,
@@ -72,16 +70,16 @@ function expandListLeaves(parent, list, type, path, context) {
     }
   }
 
-  listNode.value = list.map((leafNode, i) => expandLeafNode(listNode, leafNode, type, [i, ...path], context))
+  listNode.value = list.map((leafNode, i) => expandLeafNode(listNode, i, leafNode, type, [i, ...path], context))
   return listNode
 }
 
-function expandLeafNode(parent, value, type, path, context) {
+function expandLeafNode(parent, fieldName, value, type, path, context) {
   let unwrappedType = getNamedType(type)
   return {
     __meta: {
-      type: unwrappedType,
       typename: unwrappedType.name,
+      fieldName: fieldName,
       leaf: true,
       path: path,
       parent: parent,

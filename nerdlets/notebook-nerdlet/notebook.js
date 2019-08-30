@@ -94,10 +94,6 @@ updateCell = (cellIndex, cellUpdate) => {
     this.setState({cells: cells})
 }
 
-export = () => {
-
-}
-
 renderNotebookToolbar() {
     return <div className="notebook-tool-bar">
         <TextField
@@ -157,7 +153,7 @@ render() {
             return <NotebookCell
                         ref={cell.ref}
                         domRef={cell.domRef}
-                        key={`notebook-cell-${i}`}
+                        key={cell.uuid}
                         cellId={i}
                         schema={this.props.schema}
                         query={cell.query}
@@ -187,7 +183,9 @@ render() {
           <HeadingText>Copy the contents of the box below</HeadingText>
           <textarea
             className="notebook-import-export-box"
-            value={btoa(JSON.stringify(this.state.sharedContents, null, 2))}
+            value={
+              btoa(unescape(encodeURIComponent(JSON.stringify(this.state.sharedContents))))
+            }
           />
         </Modal>
     </div>

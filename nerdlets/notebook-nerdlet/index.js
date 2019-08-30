@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Notebook from './notebook.js'
 import Select from 'react-select' //replace w/ dropdown
 import { HeadingText, Modal, Button, Stack, StackItem, UserStorageQuery, UserStorageMutation} from 'nr1'
-import { NerdGraphQuery } from 'nr1';
+import { launcher, NerdGraphQuery } from 'nr1';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
 
 /*
@@ -19,6 +19,8 @@ const COLLECTION = "graphiql-notebook"
 
 export default class NotebookNerdlet extends React.Component {
     static propTypes = {
+        nerdletUrlState: PropTypes.object,
+        launcherUrlState: PropTypes.object,
         width: PropTypes.number,
         height: PropTypes.number,
     };
@@ -37,6 +39,7 @@ export default class NotebookNerdlet extends React.Component {
     newEmptyNotebook() {
         return {
             uuid: uuidv4(),
+            v: 0,
             title: "New Notebook",
             cells: null,
             ephemeral: true
@@ -60,11 +63,15 @@ export default class NotebookNerdlet extends React.Component {
         ]).then(([schemaResponse, collectionResponse]) => {
             let schema = schemaResponse.data
             let {actor: { nerdStorage: { collection: collection } } } = collectionResponse.data
+
+            let urlNotebookUUID = this.props.launcherUrlState.notebook
             let notebooks = collection.map(({document}) => document)
+            let currentNotebook = notebooks.find((notebook) => notebook.uuid == urlNotebookUUID)
 
             this.setState({
                 schema: buildClientSchema(schema),
-                notebooks: notebooks
+                notebooks: notebooks,
+                currentNotebook: currentNotebook || this.state.emptyNotebook
             })
         })
     }
@@ -78,7 +85,7 @@ export default class NotebookNerdlet extends React.Component {
     }
 
     saveNotebook = (newNotebook) => {
-        UserStorageMutation.mutate({
+        return UserStorageMutation.mutate({
             actionType: UserStorageMutation.ACTION_TYPE.WRITE_DOCUMENT,
             collection: COLLECTION,
             documentId: newNotebook.uuid,
@@ -95,7 +102,8 @@ export default class NotebookNerdlet extends React.Component {
                 notebooks: notesbooks,
                 currentNotebook: newNotebook,
                 emptyNotebook: emptyNotebook
-            })
+            },
+            () => {launcher.setUrlState({notebook: newNotebook.uuid})})
         })
     }
 
@@ -108,16 +116,24 @@ export default class NotebookNerdlet extends React.Component {
             let notebooks = this.state.notebooks.slice(0).filter((notebook) => {
                 return notebook.uuid != uuid
             })
+            let currentNotebook = this.getNotebook(this.state.emptyNotebook.uuid)
             this.setState({
-                notebooks: notebooks,
-                currentNotebook: this.getNotebook(this.state.emptyNotebook.uuid)
-            })
+                    notebooks: notebooks,
+                    currentNotebook: currentNotebook
+                },
+                () => {launcher.setUrlState({notebook: currentNotebook.uuid})})
         })
     }
 
     onNotebookSelect = ({value: selectedUUID}) => {
-        this.setState({ currentNotebook: this.getNotebook(selectedUUID) })
+        let currentNotebook = this.getNotebook(selectedUUID)
+        this.setState({
+                currentNotebook: currentNotebook
+            },
+            () => {launcher.setUrlState({notebook: currentNotebook.uuid})})
     }
+
+    closeImportModal = () => this.setState({importHidden: true})
 
     render() {
         let notebook = this.state.currentNotebook
@@ -133,7 +149,7 @@ export default class NotebookNerdlet extends React.Component {
                 onSave={ this.saveNotebook }
                 onDelete={ this.onDelete }
             />
-            <Modal hidden={this.state.importHidden} onClose={() => this.setState({importHidden: true})} >
+            <Modal hidden={this.state.importHidden} onClose={this.closeImportModal} >
                 <HeadingText>Paste below and press "import"</HeadingText>
                 <textarea
                     ref={(r) => this.importTextArea = r}
@@ -143,7 +159,9 @@ export default class NotebookNerdlet extends React.Component {
                         let encodedNotebook = this.importTextArea.value
                         if (encodedNotebook) {
                             let decodedNotebook = JSON.parse(atob(encodedNotebook))
-                            this.saveNotebook(decodedNotebook)
+                            this.saveNotebook(decodedNotebook).then(() => {
+                                this.closeImportModal()
+                            })
                         }
                     }}
                     type={Button.TYPE.NORMAL}

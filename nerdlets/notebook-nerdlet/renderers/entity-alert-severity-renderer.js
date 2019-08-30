@@ -9,10 +9,19 @@ export default class EntityAlertSeverityRenderer extends React.Component {
   }
 
   getEntityGuid() {
+    //TODO: augment response with interfaces as well as typenames so that we can
+    // just test against something like the AlertableEntity interface
+    if (this.props.node.guid && this.props.node.guid.value) {
+      return this.props.node.guid.value
+    }
+
     let guid = searchAncestors(this.props.node,
       (ancestor) => ancestor.__meta.typename == 'ApmApplicationEntity' ||
-                    ancestor.__meta.typename == 'AlertableEntity',
-      (ancestor) => ancestor.__meta.context.arguments.guid.value)
+                    ancestor.__meta.typename == 'AlertableEntity' ||
+                    ancestor.__meta.typename == 'ApmApplicationEntityOutline' ||
+                    ancestor.__meta.typename == 'AlertableEntityOutline',
+      (ancestor) =>  ancestor.guid && ancestor.guid.value ||
+                     ancestor.__meta.context.arguments.guid && ancestor.__meta.context.arguments.guid.value)
     return guid
   }
 

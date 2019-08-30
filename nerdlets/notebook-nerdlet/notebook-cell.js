@@ -25,7 +25,9 @@ export default class NotebookCell extends React.Component {
     }
   }
 
-  // I know I know...
+  // Obviously the state of the children should be pulled up
+  // but GraphiQL doesn't make that easy, especially combined with OneGraph's Explorer.
+  // This is the fix until we can do it right
   serialize = () => { return {query: this.state.query, notes: this.state.notes} }
 
   stripTypeName = (results) => {
