@@ -14,6 +14,15 @@
   margin: 0 14px;
 }
 
+.notebook-import-export-box {
+  font-family: monospace;
+  height: 200px;
+  width: 100%;
+  border: 2px dotted #aaa;
+  padding: 14px;
+  margin: 14px 0;
+}
+
 .notebook-name-error ::placeholder {
   color: $red-800;
 }

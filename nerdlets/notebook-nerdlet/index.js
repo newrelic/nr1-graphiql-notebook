@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Notebook from './notebook.js'
 import Select from 'react-select' //replace w/ dropdown
-import { Button, Stack, StackItem, UserStorageQuery, UserStorageMutation} from 'nr1'
+import { HeadingText, Modal, Button, Stack, StackItem, UserStorageQuery, UserStorageMutation} from 'nr1'
 import { NerdGraphQuery } from 'nr1';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
 
@@ -29,7 +29,8 @@ export default class NotebookNerdlet extends React.Component {
         this.state = {
             emptyNotebook: emptyNotebook,
             notebooks: [],
-            currentNotebook: emptyNotebook
+            currentNotebook: emptyNotebook,
+            importHidden: true
         }
     }
 
@@ -76,7 +77,7 @@ export default class NotebookNerdlet extends React.Component {
         return UserStorageQuery.query({ collection: COLLECTION })
     }
 
-    onSave = (newNotebook) => {
+    saveNotebook = (newNotebook) => {
         UserStorageMutation.mutate({
             actionType: UserStorageMutation.ACTION_TYPE.WRITE_DOCUMENT,
             collection: COLLECTION,
@@ -129,9 +130,27 @@ export default class NotebookNerdlet extends React.Component {
                 title={ notebook.title }
                 cells={ notebook.cells }
                 ephemeral={ !!notebook.ephemeral }
-                onSave={ this.onSave }
+                onSave={ this.saveNotebook }
                 onDelete={ this.onDelete }
             />
+            <Modal hidden={this.state.importHidden} onClose={() => this.setState({importHidden: true})} >
+                <HeadingText>Paste below and press "import"</HeadingText>
+                <textarea
+                    ref={(r) => this.importTextArea = r}
+                    className="notebook-import-export-box" />
+                <Button
+                    onClick={() => {
+                        let encodedNotebook = this.importTextArea.value
+                        if (encodedNotebook) {
+                            let decodedNotebook = JSON.parse(atob(encodedNotebook))
+                            this.saveNotebook(decodedNotebook)
+                        }
+                    }}
+                    type={Button.TYPE.NORMAL}
+                    iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}>
+                    Import
+                </Button>
+            </Modal>
         </div>
     }
 
@@ -162,7 +181,7 @@ export default class NotebookNerdlet extends React.Component {
                     <StackItem shrink={true}>
                         <Button
                             style={{ marginLeft: "14px" }}
-                            onClick={() => alert('Hello World!')}
+                            onClick={() => this.setState({importHidden: false})}
                             type={Button.TYPE.NORMAL}
                             iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}>
                             Import Notebook

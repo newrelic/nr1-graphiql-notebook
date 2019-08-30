@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Stack, StackItem, TextField } from 'nr1'
+import { HeadingText, Button, Stack, StackItem, TextField, Modal } from 'nr1'
 import NotebookCell from './notebook-cell';
 
 export default class Notebook extends React.Component {
@@ -24,7 +24,9 @@ export default class Notebook extends React.Component {
           this.props.cells.map((cell) => { return {domRef: React.createRef(), ref: React.createRef(), ...cell} }) :
           emptyCells,
         ephemeral: this.props.ephemeral,
-        titleError: false
+        titleError: false,
+        shareHidden: true,
+        sharedContents: ""
     }
 }
 
@@ -92,6 +94,10 @@ updateCell = (cellIndex, cellUpdate) => {
     this.setState({cells: cells})
 }
 
+export = () => {
+
+}
+
 renderNotebookToolbar() {
     return <div className="notebook-tool-bar">
         <TextField
@@ -127,7 +133,10 @@ renderNotebookToolbar() {
                 </Button>
                 <Button
                     style={{ marginLeft: "14px" }}
-                    onClick={() => alert('Hello World!')}
+                    disabled={ this.state.ephemeral }
+                    onClick={() => {
+                      this.setState({shareHidden: false, sharedContents: this.serialize()})
+                    }}
                     type={Button.TYPE.NORMAL}
                     iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__SHARE_LINK}>
                     Share this Notebook
@@ -136,10 +145,13 @@ renderNotebookToolbar() {
         </Stack>
     </div>
 }
+closeModal = () => {
+  this.setState({shareHidden: true})
+}
 
 render() {
     let { cells } = this.state
-    return <>
+    return <div>
         {this.renderNotebookToolbar()}
         {cells.map((cell, i) => {
             return <NotebookCell
@@ -169,6 +181,15 @@ render() {
               </Button>
           </div>
         }
-    </>
-}
+
+       {/*TODO seems to cause an error but things... work...?  */}
+        <Modal hidden={this.state.shareHidden} onClose={ this.closeModal } >
+          <HeadingText>Copy the contents of the box below</HeadingText>
+          <textarea
+            className="notebook-import-export-box"
+            value={btoa(JSON.stringify(this.state.sharedContents, null, 2))}
+          />
+        </Modal>
+    </div>
+  }
 }
