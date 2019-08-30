@@ -117,7 +117,7 @@ Note: metadata is omitted from the rendered results.
 
 ## Open Source License
 
-This project is distributed under the [Apache 2 license](blob/master/LICENSE).
+This project is distributed under the [Apache 2 license](LICENSE).
 
 ## What do you need to make this work?
 
@@ -157,7 +157,7 @@ https://discuss.newrelic.com/c/build-on-new-relic/nr1-graphiql-notebook
 
 ## Issues / Enhancement Requests
 
-Issues and enhancement requests can be submitted in the [Issues tab of this repository](issues). Please search for and review the existing open issues before submitting a new issue.
+Issues and enhancement requests can be submitted in the [Issues tab of this repository](../../issues). Please search for and review the existing open issues before submitting a new issue.
 
 # Contributing
 
