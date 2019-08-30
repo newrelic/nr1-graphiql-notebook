@@ -59,8 +59,8 @@ export default class NotebookCell extends React.Component {
           setTimeout(() => {
             this.setState({
               jsonTreeLoading: false,
-              queryResponse: expandResponse(this.props.schema, query, variables, data) })//,
-              // () => { this.resultsRef.current.scrollIntoView() })
+              queryResponse: expandResponse(this.props.schema, query, variables, data) },
+              () => { this.resultsRef.current.scrollIntoView() })
           }, 0)
         })
         return { data: this.stripTypeName(data), errors }
@@ -153,35 +153,7 @@ export default class NotebookCell extends React.Component {
               sortObjectKeys={false}
               postprocessValue={treeHelpers.postprocessValue}
               valueRenderer={treeHelpers.valueRenderer}
-              labelRenderer={(path) => {
-                let examples = {
-                  User: "user-example-nerdlet",
-                  Entity: "entity-example-nerdlet",
-                  ApmApplicationEntity: "entity-example-nerdlet", //again, need to sort interface vs types out
-                }
-                let root = this.state.queryResponse
-                let node = CustomRender.getIn(root, path)
-                let typename = node.__meta && node.__meta.typename
-                let exampleNerdlet = examples[typename]
-                if (exampleNerdlet) {
-                  return <div style={{display: "inline-block"}}>
-                          {path[0]}&nbsp;
-                          <Button
-                            onClick={() => this.props.openExample(
-                              exampleNerdlet,
-                              this.state.query,
-                              path.slice(0)
-                            )}
-                            iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__CODE}
-                            sizeType={Button.SIZE_TYPE.SLIM}>
-                            React Me
-                          </Button>
-                        </div>
-                } else {
-                  return path[0]
-                }
-              }}
-              isCustomNode={(node) => node.custom && React.isValidElement(node.custom)}
+              isCustomNode={(node) => node.__custom && React.isValidElement(node.__custom)}
               data={CustomRender.renderTree(this.state.queryResponse, {addCell: this.props.addCell})}
               theme={ourStyling()}
               hideRoot={true}
@@ -204,5 +176,5 @@ let treeHelpers = {
     }
   },
 
-  valueRenderer: (node) => node.custom || node
+  valueRenderer: (node) => node.__custom || node
 }

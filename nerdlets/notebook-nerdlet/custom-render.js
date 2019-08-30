@@ -17,7 +17,7 @@ let TRANSFORMERS = [
   LeafNodeTransformer
 ]
 
-//TODO This logic all feels clunky, it should be simplified
+// clunky logic, it should be simplified
 // currently —
 //  - render if custom renderer and stop traversing
 //  - else
@@ -28,7 +28,7 @@ export function renderTree(node, util) {
 
   let CustomRenderer = RENDERERS.find((renderer) => renderer.test(node))
   if (CustomRenderer) {
-    return {custom: <CustomRenderer node={node} util={util}/>, ...node}
+    return {__custom: <CustomRenderer node={node} util={util}/>, ...node}
   } else {
     let transformer = TRANSFORMERS.find((transformer) => transformer.test(node))
     let newNode = node
@@ -50,21 +50,4 @@ function renderChildren(node, util) {
     })
     return node
   }
-}
-
-export function getIn(node, path) {
-  if (path.length == 0) {
-    return node
-  } else {
-    let [head, rest] = pop(path.slice(0))
-    return getIn(node[head], rest)
-  }
-}
-
-function pop(list) {
-  return [last(list), list.slice(0, -1)]
-}
-
-function last(list) {
-  return list[list.length-1]
 }

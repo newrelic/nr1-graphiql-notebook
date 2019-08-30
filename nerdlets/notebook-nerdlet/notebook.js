@@ -1,16 +1,17 @@
 import React from 'react';
-import { navigation, Button, Stack, StackItem, TextField } from 'nr1'
+import { Button, Stack, StackItem, TextField } from 'nr1'
 import NotebookCell from './notebook-cell';
 
 export default class Notebook extends React.Component {
   constructor(props) {
     super(props)
-    //better plz
+    //better default query plz
     let defaultQuery = `
 {
   actor {
     user {
       email
+      name
     }
   }
 }
@@ -91,16 +92,6 @@ updateCell = (cellIndex, cellUpdate) => {
     this.setState({cells: cells})
 }
 
-openExample = (nerdlet, query, path) => {
-  navigation.openStackedNerdlet({
-    id: `db8ec189-67f8-48b4-bfbe-052e09047e26.${nerdlet}`,
-    urlState: {
-      query: query,
-      path: path.reverse()
-    }
-  })
-}
-
 renderNotebookToolbar() {
     return <div className="notebook-tool-bar">
         <TextField
@@ -161,7 +152,6 @@ render() {
                         notes={cell.notes}
                         collapsed={cell.collapsed}
                         addCell={this.addCell}
-                        openExample={this.openExample}
                         onExpand={() => this.updateCell(i, {collapsed: false})}
                         onCollapse={() => this.updateCell(i, {collapsed: true})}
                         onChange={() => { this.serialize() }}

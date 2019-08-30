@@ -15,7 +15,6 @@
         "sdkVersion": 2
     },
     "dependencies": {
-        "blueimp-md5": "^2.12.0",
         "graphiql": "^0.13.2",
         "graphiql-explorer": "git+ssh://git@github.com/mattbaker/graphiql-explorer.git",
         "graphql": "^14.0.2",
@@ -31,7 +30,5 @@
         "not ie < 11",
         "not dead"
     ],
-    "devDependencies": {
-        "raw-loader": "^3.1.0"
-    }
+    "devDependencies": {}
 }
