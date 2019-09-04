@@ -15,8 +15,7 @@ export default class NotebookCell extends React.Component {
   constructor(props) {
     super(props)
 
-    this.cellId = this.props.cellId
-    this.storage = new NotebookStorage(this.cellId)
+    this.storage = new NotebookStorage(this.props.uuid)
     this.state = {
       notes: this.props.notes || undefined,
       query: this.props.query || "",
@@ -27,7 +26,13 @@ export default class NotebookCell extends React.Component {
   // Obviously the state of the children should be pulled up
   // but GraphiQL doesn't make that easy, especially combined with OneGraph's Explorer.
   // This is the fix until we can do it right
-  serialize = () => { return {query: this.state.query, notes: this.state.notes} }
+  serialize = () => {
+    return {
+      query: this.state.query,
+      notes: this.state.notes,
+      uuid: this.props.uuid
+    }
+  }
 
   stripTypeName = (results) => {
     const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
@@ -74,14 +79,14 @@ export default class NotebookCell extends React.Component {
         <div className="notebook-cell-header">
           <Stack gapType={Stack.GAP_TYPE.NONE}>
             <StackItem shrink={true}>
-              <div className="cell-in-label">In [{this.cellId}]</div>
+              <div className="cell-in-label">In [{this.props.cellIndex}]</div>
             </StackItem>
             <StackItem grow={true} style={{textAlign: "right"}}>
               <Button
                 style={{paddingRight: "0px"}}
                 onClick={this.props.onDelete}
                 type={Button.TYPE.PLAIN_NEUTRAL}
-                disabled={ this.cellId == 0 }
+                disabled={ this.props.cellIndex == 0 }
                 iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE} />
             </StackItem>
           </Stack>
@@ -144,7 +149,7 @@ export default class NotebookCell extends React.Component {
 
       <div className="notebook-cell-footer">
         <div className="cell-out-label">
-          Out [{this.cellId}]
+          Out [{this.props.cellIndex}]
         </div>
 
         <div className="cell-out-value">

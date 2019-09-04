@@ -1,12 +1,27 @@
 import React from 'react';
 import { HeadingText, Button, Stack, StackItem, TextField, Modal } from 'nr1'
 import NotebookCell from './notebook-cell';
+import { uuidv4 } from "./uuid";
 
 export default class Notebook extends React.Component {
   constructor(props) {
     super(props)
-    //better default query plz
-    let defaultQuery = `
+
+    let emptyCells = [this.createCell()]
+    this.state = {
+        title: this.props.ephemeral ? undefined : this.props.title,
+        cells: this.props.cells ?
+          this.props.cells.map((cell) => { return this.createCell(cell) }) :
+          emptyCells,
+        ephemeral: this.props.ephemeral,
+        titleError: false,
+        shareHidden: true,
+        sharedContents: ""
+    }
+}
+
+createCell = (cell) => {
+  let defaultQuery = `
 {
   actor {
     user {
@@ -16,18 +31,13 @@ export default class Notebook extends React.Component {
   }
 }
     `.trim()
-
-    let emptyCells = [{query: defaultQuery, domRef: React.createRef(), ref: React.createRef()}]
-    this.state = {
-        title: this.props.ephemeral ? undefined : this.props.title,
-        cells: this.props.cells ?
-          this.props.cells.map((cell) => { return {domRef: React.createRef(), ref: React.createRef(), ...cell} }) :
-          emptyCells,
-        ephemeral: this.props.ephemeral,
-        titleError: false,
-        shareHidden: true,
-        sharedContents: ""
-    }
+  let defaults = {
+    query: defaultQuery,
+    uuid: uuidv4(),
+    domRef: React.createRef(),
+    ref: React.createRef()
+  }
+  return Object.assign(defaults, cell || {})
 }
 
 onSave = () => {
@@ -43,9 +53,9 @@ onDelete = () => {
   this.props.onDelete(this.props.uuid)
 }
 
-onDeleteCell = (cellId) => {
-  let cells = this.state.cells.filter((_cell, i) => {
-    return i != cellId
+onDeleteCell = (cellUUID) => {
+  let cells = this.state.cells.filter((cell) => {
+    return cell.uuid != cellUUID
   })
   this.setState({ cells })
 }
@@ -72,26 +82,27 @@ popCell() {
 }
 
 addCell = (cell) => {
-    let cells = this.state.cells.slice(0).map((cell) => {
-        return {...cell, collapsed: true}
-    } )
+  let cells = this.state.cells.map((cell) => {
+    return {...cell, collapsed: true}
+  } )
 
-    let newCell = {
-        query: cell.query && cell.query.trim(),
-        notes: cell.notes,
-        domRef: React.createRef(),
-        ref: React.createRef()
-    }
+  cell.query = cell.query && cell.query.trim()
 
-    cells.push(newCell)
+  let newCell = this.createCell(cell)
 
-    this.setState({ cells: cells}, () => newCell.domRef.current.scrollIntoView())
+  cells.push(newCell)
+
+  this.setState({ cells: cells}, () => newCell.domRef.current.scrollIntoView())
 }
 
-updateCell = (cellIndex, cellUpdate) => {
-    let cells = this.state.cells.slice(0)
-    Object.assign(cells[cellIndex], cellUpdate)
-    this.setState({cells: cells})
+updateCell = (cellUUID, cellUpdate) => {
+    let cells = this.state.cells.map((cell) => {
+      if (cell.uuid == cellUUID) {
+        return Object.assign({}, cell, cellUpdate)
+      }
+      return cell
+    })
+    this.setState({ cells })
 }
 
 renderNotebookToolbar() {
@@ -150,21 +161,22 @@ render() {
     return <div>
         {this.renderNotebookToolbar()}
         {cells.map((cell, i) => {
-            return <NotebookCell
-                        ref={cell.ref}
-                        domRef={cell.domRef}
-                        key={cell.uuid+"-"+i}
-                        cellId={i}
-                        schema={this.props.schema}
-                        query={cell.query}
-                        notes={cell.notes}
-                        collapsed={cell.collapsed}
-                        addCell={this.addCell}
-                        onExpand={() => this.updateCell(i, {collapsed: false})}
-                        onCollapse={() => this.updateCell(i, {collapsed: true})}
-                        onChange={() => { this.serialize() }}
-                        onDelete={() => this.onDeleteCell(i)}
-                    />
+          return <NotebookCell
+                    ref={cell.ref}
+                    domRef={cell.domRef}
+                    key={cell.uuid}
+                    cellIndex={i}
+                    uuid={cell.uuid}
+                    schema={this.props.schema}
+                    query={cell.query}
+                    notes={cell.notes}
+                    collapsed={cell.collapsed}
+                    addCell={this.addCell}
+                    onExpand={() => this.updateCell(cell.uuid, {collapsed: false})}
+                    onCollapse={() => this.updateCell(cell.uuid, {collapsed: true})}
+                    onChange={() => { this.serialize() }}
+                    onDelete={() => this.onDeleteCell(cell.uuid)}
+                />
         })}
 
         {
