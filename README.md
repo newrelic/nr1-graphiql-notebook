@@ -109,7 +109,6 @@ Note: metadata is omitted from the rendered results.
 
 ## Known Issues
 
-* The delete button only removes the last cell
 * GraphQL errors are not displayed (UI work needed)
 * The multiline notes box may be too small in some cases (SDK component issue?)
 * Field aliases do not work yet, but it shouldn't be hard to add (Fix known, response-augmentation)
