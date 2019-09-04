@@ -17,7 +17,6 @@ export default class NotebookCell extends React.Component {
 
     this.cellId = this.props.cellId
     this.storage = new NotebookStorage(this.cellId)
-    this.resultsRef = React.createRef()
     this.state = {
       notes: this.props.notes || undefined,
       query: this.props.query || "",
@@ -61,8 +60,8 @@ export default class NotebookCell extends React.Component {
           setTimeout(() => {
             this.setState({
               jsonTreeLoading: false,
-              queryResponse: expandResponse(this.props.schema, query, variables, data) },
-              () => { this.resultsRef.current.scrollIntoView() })
+              queryResponse: expandResponse(this.props.schema, query, variables, data)
+            })
           }, 0)
         })
         return { data: this.stripTypeName(data), errors }
@@ -143,7 +142,7 @@ export default class NotebookCell extends React.Component {
         </GraphiQL>
       </div>
 
-      <div ref={this.resultsRef} className="notebook-cell-footer">
+      <div className="notebook-cell-footer">
         <div className="cell-out-label">
           Out [{this.cellId}]
         </div>

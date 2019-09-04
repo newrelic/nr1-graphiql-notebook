@@ -3,7 +3,6 @@ import EntityTagsRenderer from './renderers/entity-tags-renderer.js'
 import EntityAlertSeverityRenderer from './renderers/entity-alert-severity-renderer.js'
 import EpochMillisecondsRenderer from './renderers/epoch-milliseconds-renderer.js'
 import NRQLRenderer from './renderers/nrql-renderer.js'
-import { LeafNodeTransformer } from './transformers/leaf-node-transformer.js'
 
 let RENDERERS = [
   EpochMillisecondsRenderer,
@@ -13,30 +12,16 @@ let RENDERERS = [
   EntityGuidRenderer
 ]
 
-let TRANSFORMERS = [
-  LeafNodeTransformer
-]
-
-// clunky logic, it should be simplified
-// currently —
-//  - render if custom renderer and stop traversing
-//  - else
-//  - transform if transformer
-//  - traverse
 export function renderTree(node, util) {
   if (!node || !node.__meta) return node
 
   let CustomRenderer = RENDERERS.find((renderer) => renderer.test(node))
   if (CustomRenderer) {
     return {__custom: <CustomRenderer node={node} util={util}/>, ...node}
+  } else if (node.__meta.leaf) {
+    return node.value
   } else {
-    let transformer = TRANSFORMERS.find((transformer) => transformer.test(node))
-    let newNode = node
-    if (transformer) {
-      newNode = transformer.transform({ ...node })
-    }
-    newNode = renderChildren(newNode, util)
-    return newNode
+    return renderChildren(node, util)
   }
 }
 
