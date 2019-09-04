@@ -5,15 +5,7 @@ import Select from 'react-select' //replace w/ dropdown
 import { HeadingText, Modal, Button, Stack, StackItem, UserStorageQuery, UserStorageMutation} from 'nr1'
 import { launcher, NerdGraphQuery } from 'nr1';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
-
-/*
-TODO: deal with state stuff of getting query document on first render for the json tree
-  can handle updates with onQueryEdit after that
-  worry about variables........? yeah, because we need account ids and they could be in the vars. later.
-
-TODO: aliases
-TODO: "Add to variables below" button on all leaf nodes?
-*/
+import { uuidv4 } from "./uuid";
 
 const COLLECTION = "graphiql-notebook"
 
@@ -39,7 +31,7 @@ export default class NotebookNerdlet extends React.Component {
     newEmptyNotebook() {
         return {
             uuid: uuidv4(),
-            v: 0,
+            schemaVersion: 0,
             title: "New Notebook",
             cells: null,
             ephemeral: true
@@ -210,10 +202,3 @@ export default class NotebookNerdlet extends React.Component {
             </div>
     }
 }
-
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
