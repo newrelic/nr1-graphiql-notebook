@@ -1,8 +1,8 @@
-import EntityGuidRenderer from './renderers/entity-guid-renderer.js'
-import EntityTagsRenderer from './renderers/entity-tags-renderer.js'
-import EntityAlertSeverityRenderer from './renderers/entity-alert-severity-renderer.js'
-import EpochMillisecondsRenderer from './renderers/epoch-milliseconds-renderer.js'
-import NRQLRenderer from './renderers/nrql-renderer.js'
+import EntityGuidRenderer from './entity-guid-renderer.js'
+import EntityTagsRenderer from './entity-tags-renderer.js'
+import EntityAlertSeverityRenderer from './entity-alert-severity-renderer.js'
+import EpochMillisecondsRenderer from './epoch-milliseconds-renderer.js'
+import NRQLRenderer from './nrql-renderer.js'
 
 let RENDERERS = [
   EpochMillisecondsRenderer,
@@ -12,6 +12,8 @@ let RENDERERS = [
   EntityGuidRenderer
 ]
 
+// Crawls the augmented response tree and attaches custom rendered React
+// components if a given node in the tree passes the component's test
 export function renderTree(node, util) {
   if (!node || !node.__meta) return node
 
@@ -19,8 +21,10 @@ export function renderTree(node, util) {
   if (CustomRenderer) {
     return {__custom: <CustomRenderer node={node} util={util}/>, ...node}
   } else if (node.__meta.leaf) {
+    // Un-altered leaf nodes should simply collapse to their original value
     return node.value
   } else {
+    // Recurse on the rest of the tree
     return renderChildren(node, util)
   }
 }

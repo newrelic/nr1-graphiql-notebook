@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListItem, Button } from 'nr1'
-import { normalizeWhitespace } from '../renderer-util.js'
-import { searchAncestors } from '../augmentation-util.js'
+import { normalizeWhitespace } from './util'
+import { searchAncestors } from '../results/util.js'
 
 export default class EntityTagsRenderer extends React.Component {
   static test(node) {

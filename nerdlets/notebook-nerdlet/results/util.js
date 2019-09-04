@@ -1,4 +1,7 @@
-//TODO — move this somewhere it can be re-used
+// Searches ancestors in an augmented response for which
+// condition() returns true. The value returned is determined
+// by the supplied accessor()
+
 function searchAncestors(node, condition, accessor) {
   if (condition(node)) {
     return accessor(node)

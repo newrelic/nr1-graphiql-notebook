@@ -1,6 +1,25 @@
 
 const { visit } = require('graphql/language/visitor');
 
+// Modifies the query document AST to produce a simplified
+// tree usable during the "augmentation phase", when the
+// GraphQL response data is transformed to append additional
+// information.
+export function generate(queryDoc) {
+  return buildContextTree(inlineFragments(queryDoc))
+}
+
+// Given a path ["actor", "account", "nrql"], find the `context`
+// value of that node in the augmented response. The context property
+// includes things like the argument the field was queried with.
+export function findFieldContext(contextNode, path) {
+  if (Number.isInteger(last(path))) return findFieldContext(contextNode, path.slice(0,-1))
+  if (path.length === 0) return contextNode.context || {}
+  let [nextField, remainingPath] = pop(path)
+  let nextNode = contextNode.selectionSet[nextField]
+  return findFieldContext(nextNode, remainingPath)
+}
+
 const listToMap = (list, keyAccessor, valueAccessor) => {
   valueAccessor = valueAccessor || ((v) => v)
   return list.reduce((map, item) => {
@@ -97,16 +116,4 @@ function pop(list) {
 
 function last(list) {
   return list[list.length-1]
-}
-
-export function generate(queryDoc) {
-  return buildContextTree(inlineFragments(queryDoc))
-}
-
-export function findFieldContext(contextNode, path) {
-  if (Number.isInteger(last(path))) return findFieldContext(contextNode, path.slice(0,-1))
-  if (path.length === 0) return contextNode.context || {}
-  let [nextField, remainingPath] = pop(path)
-  let nextNode = contextNode.selectionSet[nextField]
-  return findFieldContext(nextNode, remainingPath)
 }

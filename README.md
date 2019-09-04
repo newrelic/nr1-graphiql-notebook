@@ -59,7 +59,7 @@ export default class AccountIdRenderer extends React.Component {
 }
 ```
 
-Next, import this class into `nerdlets/notebook-nerdlet/custom-render.js` and add it to the `RENDERERS` array.
+Next, import this class into `nerdlets/notebook-nerdlet/renderers/render.js` and add it to the `RENDERERS` array.
 
 Now send a query that includes an account ID to see your new renderer in action!
 
@@ -103,7 +103,7 @@ To provide this, the response data tree is walked and the following modification
    - the path so far
    - if applicable, arguments provided to the field in the original query (for example, nrql, accountId, entity guid, etc)
 
-The code that does this work is in `nerdlets/notebook-nerdlet/response-augmentation.js`. There are some dragons in there.
+The code that does this work is in `nerdlets/notebook-nerdlet/results/augmentation.js`. There are some dragons in there.
 
 Note: metadata is omitted from the rendered results.
 

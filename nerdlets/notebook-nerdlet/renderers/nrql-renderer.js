@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigation, Button, LineChart, BarChart, PieChart } from 'nr1';
-import { searchAncestors } from '../augmentation-util.js'
+import { searchAncestors } from '../results/util.js'
 
 export default class NRQLRenderer extends React.Component {
 

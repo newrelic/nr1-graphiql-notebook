@@ -3,8 +3,8 @@ import { NerdGraphQuery } from 'nr1';
 import GraphiQL from 'graphiql';
 import JSONTree from 'react-json-tree';
 import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
-import { expandResponse } from "./response-augmentation.js"
-const CustomRender = require('./custom-render.js')
+import { expandResponse } from "./results/augmentation.js"
+const NodeRenderer = require('./renderers/render.js')
 import { notebookJsonTreeStyling } from "./notebook-json-tree-styling.js"
 import GraphiQLExplorer from "graphiql-explorer"
 import NotebookStorage from './graphiql/notebook-storage.js';
@@ -155,7 +155,7 @@ export default class NotebookCell extends React.Component {
               postprocessValue={treeHelpers.postprocessValue}
               valueRenderer={treeHelpers.valueRenderer}
               isCustomNode={(node) => node.__custom && React.isValidElement(node.__custom)}
-              data={CustomRender.renderTree(this.state.queryResponse, {addCell: this.props.addCell})}
+              data={NodeRenderer.renderTree(this.state.queryResponse, {addCell: this.props.addCell})}
               theme={notebookJsonTreeStyling()}
               hideRoot={true}
               shouldExpandNode={() => true}

@@ -1,4 +1,6 @@
-// This... is the way react-json-tree does styling. So. I guess this is how we're going to style react-json-tree.
+// This... is the way react-json-tree does styling.
+// This is a collection of hacks to get the styling
+// somewhat closer to the look of NR1
 
 export function notebookJsonTreeStyling() {
   const palette = {

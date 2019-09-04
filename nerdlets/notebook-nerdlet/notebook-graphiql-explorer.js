@@ -1,6 +1,7 @@
 import React from "react"
 import GraphiQLExplorer from 'graphiql-explorer'
 
+// Wraps the OneGraph Explorer with some New Relic specific features.
 export default class NotebookGraphiqlExplorer extends React.Component {
   getDefaultScalarArgValue = (parentField, arg, argType) => {
     if (parentField.name == "account" && arg.name == "id" && this.props.accountId) {
