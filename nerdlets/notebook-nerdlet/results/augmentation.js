@@ -2,8 +2,25 @@ const {isListType, getNamedType, isLeafType, isNonNullType} = require("graphql/t
 const QueryDocumentContext = require('./query-document-context.js')
 import gql from 'graphql-tag'
 
+
+// Oh dear, what's all this?
+// To provide "custom renderers" with enough context to do interesting things
+// we need the data returned by NerdGraph to be augmented. For example...
+//  * We want to mark leaf nodes (scalars) with their typename and leaf status
+//  * Lists (arrays) should be expanded to be objects with properties that
+//    tell us about what they're lists _of_
+//  * Arguments in the query document sent to NerdGraph are valuable bits of information
+//    so they should be included with the data corresponding to that field
+//
+// To achieve this, the JSON results of an introspection query, the AST of the
+// original query document, and the data itself have to be traversed and merged.
+
+
 //TODO: Don't assume this is a Query document (could be mutation, subscription)
 export function expandResponse(schema, query, _variables, root) {
+
+  // This simplified version of the query document allows us to
+  // attach things like field arguments to the final, augmented response data
   let context = QueryDocumentContext.generate(gql(query))
   let operationType;
 
@@ -23,7 +40,7 @@ export function expandResponse(schema, query, _variables, root) {
   return expandNode(null, null, root, [], schema.getTypeMap(), context)
 }
 
-// TODO: Aliases aren't handled yet
+// TODO: Aliases aren't handled yet but that shouldn't be hard.
 function expandNode(parent, currentFieldName, node, path, typeMap, context) {
   let typeName = node.__typename
   let type = typeMap[typeName]
