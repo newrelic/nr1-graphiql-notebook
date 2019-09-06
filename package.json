@@ -8,17 +8,25 @@
   },
   "scripts": {
     "start": "nr1 nerdpack:serve",
-    "test": "exit 0"
+    "test": "exit 0",
+    "eslint-check": "eslint nerdlets/",
+    "eslint-fix": "eslint nerdlets/ --fix"
   },
   "nr1": {
     "uuid": "80d36ced-3065-4247-9d57-9b89e1572f75",
     "sdkVersion": 2
   },
   "dependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "graphiql": "^0.13.2",
     "graphiql-explorer": "https://github.com/mattbaker/graphiql-explorer.git",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.1",
+    "prettier": "^1.18.2",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
