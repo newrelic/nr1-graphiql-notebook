@@ -1,0 +1,10 @@
+# Simple query showing all the releases for the Java Agent.
+# Notice that the query builder has a drop down that lets you select the agent you'd like.
+{
+  docs {
+    agentReleases(agentName: JAVA) {
+      date
+      version
+    }
+  }
+}

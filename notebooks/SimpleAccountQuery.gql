@@ -1,0 +1,9 @@
+# A simple query to list all of the accounts you have access to query.
+{
+  actor {
+    accounts {
+      id
+      name
+    }
+  }
+}

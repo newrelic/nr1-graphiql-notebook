@@ -21,7 +21,11 @@ export default class Notebook extends React.Component {
 }
 
 createCell = (cell) => {
-  let defaultQuery = `
+  let defaultQuery = `# Welcome to GraphiQL Notebooks!
+# Open the "Your Notebooks" dropdown to see the collection of default notebooks
+# to get you started! 
+# Import other cool notebooks from https://github.com/newrelic/nr1-graphiql-notebook/notebooks
+# or add your own through a pull request!
 {
   actor {
     user {
