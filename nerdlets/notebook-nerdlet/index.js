@@ -51,9 +51,11 @@ export default class NotebookNerdlet extends React.Component {
     componentDidMount() {
         Promise.all([
             this.initializeSchema(),
+            this.fetchAccounts(),
             this.initializeNotebooks()
-        ]).then(([schemaResponse, collectionResponse]) => {
+        ]).then(([schemaResponse, accountsResponse, collectionResponse]) => {
             let schema = schemaResponse.data
+            let {actor: {accounts: accounts }} = accountsResponse.data
             let {actor: { nerdStorage: { collection: collection } } } = collectionResponse.data
 
             let urlNotebookUUID = this.props.launcherUrlState.notebook
@@ -63,6 +65,7 @@ export default class NotebookNerdlet extends React.Component {
             this.setState({
                 schema: buildClientSchema(schema),
                 notebooks: notebooks,
+                accounts: accounts || [],
                 currentNotebook: currentNotebook || this.state.emptyNotebook
             })
         })
@@ -74,6 +77,18 @@ export default class NotebookNerdlet extends React.Component {
 
     initializeNotebooks() {
         return UserStorageQuery.query({ collection: COLLECTION })
+    }
+
+    fetchAccounts() {
+        return NerdGraphQuery.query({ query: `
+        {
+            actor {
+                accounts {
+                    id
+                }
+            }
+        }
+        `, fetchPolicyType: 'no-cache' })
     }
 
     saveNotebook = (newNotebook) => {
@@ -140,6 +155,7 @@ export default class NotebookNerdlet extends React.Component {
                 ephemeral={ !!notebook.ephemeral }
                 onSave={ this.saveNotebook }
                 onDelete={ this.onDelete }
+                accounts={ this.state.accounts }
             />
             <Modal hidden={this.state.importHidden} onClose={this.closeImportModal} >
                 <HeadingText>Paste below and press "import"</HeadingText>
