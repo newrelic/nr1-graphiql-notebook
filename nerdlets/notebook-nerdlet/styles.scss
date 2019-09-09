@@ -228,3 +228,8 @@
     display: inline;
   }
 }
+
+
+.search-box input[type="text"]:not(.u-unstyledInput):not(.AAB1AC-wnd-TextField-input):not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]) {
+  padding: 7px 0 7px 24px;
+}

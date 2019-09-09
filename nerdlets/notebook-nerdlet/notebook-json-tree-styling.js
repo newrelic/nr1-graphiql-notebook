@@ -58,7 +58,7 @@ export function notebookJsonTreeStyling() {
     ARROW_COLOR: palette["neutral-extended-500"],
     ITEM_STRING_EXPANDED_COLOR: palette["neutral-extended-500"],
     ITEM_STRING_COLOR: palette["neutral-extended-500"],
-    STRING_COLOR: palette["red-400"],
+    STRING_COLOR: palette["red-800"],
     DATE_COLOR: palette["green-400"],
     NUMBER_COLOR: palette["blue-400"],
     BOOLEAN_COLOR: palette["green-800"],
