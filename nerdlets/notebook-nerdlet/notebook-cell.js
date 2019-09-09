@@ -57,6 +57,23 @@ export default class NotebookCell extends React.Component {
     })
   }
 
+  getDefaultScalarArgValue = (parentField, arg, argType) => {
+    let defaultAccount = this.props.accounts[0]
+    if (parentField.name == "account" && arg.name == "id" && defaultAccount) {
+      return { kind: 'IntValue', value: defaultAccount.id };
+    }
+    if (arg.name == "accountId" && defaultAccount) {
+      return { kind: 'IntValue', value: defaultAccount.id };
+    }
+    if (argType == "Nrql") {
+      return { kind: 'StringValue', value: "SELECT * FROM Transaction SINCE 1 hour ago LIMIT 10" };
+    }
+    if (parentField.name == "nrql" && arg.name == "timeout") {
+      return { kind: 'IntValue', value: 5 };
+    }
+    return GraphiQLExplorer.defaultValue(argType)
+  }
+
   fetcher = ({ query, variables }) => {
     return NerdGraphQuery
       .query({ query, variables, fetchPolicyType: 'no-cache' })

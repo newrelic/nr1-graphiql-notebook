@@ -176,6 +176,7 @@ render() {
                     onCollapse={() => this.updateCell(cell.uuid, {collapsed: true})}
                     onChange={() => { this.serialize() }}
                     onDelete={() => this.onDeleteCell(cell.uuid)}
+                    accounts={ this.props.accounts }
                 />
         })}
 
