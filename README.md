@@ -120,6 +120,7 @@ Clone this repository and run the following scripts:
 ```bash
 git clone https://github.com/newrelic/nr1-graphiql-notebook.git
 cd nr1-graphiql-notebook
+nr1 nerdpack:uuid -gf
 npm install
 npm start
 ```
