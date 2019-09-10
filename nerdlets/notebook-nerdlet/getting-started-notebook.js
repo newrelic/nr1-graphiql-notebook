@@ -4,7 +4,7 @@ const gettingStartedNotebook = (accountId) => {
     "title":"Getting Started",
     "cells": [
       { "query": "{\n  actor {\n    user {\n      email\n      name\n    }\n  }\n}",
-        "notes": "GraphiQL Notebooks are composed of cells. A cell, like this one, contains a section for notes and an instance of the GraphiQL query editor. Let's run a query to see the output."
+        "notes": "Welcome! This is a GraphiQL Notebook. Notebooks are composed of cells. A cell, like this one, contains a section for notes and an instance of the GraphiQL query editor. Let's run a query to see the output."
       },
 
       { "query": "{\n  actor {\n    entitySearch(queryBuilder: {type: APPLICATION}) {\n      results {\n        entities {\n          guid\n          accountId\n          name\n          tags {\n            key\n            values\n          }\n          ... on AlertableEntityOutline {\n            alertSeverity\n          }\n        }\n      }\n    }\n  }\n}\n",
