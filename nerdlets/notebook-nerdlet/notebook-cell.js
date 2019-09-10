@@ -82,7 +82,8 @@ export default class NotebookCell extends React.Component {
           setTimeout(() => {
             this.setState({
               jsonTreeLoading: false,
-              queryResponse: expandResponse(this.props.schema, query, variables, data)
+              queryResponse: expandResponse(this.props.schema, query, variables, data),
+              errors: errors
             })
           }, 0)
         })
@@ -176,7 +177,7 @@ export default class NotebookCell extends React.Component {
               sortObjectKeys={false}
               postprocessValue={treeHelpers.postprocessValue}
               valueRenderer={treeHelpers.valueRenderer}
-              isCustomNode={(node) => node.__custom && React.isValidElement(node.__custom)}
+              isCustomNode={(node) => node && node.__custom && React.isValidElement(node.__custom)}
               data={NodeRenderer.renderTree(this.state.queryResponse, {addCell: this.props.addCell})}
               theme={notebookJsonTreeStyling()}
               hideRoot={true}
@@ -184,8 +185,28 @@ export default class NotebookCell extends React.Component {
             />
           }
         </div>
+
+        {!this.state.jsonTreeLoading && this.state.errors ?
+          this.renderErrors() :
+          null
+        }
       </div>
     </div>
+  }
+
+  renderErrors() {
+    if (!this.state.errors) return null
+    return <>
+      <div className="cell-out-error">
+        Errors [{this.props.cellIndex}]
+       </div>
+      <JSONTree
+        data={this.state.errors}
+        theme={notebookJsonTreeStyling()}
+        hideRoot={true}
+        shouldExpandNode={() => true}
+      />
+    </>
   }
 }
 

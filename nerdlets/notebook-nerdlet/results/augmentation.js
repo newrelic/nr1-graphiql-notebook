@@ -42,6 +42,7 @@ export function expandResponse(schema, query, _variables, root) {
 
 // TODO: Aliases aren't handled yet but that shouldn't be hard.
 function expandNode(parent, currentFieldName, node, path, typeMap, context) {
+  if (node == null) return null
   let typeName = node.__typename
   let type = typeMap[typeName]
   let fields = type.getFields()
