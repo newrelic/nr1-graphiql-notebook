@@ -99,6 +99,11 @@
   color: $brand-400;
 }
 
+.cell-out-error {
+  @extend .cell-label;
+  color: $red-800;
+}
+
 .cell-out-value {
   margin: 14px;
   &> ul {
