@@ -52,7 +52,7 @@ mutation {
   `
     return <Button
         type={Button.TYPE.NORMAL}
-        sizeType={Button.SIZE_TYPE.SLIM}
+        sizeType={Button.SIZE_TYPE.SMALL}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
           addCell({

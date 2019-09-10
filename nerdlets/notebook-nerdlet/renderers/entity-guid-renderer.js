@@ -33,7 +33,7 @@ export default class EntityGuidRenderer extends React.Component {
       <br />
       <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER__S_OK}
           onClick={() => {
             navigation.openStackedNerdlet({
@@ -46,7 +46,7 @@ export default class EntityGuidRenderer extends React.Component {
 
       <Button
         type={Button.TYPE.PLAIN_NEUTRAL}
-        sizeType={Button.SIZE_TYPE.SLIM}
+        sizeType={Button.SIZE_TYPE.SMALL}
         iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
         onClick={() => {
           addCell({

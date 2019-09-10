@@ -66,7 +66,7 @@ export default class NRQLRenderer extends React.Component {
         <br />
         <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.DATAVIZ__DATAVIZ__CHART__A_EDIT}
           onClick={() => {
             navigation.openStackedNerdlet({
@@ -83,7 +83,7 @@ export default class NRQLRenderer extends React.Component {
         </Button>
         <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.DATAVIZ__DATAVIZ__LINE_CHART}
           onClick={() => { this.setState({chart: "line"}) }}
         >
@@ -91,7 +91,7 @@ export default class NRQLRenderer extends React.Component {
         </Button>
         <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.DATAVIZ__DATAVIZ__PIE_CHART}
           onClick={() => { this.setState({chart: "pie"}) }}
         >
@@ -99,7 +99,7 @@ export default class NRQLRenderer extends React.Component {
         </Button>
         <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.DATAVIZ__DATAVIZ__BAR_CHART}
           onClick={() => { this.setState({chart: "bar"}) }}
         >
@@ -107,7 +107,7 @@ export default class NRQLRenderer extends React.Component {
         </Button>
         <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
-          sizeType={Button.SIZE_TYPE.SLIM}
+          sizeType={Button.SIZE_TYPE.SMALL}
           iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
           onClick={() => { addCell({query: suggestedQuery, notes: "It's easy to make NRQL queries in GraphQL."}) }}
         >
