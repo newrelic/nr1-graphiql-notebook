@@ -6,6 +6,7 @@ import { HeadingText, Modal, Button, Stack, StackItem, UserStorageQuery, UserSto
 import { launcher, NerdGraphQuery } from 'nr1';
 import { getIntrospectionQuery, buildClientSchema } from "graphql";
 import { uuidv4 } from "./uuid";
+import { gettingStartedNotebook } from "./getting-started-notebook.js"
 
 const COLLECTION = "graphiql-notebook"
 
@@ -60,6 +61,13 @@ export default class NotebookNerdlet extends React.Component {
 
             let urlNotebookUUID = this.props.launcherUrlState.notebook
             let notebooks = collection.map(({document}) => document)
+
+            //If the collection's empty, show "Getting Started"
+            if (notebooks.length == 0) {
+                let gettingStarted = gettingStartedNotebook(accounts && accounts[0] && accounts[0].id || 1)
+                urlNotebookUUID = gettingStarted.uuid
+                notebooks.push(gettingStarted)
+            }
             let currentNotebook = notebooks.find((notebook) => notebook.uuid == urlNotebookUUID)
 
             this.setState({
