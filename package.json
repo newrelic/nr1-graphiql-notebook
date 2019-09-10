@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "graphiql-notebook",
+  "name": "nr1-graphiql-notebook",
   "description": "NR1 UI Package graphiql-notebook",
   "version": "0.2.0",
   "bugs": {
