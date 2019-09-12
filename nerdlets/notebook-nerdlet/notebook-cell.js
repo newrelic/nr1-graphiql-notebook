@@ -121,7 +121,7 @@ export default class NotebookCell extends React.Component {
         </div>
 
       <div className="notebook-cell-input-summary-bar" onClick={this.props.onExpand} style={{display: this.props.collapsed ? null : "none"}}>
-        <Stack alignmentType={Stack.ALIGNMENT_TYPE.TRAILING}>
+        <Stack horizontalType={Stack.HORIZONTAL_TYPE.BOTTOM}>
           <StackItem grow={true} className="notebook-cell-input-summary">
             {this.state.query}
           </StackItem>

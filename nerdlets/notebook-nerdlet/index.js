@@ -57,7 +57,7 @@ export default class NotebookNerdlet extends React.Component {
         ]).then(([schemaResponse, accountsResponse, collectionResponse]) => {
             let schema = schemaResponse.data
             let {actor: {accounts: accounts }} = accountsResponse.data
-            let {actor: { nerdStorage: { collection: collection } } } = collectionResponse.data
+            let collection = collectionResponse.data
 
             let urlNotebookUUID = this.props.launcherUrlState.notebook
             let notebooks = collection.map(({document}) => document)
@@ -202,7 +202,7 @@ export default class NotebookNerdlet extends React.Component {
         const currentNotebook = this.state.currentNotebook
         return <div className="notebook-header">
                 <HeadingText style={{marginBottom:"14px", color: "#8e9494"}}>Your Notebooks</HeadingText>
-                <Stack gapType={Stack.GAP_TYPE.BASE} alignmentType={Stack.ALIGNMENT_TYPE.CENTER}>
+                <Stack gapType={Stack.GAP_TYPE.BASE} horizontalType={Stack.HORIZONTAL_TYPE.CENTER}>
                     <StackItem>
                         <div style={{ width: "300px" }}>
                             <Select

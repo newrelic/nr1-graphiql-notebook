@@ -114,7 +114,7 @@ renderNotebookToolbar() {
           className={ this.state.titleError ? "notebook-name-error" : ""}
           value={this.state.title || undefined}
           onChange={this.onEditTitle} />
-        <Stack gapType={Stack.GAP_TYPE.BASE}>
+        <Stack fullWidth gapType={Stack.GAP_TYPE.BASE}>
             <StackItem grow={true}>
                 <Button
                     onClick={() => this.addCell({})}
