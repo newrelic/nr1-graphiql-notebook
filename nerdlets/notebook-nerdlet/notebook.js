@@ -112,7 +112,7 @@ renderNotebookToolbar() {
           label='Notebook Name'
           placeholder='My Great Notebook'
           className={ this.state.titleError ? "notebook-name-error" : ""}
-          value={this.state.title || undefined}
+          value={this.state.title || ''}
           onChange={this.onEditTitle} />
         <Stack fullWidth gapType={Stack.GAP_TYPE.BASE}>
             <StackItem grow={true}>
