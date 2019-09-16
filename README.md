@@ -4,7 +4,7 @@
 
 ## Usage
 
-The nr1-graphiql-notebook page provides a Jupyter-inspired GraphiQL Notebook utility. Notebooks are composed of cells. Each cell has a small GraphiQL instance and its own notes section and rendered output. 
+The nr1-graphiql-notebook page provides a Jupyter-inspired GraphiQL Notebook utility for exploring New Relic's [NerdGraph endpoint](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial). Notebooks are composed of cells. Each cell has a small GraphiQL instance and its own notes section and rendered output. 
 
 Notebooks can be created, updated, saved and deleted.
 
@@ -12,7 +12,7 @@ Notebooks can be exported and shared as blocks of Base64-encoded JSON.
 
 ![Screenshot #1](screenshots/screenshot-0.png)
 
-GraphQL output is rendered with context-aware interactive elements that allow you to explore and learn about the New Relic GraphQL API dynamically. 
+GraphQL output is rendered with context-aware interactive elements that allow you to explore and learn about the [NerdGraph API](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically. 
 
 ![Screenshot #1](screenshots/screenshot-1.png)
 
