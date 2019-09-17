@@ -202,7 +202,7 @@ export default class NotebookNerdlet extends React.Component {
         const currentNotebook = this.state.currentNotebook
         return <div className="notebook-header">
                 <HeadingText style={{marginBottom:"14px", color: "#8e9494"}}>Your Notebooks</HeadingText>
-                <Stack gapType={Stack.GAP_TYPE.BASE} horizontalType={Stack.HORIZONTAL_TYPE.CENTER}>
+                <Stack gapType={Stack.GAP_TYPE.BASE} verticalType={Stack.VERTICAL_TYPE.CENTER} horizontalType={Stack.HORIZONTAL_TYPE.CENTER}>
                     <StackItem>
                         <div style={{ width: "300px" }}>
                             <Select
