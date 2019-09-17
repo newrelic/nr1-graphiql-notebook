@@ -27,17 +27,17 @@ export default class NRQLRenderer extends React.Component {
     switch (chart) {
       case "line":
         return <div style={{ width: "100%", height: "300px", marginTop: "20px" }}>
-          <LineChart accountId={accountId} query={nrqlQuery}/>
+          <LineChart fullWidth accountId={accountId} query={nrqlQuery}/>
         </div>
 
       case "bar":
         return <div style={{ width: "100%", height: "300px", marginTop: "20px" }}>
-          <BarChart accountId={accountId} query={nrqlQuery}/>
+          <BarChart fullWidth accountId={accountId} query={nrqlQuery}/>
         </div>
 
       case "pie":
         return <div style={{ width: "100%", height: "300px", marginTop: "20px" }}>
-          <PieChart accountId={accountId} query={nrqlQuery}/>
+          <PieChart fullWidth accountId={accountId} query={nrqlQuery}/>
         </div>
 
       default:

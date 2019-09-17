@@ -95,7 +95,7 @@ export default class NotebookCell extends React.Component {
     if (!this.props.schema) return <Spinner fillContainer />;
     return <div ref={this.props.domRef} className="notebook-cell">
         <div className="notebook-cell-header">
-          <Stack gapType={Stack.GAP_TYPE.NONE}>
+          <Stack fullWidth gapType={Stack.GAP_TYPE.NONE}>
             <StackItem shrink={true}>
               <div className="cell-in-label">In [{this.props.cellIndex}]</div>
             </StackItem>
@@ -121,7 +121,7 @@ export default class NotebookCell extends React.Component {
         </div>
 
       <div className="notebook-cell-input-summary-bar" onClick={this.props.onExpand} style={{display: this.props.collapsed ? null : "none"}}>
-        <Stack horizontalType={Stack.HORIZONTAL_TYPE.BOTTOM}>
+        <Stack fullWidth horizontalType={Stack.HORIZONTAL_TYPE.BOTTOM}>
           <StackItem grow={true} className="notebook-cell-input-summary">
             {this.state.query}
           </StackItem>
