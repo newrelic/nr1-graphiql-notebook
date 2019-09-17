@@ -3,6 +3,5 @@
     "id": "notebook-launcher",
     "displayName": "GraphiQL Notebook",
     "description": "Create Notebooks of GraphQL Queries",
-    "icon": "documents_documents_notes_a-edit",
     "rootNerdletId": "notebook-nerdlet"
 }
