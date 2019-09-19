@@ -4,7 +4,7 @@
 
 ## Usage
 
-The nr1-graphiql-notebook page provides a Jupyter-inspired GraphiQL Notebook utility for exploring New Relic's [NerdGraph endpoint](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial). Notebooks are composed of cells. Each cell has a small GraphiQL instance and its own notes section and rendered output. 
+The nr1-graphiql-notebook page provides a Jupyter-inspired GraphiQL Notebook utility for exploring New Relic's [NerdGraph endpoint](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial). Notebooks are composed of cells. Each cell has a small GraphiQL instance and its own notes section and rendered output.
 
 Notebooks can be created, updated, saved and deleted.
 
@@ -12,7 +12,7 @@ Notebooks can be exported and shared as blocks of Base64-encoded JSON.
 
 ![Screenshot #1](screenshots/screenshot-0.png)
 
-GraphQL output is rendered with context-aware interactive elements that allow you to explore and learn about the [NerdGraph API](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically. 
+GraphQL output is rendered with context-aware interactive elements that allow you to explore and learn about the [NerdGraph API](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically.
 
 ![Screenshot #1](screenshots/screenshot-1.png)
 
@@ -24,9 +24,9 @@ eyJjZWxscyI6W3sicXVlcnkiOiJ7XG4gIGFjdG9yIHtcbiAgICB1c2VyIHtcbiAgICAgIGVtYWlsXG4g
 
 ## Renderers
 
-Context-aware rendering is made possible by a set of custom renderers that know how to render certain types or fields. 
+Context-aware rendering is made possible by a set of custom renderers that know how to render certain types or fields.
 
-Renderers are simply React component classes with an additional static method, `test`, that accepts a node in the output and determines whether it can render that node with a custom representation. You'll find existing renderers in `nerdlets/notebook-nerdlet/renderers` (`epoch-milliseconds-renderer.js` is a friendly one).  
+Renderers are simply React component classes with an additional static method, `test`, that accepts a node in the output and determines whether it can render that node with a custom representation. You'll find existing renderers in `nerdlets/notebook-nerdlet/renderers` (`epoch-milliseconds-renderer.js` is a friendly one).
 
 Documentation is a little lacking at the moment but you _could_ drop your own renderer in today!  Here's one you can try out that will link account IDs on account objects to the account page in APM.
 
@@ -39,7 +39,7 @@ import React from 'react';
 export default class AccountIdRenderer extends React.Component {
   static test(node) {
     let parent = node.__meta.parent
-    
+
     if (!parent) return false
 
     let isAccountTypeObject = parent.__meta.typename == "Account" ||
@@ -76,7 +76,7 @@ Now send a query that includes an account ID to see your new renderer in action!
 
 GraphiQL Notebook augments the response data from the GraphQL server with additional information from...
 
- * your GraphQL query's AST 
+ * your GraphQL query's AST
  * the standard GraphQL introspection response containing schema information
 
 This allows you to write renderers that know a lot about the data they are looking at. You can ask questions like:
@@ -118,7 +118,7 @@ GraphiQL Notebook will work out-of-the-box, but it's most interesting if you hav
 Clone this repository and run the following scripts:
 
 ```bash
-git clone https://github.com/newrelic/nr1-graphiql-notebook.git
+nr1 nerdpack:clone -r https://github.com/newrelic/nr1-graphiql-notebook.git
 cd nr1-graphiql-notebook
 nr1 nerdpack:uuid -gf
 npm install
