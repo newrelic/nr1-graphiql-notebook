@@ -114,8 +114,14 @@ This project is distributed under the [Apache 2 license](LICENSE).
 GraphiQL Notebook will work out-of-the-box, but it's most interesting if you have entities you can search for and interact with.
 
 ## Getting started
+First, ensure that you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [NPM](https://www.npmjs.com/get-npm) installed. If you're unsure whether you have one or both of them installed, run the following command(s) (If you have them installed these commands will return a version number, if not, the commands won't be recognized):
 
-Clone this repository and run the following scripts:
+```bash
+git --version
+npm -v
+```
+
+Next, clone this repository and run the following scripts:
 
 ```bash
 nr1 nerdpack:clone -r https://github.com/newrelic/nr1-graphiql-notebook.git
