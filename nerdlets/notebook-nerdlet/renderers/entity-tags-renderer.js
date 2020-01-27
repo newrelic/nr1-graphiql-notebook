@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { List, ListItem, Button } from 'nr1';
 import { normalizeWhitespace } from './util';
 import { searchAncestors } from '../results/util.js';
@@ -12,42 +14,14 @@ export default class EntityTagsRenderer extends React.Component {
     );
   }
 
-  render() {
-    const tags = this.props.node.value;
-    const guid = searchAncestors(
-      this.props.node,
-      // too permissive, need to keep track of interfaces and types both
-      // to make this easier
-      ancestor =>
-        (ancestor.__meta.context &&
-          ancestor.__meta.context.arguments.guid &&
-          ancestor.__meta.context.arguments.guid.value) ||
-        (ancestor.guid && ancestor.guid.value),
-      ancestor =>
-        (ancestor.__meta.context.arguments.guid &&
-          ancestor.__meta.context.arguments.guid.value) ||
-        (ancestor.guid && ancestor.guid.value)
-    );
-
-    return (
-      <>
-        <List rowHeight={30} style={{ display: 'inline-block', width: 'auto' }}>
-          <ListItem key="new-tag">
-            {this.renderEntityTagMutationButton(guid)}
-          </ListItem>
-          {this.expandTags(tags).map(tag => {
-            return (
-              <ListItem key={`${tag.key}-${tag.value}`}>
-                <b style={{ color: '#464E4E' }}>{tag.key}</b>={tag.value}
-                &nbsp;
-                {this.renderEntitySearchButton(tag.key, tag.value)}
-              </ListItem>
-            );
-          })}
-        </List>
-      </>
-    );
-  }
+  static propTypes = {
+    node: PropTypes.shape({
+      value: PropTypes.string
+    }),
+    util: PropTypes.shape({
+      addCell: PropTypes.func
+    })
+  };
 
   expandTags(tags) {
     return flatMap(tags, tag => {
@@ -123,6 +97,43 @@ mutation {
       >
         Add a tag to this Entity
       </Button>
+    );
+  }
+
+  render() {
+    const tags = this.props.node.value;
+    const guid = searchAncestors(
+      this.props.node,
+      // too permissive, need to keep track of interfaces and types both
+      // to make this easier
+      ancestor =>
+        (ancestor.__meta.context &&
+          ancestor.__meta.context.arguments.guid &&
+          ancestor.__meta.context.arguments.guid.value) ||
+        (ancestor.guid && ancestor.guid.value),
+      ancestor =>
+        (ancestor.__meta.context.arguments.guid &&
+          ancestor.__meta.context.arguments.guid.value) ||
+        (ancestor.guid && ancestor.guid.value)
+    );
+
+    return (
+      <>
+        <List rowHeight={30} style={{ display: 'inline-block', width: 'auto' }}>
+          <ListItem key="new-tag">
+            {this.renderEntityTagMutationButton(guid)}
+          </ListItem>
+          {this.expandTags(tags).map(tag => {
+            return (
+              <ListItem key={`${tag.key}-${tag.value}`}>
+                <b style={{ color: '#464E4E' }}>{tag.key}</b>={tag.value}
+                &nbsp;
+                {this.renderEntitySearchButton(tag.key, tag.value)}
+              </ListItem>
+            );
+          })}
+        </List>
+      </>
     );
   }
 }

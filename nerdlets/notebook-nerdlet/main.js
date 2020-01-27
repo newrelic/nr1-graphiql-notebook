@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Notebook from './notebook.js';
 import Select from 'react-select'; // replace w/ dropdown
 import {
@@ -9,9 +10,10 @@ import {
   Stack,
   StackItem,
   UserStorageQuery,
-  UserStorageMutation
+  UserStorageMutation,
+  nerdlet,
+  NerdGraphQuery
 } from 'nr1';
-import { nerdlet, NerdGraphQuery } from 'nr1';
 import { getIntrospectionQuery, buildClientSchema } from 'graphql';
 import { uuidv4 } from './uuid';
 import { gettingStartedNotebook } from './getting-started-notebook.js';
@@ -20,10 +22,7 @@ const COLLECTION = 'graphiql-notebook';
 
 export default class NotebookNerdlet extends React.Component {
   static propTypes = {
-    nerdletUrlState: PropTypes.object,
-    launcherUrlState: PropTypes.object,
-    width: PropTypes.number,
-    height: PropTypes.number
+    nerdletUrlState: PropTypes.object
   };
 
   constructor(props) {
@@ -35,26 +34,6 @@ export default class NotebookNerdlet extends React.Component {
       currentNotebook: emptyNotebook,
       importHidden: true
     };
-  }
-
-  newEmptyNotebook() {
-    return {
-      uuid: uuidv4(),
-      schemaVersion: 0,
-      title: 'New Notebook',
-      cells: null,
-      ephemeral: true
-    };
-  }
-
-  getNotebook(uuid) {
-    return this.getNotebooks().find(notebook => {
-      return notebook.uuid === uuid;
-    });
-  }
-
-  getNotebooks() {
-    return [this.state.emptyNotebook].concat(this.state.notebooks);
   }
 
   componentDidMount() {
@@ -84,13 +63,33 @@ export default class NotebookNerdlet extends React.Component {
         notebook => notebook.uuid === urlNotebookUUID
       );
 
-      this.setState({
+      this.setState(prevState => ({
         schema: buildClientSchema(schema),
         notebooks: notebooks,
         accounts: accounts || [],
-        currentNotebook: currentNotebook || this.state.emptyNotebook
-      });
+        currentNotebook: currentNotebook || prevState.emptyNotebook
+      }));
     });
+  }
+
+  newEmptyNotebook() {
+    return {
+      uuid: uuidv4(),
+      schemaVersion: 0,
+      title: 'New Notebook',
+      cells: null,
+      ephemeral: true
+    };
+  }
+
+  getNotebook(uuid) {
+    return this.getNotebooks().find(notebook => {
+      return notebook.uuid === uuid;
+    });
+  }
+
+  getNotebooks() {
+    return [this.state.emptyNotebook].concat(this.state.notebooks);
   }
 
   initializeSchema() {
@@ -120,22 +119,22 @@ export default class NotebookNerdlet extends React.Component {
   }
 
   saveNotebook = newNotebook => {
+    const emptyNotebook =
+      newNotebook.uuid === this.state.emptyNotebook.uuid
+        ? this.newEmptyNotebook()
+        : this.state.emptyNotebook;
+
+    const notesbooks =
+      this.state.notebooks.indexOf(newNotebook) > -1
+        ? this.state.notebooks.slice(0).concat([newNotebook])
+        : this.state.notebooks;
+
     return UserStorageMutation.mutate({
       actionType: UserStorageMutation.ACTION_TYPE.WRITE_DOCUMENT,
       collection: COLLECTION,
       documentId: newNotebook.uuid,
       document: newNotebook
     }).then(() => {
-      const emptyNotebook =
-        newNotebook.uuid === this.state.emptyNotebook.uuid
-          ? this.newEmptyNotebook()
-          : this.state.emptyNotebook;
-
-      const notesbooks =
-        this.state.notebooks.indexOf(newNotebook) > -1
-          ? this.state.notebooks.slice(0).concat([newNotebook])
-          : this.state.notebooks;
-
       this.setState(
         {
           notebooks: notesbooks,
@@ -150,15 +149,16 @@ export default class NotebookNerdlet extends React.Component {
   };
 
   onDelete = uuid => {
+    const notebooks = this.state.notebooks.slice(0).filter(notebook => {
+      return notebook.uuid !== uuid;
+    });
+    const currentNotebook = this.getNotebook(this.state.emptyNotebook.uuid);
+
     UserStorageMutation.mutate({
       actionType: UserStorageMutation.ACTION_TYPE.DELETE_DOCUMENT,
       collection: COLLECTION,
       documentId: uuid
     }).then(() => {
-      const notebooks = this.state.notebooks.slice(0).filter(notebook => {
-        return notebook.uuid != uuid;
-      });
-      const currentNotebook = this.getNotebook(this.state.emptyNotebook.uuid);
       this.setState(
         {
           notebooks: notebooks,
@@ -184,48 +184,6 @@ export default class NotebookNerdlet extends React.Component {
   };
 
   closeImportModal = () => this.setState({ importHidden: true });
-
-  render() {
-    const notebook = this.state.currentNotebook;
-    return (
-      <div className="notebook">
-        {this.renderHeader()}
-        <Notebook
-          key={notebook.uuid}
-          uuid={notebook.uuid}
-          schema={this.state.schema}
-          title={notebook.title}
-          cells={notebook.cells}
-          ephemeral={!!notebook.ephemeral}
-          onSave={this.saveNotebook}
-          onDelete={this.onDelete}
-          accounts={this.state.accounts}
-        />
-        <Modal hidden={this.state.importHidden} onClose={this.closeImportModal}>
-          <HeadingText>Paste below and press "import"</HeadingText>
-          <textarea
-            ref={r => (this.importTextArea = r)}
-            className="notebook-import-export-box"
-          />
-          <Button
-            onClick={() => {
-              const encodedNotebook = this.importTextArea.value;
-              if (encodedNotebook) {
-                const decodedNotebook = JSON.parse(atob(encodedNotebook));
-                this.saveNotebook(decodedNotebook).then(() => {
-                  this.closeImportModal();
-                });
-              }
-            }}
-            type={Button.TYPE.NORMAL}
-            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}
-          >
-            Import
-          </Button>
-        </Modal>
-      </div>
-    );
-  }
 
   notebookOptions = () => {
     return this.getNotebooks().map(notebook => {
@@ -273,6 +231,48 @@ export default class NotebookNerdlet extends React.Component {
             </Button>
           </StackItem>
         </Stack>
+      </div>
+    );
+  }
+
+  render() {
+    const notebook = this.state.currentNotebook;
+    return (
+      <div className="notebook">
+        {this.renderHeader()}
+        <Notebook
+          key={notebook.uuid}
+          uuid={notebook.uuid}
+          schema={this.state.schema}
+          title={notebook.title}
+          cells={notebook.cells}
+          ephemeral={!!notebook.ephemeral}
+          onSave={this.saveNotebook}
+          onDelete={this.onDelete}
+          accounts={this.state.accounts}
+        />
+        <Modal hidden={this.state.importHidden} onClose={this.closeImportModal}>
+          <HeadingText>Paste below and press "import"</HeadingText>
+          <textarea
+            ref={r => (this.importTextArea = r)}
+            className="notebook-import-export-box"
+          />
+          <Button
+            onClick={() => {
+              const encodedNotebook = this.importTextArea.value;
+              if (encodedNotebook) {
+                const decodedNotebook = JSON.parse(atob(encodedNotebook));
+                this.saveNotebook(decodedNotebook).then(() => {
+                  this.closeImportModal();
+                });
+              }
+            }}
+            type={Button.TYPE.NORMAL}
+            iconType={Button.ICON_TYPE.INTERFACE__OPERATIONS__IMPORT}
+          >
+            Import
+          </Button>
+        </Modal>
       </div>
     );
   }

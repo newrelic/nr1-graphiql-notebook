@@ -1,8 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { navigation, Button, LineChart, BarChart, PieChart } from 'nr1';
 import { searchAncestors } from '../results/util.js';
 
 export default class NRQLRenderer extends React.Component {
+  static test(node) {
+    return node.__meta.typename === 'Nrql';
+  }
+
+  static propTypes = {
+    node: PropTypes.shape({
+      value: PropTypes.string
+    }),
+    util: PropTypes.shape({
+      addCell: PropTypes.func
+    })
+  };
+
   constructor(props) {
     super(props);
 
@@ -18,10 +33,6 @@ export default class NRQLRenderer extends React.Component {
       nrqlQuery: this.props.node.value,
       chart: null
     };
-  }
-
-  static test(node) {
-    return node.__meta.typename === 'Nrql';
   }
 
   renderChart() {

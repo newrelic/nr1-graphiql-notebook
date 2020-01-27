@@ -1,9 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { HeadingText, Button, Stack, StackItem, TextField, Modal } from 'nr1';
 import NotebookCell from './notebook-cell';
 import { uuidv4 } from './uuid';
 
 export default class Notebook extends React.Component {
+  static propTypes = {
+    ephemeral: PropTypes.string,
+    title: PropTypes.string,
+    cells: PropTypes.array,
+    onDelete: PropTypes.func,
+    uuid: PropTypes.string,
+    onSave: PropTypes.func,
+    schema: PropTypes.object,
+    accounts: PropTypes.array
+  };
+
   constructor(props) {
     super(props);
 
@@ -56,10 +69,12 @@ export default class Notebook extends React.Component {
   };
 
   onDeleteCell = cellUUID => {
-    const cells = this.state.cells.filter(cell => {
-      return cell.uuid != cellUUID;
+    this.setState(prevState => {
+      const cells = prevState.cells.filter(cell => {
+        return cell.uuid !== cellUUID;
+      });
+      return cells;
     });
-    this.setState({ cells });
   };
 
   serialize = () => {
@@ -80,10 +95,11 @@ export default class Notebook extends React.Component {
   };
 
   popCell() {
-    this.setState({ cells: this.state.cells.slice(0, -1) });
+    this.setState(prevState => ({ cells: prevState.cells.slice(0, -1) }));
   }
 
   addCell = cell => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const cells = this.state.cells.map(cell => {
       return { ...cell, collapsed: true };
     });
@@ -100,13 +116,15 @@ export default class Notebook extends React.Component {
   };
 
   updateCell = (cellUUID, cellUpdate) => {
-    const cells = this.state.cells.map(cell => {
-      if (cell.uuid === cellUUID) {
-        return { ...cell, ...cellUpdate };
-      }
-      return cell;
+    this.setState(prevState => {
+      const cells = prevState.cells.map(cell => {
+        if (cell.uuid === cellUUID) {
+          return { ...cell, ...cellUpdate };
+        }
+        return cell;
+      });
+      return cells;
     });
-    this.setState({ cells });
   };
 
   renderNotebookToolbar() {

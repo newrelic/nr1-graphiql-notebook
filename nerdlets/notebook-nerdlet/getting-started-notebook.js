@@ -24,7 +24,7 @@ const gettingStartedNotebook = accountId => {
       },
 
       {
-        query: `{\n  actor {\n    account(id: ${accountId}) {\n      nrql(query: \"SELECT count(*) FROM Transaction SINCE 10 minutes ago\") {\n        suggestedFacets {\n          nrql\n        }\n      }\n    }\n  }\n}\n`,
+        query: `{\n  actor {\n    account(id: ${accountId}) {\n      nrql(query: "SELECT count(*) FROM Transaction SINCE 10 minutes ago") {\n        suggestedFacets {\n          nrql\n        }\n      }\n    }\n  }\n}\n`,
         notes:
           "In this next example you'll see we do a NRQL query and show some interesting things about the suggested facets."
       }

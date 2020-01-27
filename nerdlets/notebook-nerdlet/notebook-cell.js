@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   NerdGraphQuery,
   Spinner,
@@ -18,7 +20,21 @@ import NotebookStorage from './graphiql/notebook-storage.js';
 const NodeRenderer = require('./renderers/render.js');
 
 export default class NotebookCell extends React.Component {
-  static cellCounter = 0;
+  static propTypes = {
+    uuid: PropTypes.string,
+    notes: PropTypes.array,
+    query: PropTypes.string,
+    onChange: PropTypes.func,
+    accounts: PropTypes.array,
+    schema: PropTypes.object,
+    addCell: PropTypes.func,
+    cellIndex: PropTypes.string,
+    collapsed: PropTypes.bool,
+    onExpand: PropTypes.bool,
+    onDelete: PropTypes.func,
+    domRef: PropTypes.object,
+    onCollapse: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
@@ -30,6 +46,8 @@ export default class NotebookCell extends React.Component {
       queryResponse: {}
     };
   }
+
+  static cellCounter = 0;
 
   // Obviously the state of the children should be pulled up
   // but GraphiQL doesn't make that easy, especially combined with OneGraph's Explorer.
@@ -110,6 +128,21 @@ export default class NotebookCell extends React.Component {
       return { data: this.stripTypeName(data), errors };
     });
   };
+
+  renderErrors() {
+    if (!this.state.errors) return null;
+    return (
+      <>
+        <div className="cell-out-error">Errors [{this.props.cellIndex}]</div>
+        <JSONTree
+          data={this.state.errors}
+          theme={notebookJsonTreeStyling()}
+          hideRoot
+          shouldExpandNode={() => true}
+        />
+      </>
+    );
+  }
 
   render() {
     if (!this.props.schema) return <Spinner fillContainer />;
@@ -235,21 +268,6 @@ export default class NotebookCell extends React.Component {
             : null}
         </div>
       </div>
-    );
-  }
-
-  renderErrors() {
-    if (!this.state.errors) return null;
-    return (
-      <>
-        <div className="cell-out-error">Errors [{this.props.cellIndex}]</div>
-        <JSONTree
-          data={this.state.errors}
-          theme={notebookJsonTreeStyling()}
-          hideRoot
-          shouldExpandNode={() => true}
-        />
-      </>
     );
   }
 }

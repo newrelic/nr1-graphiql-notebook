@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Button } from 'nr1';
 import { normalizeWhitespace } from './util';
 import { searchAncestors } from '../results/util.js';
@@ -10,6 +12,18 @@ export default class EntityAlertSeverityRenderer extends React.Component {
       node.value === 'NOT_CONFIGURED'
     );
   }
+
+  static propTypes = {
+    node: PropTypes.shape({
+      guid: PropTypes.shape({
+        value: PropTypes.string
+      }),
+      value: PropTypes.string
+    }),
+    util: PropTypes.shape({
+      addCell: PropTypes.func
+    })
+  };
 
   getEntityGuid() {
     // TODO: augment response with interfaces as well as typenames so that we can
@@ -31,18 +45,6 @@ export default class EntityAlertSeverityRenderer extends React.Component {
           ancestor.__meta.context.arguments.guid.value)
     );
     return guid;
-  }
-
-  render() {
-    const entityGuid = this.getEntityGuid();
-    const alertSeverity = this.props.node.value;
-    return (
-      <>
-        <span className="json-tree-text-field">{alertSeverity}</span>
-        &nbsp;
-        {entityGuid ? this.renderJumpStartButton(entityGuid) : null}
-      </>
-    );
   }
 
   renderJumpStartButton(entityGuid) {
@@ -77,6 +79,18 @@ mutation {
       >
         Add an alert policy to this entity
       </Button>
+    );
+  }
+
+  render() {
+    const entityGuid = this.getEntityGuid();
+    const alertSeverity = this.props.node.value;
+    return (
+      <>
+        <span className="json-tree-text-field">{alertSeverity}</span>
+        &nbsp;
+        {entityGuid ? this.renderJumpStartButton(entityGuid) : null}
+      </>
     );
   }
 }

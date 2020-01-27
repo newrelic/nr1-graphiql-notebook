@@ -95,6 +95,7 @@ export function notebookJsonTreeStyling() {
       backgroundColor: colors.BACKGROUND_COLOR
     },
 
+    // eslint-disable-next-line no-unused-vars
     value: ({ style }, nodeType, keyPath) => ({
       style: {
         ...style,

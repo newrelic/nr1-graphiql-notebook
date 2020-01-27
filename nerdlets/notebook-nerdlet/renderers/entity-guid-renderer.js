@@ -1,10 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { navigation, Button } from 'nr1';
 
 export default class EntityGuidRenderer extends React.Component {
   static test(node) {
     return node.__meta.typename === 'EntityGuid';
   }
+
+  static propTypes = {
+    node: PropTypes.shape({
+      value: PropTypes.string
+    }),
+    util: PropTypes.shape({
+      addCell: PropTypes.func
+    })
+  };
 
   render() {
     const entityGuid = this.props.node.value;
