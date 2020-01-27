@@ -49,7 +49,7 @@ export default class NotebookNerdlet extends React.Component {
 
   getNotebook(uuid) {
     return this.getNotebooks().find(notebook => {
-      return notebook.uuid == uuid;
+      return notebook.uuid === uuid;
     });
   }
 
@@ -73,7 +73,7 @@ export default class NotebookNerdlet extends React.Component {
       const notebooks = collection.map(({ document }) => document);
 
       // If the collection's empty, show "Getting Started"
-      if (notebooks.length == 0) {
+      if (notebooks.length === 0) {
         const gettingStarted = gettingStartedNotebook(
           (accounts && accounts[0] && accounts[0].id) || 1
         );
@@ -81,7 +81,7 @@ export default class NotebookNerdlet extends React.Component {
         notebooks.push(gettingStarted);
       }
       const currentNotebook = notebooks.find(
-        notebook => notebook.uuid == urlNotebookUUID
+        notebook => notebook.uuid === urlNotebookUUID
       );
 
       this.setState({

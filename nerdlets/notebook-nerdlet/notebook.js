@@ -101,7 +101,7 @@ export default class Notebook extends React.Component {
 
   updateCell = (cellUUID, cellUpdate) => {
     const cells = this.state.cells.map(cell => {
-      if (cell.uuid == cellUUID) {
+      if (cell.uuid === cellUUID) {
         return { ...cell, ...cellUpdate };
       }
       return cell;

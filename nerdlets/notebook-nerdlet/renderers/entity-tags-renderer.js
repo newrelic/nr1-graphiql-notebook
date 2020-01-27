@@ -7,8 +7,8 @@ export default class EntityTagsRenderer extends React.Component {
   static test(node) {
     return (
       node.__meta.list &&
-      node.__meta.ofTypeName == 'EntityTag' &&
-      !node.value.find(tag => tag.values == undefined || tag.values == null)
+      node.__meta.ofTypeName === 'EntityTag' &&
+      !node.value.find(tag => tag.values === undefined || tag.values === null)
     );
   }
 

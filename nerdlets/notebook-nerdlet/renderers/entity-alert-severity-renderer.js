@@ -6,8 +6,8 @@ import { searchAncestors } from '../results/util.js';
 export default class EntityAlertSeverityRenderer extends React.Component {
   static test(node) {
     return (
-      node.__meta.typename == 'EntityAlertSeverity' &&
-      node.value == 'NOT_CONFIGURED'
+      node.__meta.typename === 'EntityAlertSeverity' &&
+      node.value === 'NOT_CONFIGURED'
     );
   }
 
@@ -21,10 +21,10 @@ export default class EntityAlertSeverityRenderer extends React.Component {
     const guid = searchAncestors(
       this.props.node,
       ancestor =>
-        ancestor.__meta.typename == 'ApmApplicationEntity' ||
-        ancestor.__meta.typename == 'AlertableEntity' ||
-        ancestor.__meta.typename == 'ApmApplicationEntityOutline' ||
-        ancestor.__meta.typename == 'AlertableEntityOutline',
+        ancestor.__meta.typename === 'ApmApplicationEntity' ||
+        ancestor.__meta.typename === 'AlertableEntity' ||
+        ancestor.__meta.typename === 'ApmApplicationEntityOutline' ||
+        ancestor.__meta.typename === 'AlertableEntityOutline',
       ancestor =>
         (ancestor.guid && ancestor.guid.value) ||
         (ancestor.__meta.context.arguments.guid &&

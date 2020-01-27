@@ -3,7 +3,7 @@ import { navigation, Button } from 'nr1';
 
 export default class EntityGuidRenderer extends React.Component {
   static test(node) {
-    return node.__meta.typename == 'EntityGuid';
+    return node.__meta.typename === 'EntityGuid';
   }
 
   render() {

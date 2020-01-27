@@ -69,19 +69,19 @@ export default class NotebookCell extends React.Component {
 
   getDefaultScalarArgValue = (parentField, arg, argType) => {
     const defaultAccount = this.props.accounts[0];
-    if (parentField.name == 'account' && arg.name == 'id' && defaultAccount) {
+    if (parentField.name === 'account' && arg.name === 'id' && defaultAccount) {
       return { kind: 'IntValue', value: defaultAccount.id };
     }
-    if (arg.name == 'accountId' && defaultAccount) {
+    if (arg.name === 'accountId' && defaultAccount) {
       return { kind: 'IntValue', value: defaultAccount.id };
     }
-    if (argType == 'Nrql') {
+    if (argType === 'Nrql') {
       return {
         kind: 'StringValue',
         value: 'SELECT * FROM Transaction SINCE 1 hour ago LIMIT 10'
       };
     }
-    if (parentField.name == 'nrql' && arg.name == 'timeout') {
+    if (parentField.name === 'nrql' && arg.name === 'timeout') {
       return { kind: 'IntValue', value: 5 };
     }
     return GraphiQLExplorer.defaultValue(argType);
@@ -125,7 +125,7 @@ export default class NotebookCell extends React.Component {
                 style={{ paddingRight: '0px' }}
                 onClick={this.props.onDelete}
                 type={Button.TYPE.PLAIN_NEUTRAL}
-                disabled={this.props.cellIndex == 0}
+                disabled={this.props.cellIndex === 0}
                 iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE}
               />
             </StackItem>

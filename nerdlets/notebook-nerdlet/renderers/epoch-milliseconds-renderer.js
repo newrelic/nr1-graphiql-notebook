@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class EpochMillisecondsRenderer extends React.Component {
   static test(node) {
-    return node.__meta.typename == 'EpochMilliseconds' && node.value != null;
+    return node.__meta.typename === 'EpochMilliseconds' && node.value != null;
   }
 
   render() {

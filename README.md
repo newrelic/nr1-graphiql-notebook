@@ -42,10 +42,10 @@ export default class AccountIdRenderer extends React.Component {
 
     if (!parent) return false
 
-    let isAccountTypeObject = parent.__meta.typename == "Account" ||
-                              parent.__meta.typename == "AccountOutline"
+    let isAccountTypeObject = parent.__meta.typename === "Account" ||
+                              parent.__meta.typename === "AccountOutline"
 
-    return isAccountTypeObject && node.__meta.fieldName == "id"
+    return isAccountTypeObject && node.__meta.fieldName === "id"
   }
 
   render() {

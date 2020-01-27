@@ -8,7 +8,7 @@ export default class NRQLRenderer extends React.Component {
 
     const accountId = searchAncestors(
       this.props.node,
-      ancestor => ancestor.__meta.typename == 'Account',
+      ancestor => ancestor.__meta.typename === 'Account',
       ancestor =>
         ancestor.id || parseInt(ancestor.__meta.context.arguments.id.value)
     );
@@ -21,7 +21,7 @@ export default class NRQLRenderer extends React.Component {
   }
 
   static test(node) {
-    return node.__meta.typename == 'Nrql';
+    return node.__meta.typename === 'Nrql';
   }
 
   renderChart() {
