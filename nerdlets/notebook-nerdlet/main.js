@@ -32,7 +32,8 @@ export default class NotebookNerdlet extends React.Component {
       emptyNotebook: emptyNotebook,
       notebooks: [],
       currentNotebook: emptyNotebook,
-      importHidden: true
+      importHidden: true,
+      initializeSchemaErrors: false
     };
   }
 
@@ -43,6 +44,7 @@ export default class NotebookNerdlet extends React.Component {
       this.initializeNotebooks()
     ]).then(([schemaResponse, accountsResponse, collectionResponse]) => {
       const schema = schemaResponse.data;
+      const schemaErrors = schemaResponse.errors || [];
       const {
         actor: { accounts }
       } = accountsResponse.data;
@@ -64,7 +66,8 @@ export default class NotebookNerdlet extends React.Component {
       );
 
       this.setState(prevState => ({
-        schema: buildClientSchema(schema),
+        schema: schema ? buildClientSchema(schema) : false,
+        initializeSchemaErrors: schemaErrors.length > 0 ? schemaErrors : false,
         notebooks: notebooks,
         accounts: accounts || [],
         currentNotebook: currentNotebook || prevState.emptyNotebook
@@ -237,6 +240,25 @@ export default class NotebookNerdlet extends React.Component {
 
   render() {
     const notebook = this.state.currentNotebook;
+    const initializeSchemaErrors = this.state.initializeSchemaErrors;
+
+    if (initializeSchemaErrors) {
+      return (
+        <>
+          <h2>Error Fetching GraphQL Schema</h2>
+          <ul>
+            {initializeSchemaErrors.map((error, index) => {
+              return (
+                <li key={index}>
+                  <pre>{JSON.stringify(error)}</pre>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      );
+    }
+
     return (
       <div className="notebook">
         {this.renderHeader()}

@@ -2,13 +2,11 @@ import React from 'react';
 
 import EntityGuidRenderer from './entity-guid-renderer.js';
 import EntityTagsRenderer from './entity-tags-renderer.js';
-import EntityAlertSeverityRenderer from './entity-alert-severity-renderer.js';
 import EpochMillisecondsRenderer from './epoch-milliseconds-renderer.js';
 import NRQLRenderer from './nrql-renderer.js';
 
 const RENDERERS = [
   EpochMillisecondsRenderer,
-  EntityAlertSeverityRenderer,
   EntityTagsRenderer,
   NRQLRenderer,
   EntityGuidRenderer
