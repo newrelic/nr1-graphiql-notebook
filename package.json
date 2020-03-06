@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nr1-graphiql-notebook",
-  "description": "NR1 UI Package graphiql-notebook",
+  "description": "Explore New Relic data using a Jupyter Notebook-inspired utility to explore our GraphQL API. Share notebooks with colleagues.",
   "version": "0.3.0",
   "bugs": {
     "email": "opensource@newrelic.com"
@@ -11,10 +11,6 @@
     "test": "exit 0",
     "eslint-check": "eslint nerdlets/",
     "eslint-fix": "eslint nerdlets/ --fix"
-  },
-  "nr1": {
-    "uuid": "9b34c4fc-877e-4952-beff-94279fd98e57",
-    "sdkVersion": 2
   },
   "dependencies": {
     "graphiql": "^0.17.0",
