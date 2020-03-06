@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "Fri Nov 15 2019 16:36:01 GMT+0000 (Coordinated Universal Time)",
+  "lastUpdated": "Fri Mar 06 2020 14:48:25 GMT+0000 (Coordinated Universal Time)",
   "projectName": "nr1-graphiql-notebook",
   "projectUrl": "https://github.com/newrelic/nr1-graphiql-notebook",
   "includeDev": true,
   "dependencies": {
-    "graphiql@0.13.2": {
+    "graphiql@0.17.0": {
       "name": "graphiql",
-      "version": "0.13.2",
-      "range": "^0.13.2",
+      "version": "0.17.0",
+      "range": "^0.17.0",
       "licenses": "MIT",
-      "repoUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql",
-      "versionedRepoUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql/tree/v0.13.2",
+      "repoUrl": "https://github.com/graphql/graphiql",
+      "versionedRepoUrl": "https://github.com/graphql/graphiql/tree/v0.17.0",
       "licenseFile": "node_modules/graphiql/LICENSE",
-      "licenseUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql/blob/v0.13.2/LICENSE",
+      "licenseUrl": "https://github.com/graphql/graphiql/blob/v0.17.0/LICENSE",
       "licenseTextSource": "file"
     },
     "graphql-tag@2.10.1": {
