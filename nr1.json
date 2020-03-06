@@ -1,0 +1,6 @@
+{
+  "schemaType": "NERDPACK",
+  "id": "9b34c4fc-877e-4952-beff-94279fd98e57",
+  "displayName": "GraphiQL Notebook",
+  "description": "Explore New Relic data using a Jupyter Notebook-inspired utility to explore our GraphQL API. Share notebooks with colleagues."
+}
