@@ -1,5 +1,5 @@
 {
-  "tagline": "Explore New Relic data using a Jupyter Notebook-inspired utility to explore our GraphQL API. Share notebooks with colleagues.",
+  "tagline": "Jupyter Notebook for GraphiQL",
   "repository": "https://github.com/newrelic/nr1-graphiql-notebook.git",
   "details": "GraphiQL Notebook allows you to explore and learn about the NerdGraph API dynamically.\n\nCreate notebooks that have context-aware, interactive elements.\n\nEach notebook consists of cells, which each contains an independent GraphiQL instance, its own notes and rendered output.\n\nYou can create, update, save, and delete notebooks. Notebooks are exportable, and can be shared as blocks of Base64-encoded JSON.",
   "support": {

@@ -1,9 +1,3 @@
-[![New Relic One Catalog Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/New_Relic_One_Catalog_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#nr1-catalog)
-
-# GraphiQL Notebook
-
-![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/newrelic/nr1-graphiql-notebook?include_prereleases&sort=semver) ![AppVeyor](https://img.shields.io/appveyor/ci/newrelic/nr1-graphiql-notebook) [![Snyk](https://snyk.io/test/github/newrelic/nr1-graphiql-notebook/badge.svg)](https://snyk.io/test/github/hospitalrun/hospitalrun-frontend)
-
 ## Usage
 
 GraphiQL Notebook allows you to explore and learn about the [`NerdGraph API`](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically.
@@ -13,10 +7,6 @@ Create notebooks that have context-aware, interactive elements.
 Each notebook consists of cells, which each contains an independent GraphiQL instance, its own notes and rendered output.
 
 You can create, update, save, and delete notebooks. Notebooks are exportable, and can be shared as blocks of Base64-encoded JSON.
-
-![Screenshot #1](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/catalog/screenshots/nr1-graphiql-notebook-1.png)
-
-![Screenshot #1](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/catalog/screenshots/nr1-graphiql-notebook-2.png)
 
 If you're eager to jump in, see the [Quick Start](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/README.md#quick-start) instructions.
 
