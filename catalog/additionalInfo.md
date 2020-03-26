@@ -1,33 +1,3 @@
-[![New Relic One Catalog Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/New_Relic_One_Catalog_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#nr1-catalog)
-
-# GraphiQL Notebook
-
-![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/newrelic/nr1-graphiql-notebook?include_prereleases&sort=semver) ![AppVeyor](https://img.shields.io/appveyor/ci/newrelic/nr1-graphiql-notebook) [![Snyk](https://snyk.io/test/github/newrelic/nr1-graphiql-notebook/badge.svg)](https://snyk.io/test/github/hospitalrun/hospitalrun-frontend)
-
-## Usage
-
-GraphiQL Notebook allows you to explore and learn about the [`NerdGraph API`](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically.
-
-Create notebooks that have context-aware, interactive elements.
-
-Each notebook consists of cells, which each contains an independent GraphiQL instance, its own notes and rendered output.
-
-You can create, update, save, and delete notebooks. Notebooks are exportable, and can be shared as blocks of Base64-encoded JSON.
-
-![Screenshot #1](catalog/screenshots/nr1-graphiql-notebook-1.png)
-
-![Screenshot #1](catalog/screenshots/nr1-graphiql-notebook-2.png)
-
-If you're eager to jump in, see the [Quick Start](#quick-start) instructions.
-
-## Open Source License
-
-This project is distributed under the [Apache 2 license](./LICENSE).
-
-## Dependencies
-
-Requires no specific data or additional features.
-
 ## Getting started
 
 First, ensure that you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [NPM](https://www.npmjs.com/get-npm) installed. If you're unsure whether you have one or both of them installed, run the following command(s) (If you have them installed these commands will return a version number, if not, the commands won't be recognized):
@@ -161,21 +131,3 @@ To provide this, the response data tree is walked and the following modification
 The code that does this work is in `nerdlets/notebook-nerdlet/results/augmentation.js`. There are some dragons in there.
 
 Note: metadata is omitted from the rendered results.
-
-## Community Support
-
-New Relic hosts and moderates an online forum where you can interact with New Relic employees as well as other customers to get help and share best practices. Like all New Relic open source community projects, there's a related topic in the New Relic Explorers Hub. You can find this project's topic/threads here:
-
-[https://discuss.newrelic.com/t/graphiql-notebook-nerdpack/82933](https://discuss.newrelic.com/t/graphiql-notebook-nerdpack/82933)
-
-Please do not report issues with GraphiQL Notebook to New Relic Global Technical Support. Instead, visit the [`Explorers Hub`](https://discuss.newrelic.com/c/build-on-new-relic) for troubleshooting and best-practices.
-
-## Issues / Enhancement Requests
-
-Issues and enhancement requests can be submitted in the [Issues tab of this repository](../../issues). Please search for and review the existing open issues before submitting a new issue.
-
-## Contributing
-
-Contributions are welcome (and if you submit a Enhancement Request, expect to be invited to contribute it yourself :grin:). Please review our [Contributors Guide](./CONTRIBUTING.md).
-
-Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. If you'd like to execute our corporate CLA, or if you have any questions, please drop us an email at opensource+nr1-graphiql-notebook@newrelic.com.

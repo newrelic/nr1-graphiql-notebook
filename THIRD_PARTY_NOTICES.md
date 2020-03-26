@@ -39,7 +39,7 @@ code, the source code can be found at [https://github.com/newrelic/nr1-graphiql-
 
 ### graphiql
 
-This product includes source derived from [graphiql](http://github.com/graphql/graphiql/tree/master/packages/graphiql) ([v0.13.2](http://github.com/graphql/graphiql/tree/master/packages/graphiql/tree/v0.13.2)), distributed under the [MIT License](http://github.com/graphql/graphiql/tree/master/packages/graphiql/blob/v0.13.2/LICENSE):
+This product includes source derived from [graphiql](https://github.com/graphql/graphiql) ([v0.17.0](https://github.com/graphql/graphiql/tree/v0.17.0)), distributed under the [MIT License](https://github.com/graphql/graphiql/blob/v0.17.0/LICENSE):
 
 ```
 MIT License

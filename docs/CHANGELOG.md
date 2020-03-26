@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.3.0...v0.4.0) (2020-03-06)
+
+
+### Features
+
+* adding icon for catalog metadata ([#37](https://github.com/newrelic/nr1-graphiql-notebook/issues/37)) ([6b49290](https://github.com/newrelic/nr1-graphiql-notebook/commit/6b492909d49ee17f83d07bf16989627d47b1e325))
+
 # [0.3.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.2.5...v0.3.0) (2020-01-27)
 
 
