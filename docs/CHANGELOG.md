@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.4.0...v0.5.0) (2020-03-26)
+
+
+### Features
+
+* **Issue #35:** hide timepicker ([#39](https://github.com/newrelic/nr1-graphiql-notebook/issues/39)) ([14ada3f](https://github.com/newrelic/nr1-graphiql-notebook/commit/14ada3fab08ec0e9f447160c1f4fee002d379ef6)), closes [#35](https://github.com/newrelic/nr1-graphiql-notebook/issues/35)
+
 # [0.4.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.3.0...v0.4.0) (2020-03-06)
 
 
