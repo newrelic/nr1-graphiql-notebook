@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.5.0...v0.5.1) (2020-03-27)
+
+
+### Bug Fixes
+
+* update eslint dependencies ([#40](https://github.com/newrelic/nr1-graphiql-notebook/issues/40)) ([9e44bc2](https://github.com/newrelic/nr1-graphiql-notebook/commit/9e44bc2013cb251a23145e38e77f38a386874959))
+
 # [0.5.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.4.0...v0.5.0) (2020-03-26)
 
 
