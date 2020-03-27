@@ -1,9 +1,3 @@
-[![New Relic One Catalog Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/New_Relic_One_Catalog_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#nr1-catalog)
-
-# GraphiQL Notebook
-
-![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/newrelic/nr1-graphiql-notebook?include_prereleases&sort=semver) ![AppVeyor](https://img.shields.io/appveyor/ci/newrelic/nr1-graphiql-notebook) [![Snyk](https://snyk.io/test/github/newrelic/nr1-graphiql-notebook/badge.svg)](https://snyk.io/test/github/hospitalrun/hospitalrun-frontend)
-
 ## Usage
 
 GraphiQL Notebook allows you to explore and learn about the [`NerdGraph API`](https://docs.newrelic.com/docs/apis/graphql-api/tutorials/nerdgraph-graphiql-entities-api-tutorial) dynamically.
@@ -14,15 +8,11 @@ Each notebook consists of cells, which each contains an independent GraphiQL ins
 
 You can create, update, save, and delete notebooks. Notebooks are exportable, and can be shared as blocks of Base64-encoded JSON.
 
-![Screenshot #1](catalog/screenshots/nr1-graphiql-notebook-1.png)
-
-![Screenshot #1](catalog/screenshots/nr1-graphiql-notebook-2.png)
-
-If you're eager to jump in, see the [Quick Start](#quick-start) instructions.
+If you're eager to jump in, see the [Quick Start](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/README.md#quick-start) instructions.
 
 ## Open Source License
 
-This project is distributed under the [Apache 2 license](./LICENSE).
+This project is distributed under the [Apache 2 license](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/LICENSE).
 
 ## Dependencies
 
@@ -172,10 +162,10 @@ Please do not report issues with GraphiQL Notebook to New Relic Global Technical
 
 ## Issues / Enhancement Requests
 
-Issues and enhancement requests can be submitted in the [Issues tab of this repository](../../issues). Please search for and review the existing open issues before submitting a new issue.
+Issues and enhancement requests can be submitted in the [Issues tab of this repository](https://github.com/newrelic/nr1-graphiql-notebook/issues). Please search for and review the existing open issues before submitting a new issue.
 
 ## Contributing
 
-Contributions are welcome (and if you submit a Enhancement Request, expect to be invited to contribute it yourself :grin:). Please review our [Contributors Guide](./CONTRIBUTING.md).
+Contributions are welcome (and if you submit a Enhancement Request, expect to be invited to contribute it yourself :grin:). Please review our [Contributors Guide](https://github.com/newrelic/nr1-graphiql-notebook/blob/master/CONTRIBUTING.md).
 
 Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. If you'd like to execute our corporate CLA, or if you have any questions, please drop us an email at opensource+nr1-graphiql-notebook@newrelic.com.
