@@ -439,7 +439,7 @@ SOFTWARE.
 
 ### eslint
 
-This product includes source derived from [eslint](https://github.com/eslint/eslint) ([v6.3.0](https://github.com/eslint/eslint/tree/v6.3.0)), distributed under the [MIT License](https://github.com/eslint/eslint/blob/v6.3.0/LICENSE):
+This product includes source derived from [eslint](https://github.com/eslint/eslint) ([v6.8.0](https://github.com/eslint/eslint/tree/v6.8.0)), distributed under the [MIT License](https://github.com/eslint/eslint/blob/v6.8.0/LICENSE):
 
 ```
 Copyright JS Foundation and other contributors, https://js.foundation
@@ -466,7 +466,7 @@ THE SOFTWARE.
 
 ### prettier
 
-This product includes source derived from [prettier](https://github.com/prettier/prettier) ([v1.18.2](https://github.com/prettier/prettier/tree/v1.18.2)), distributed under the [MIT License](https://github.com/prettier/prettier/blob/v1.18.2/LICENSE):
+This product includes source derived from [prettier](https://github.com/prettier/prettier) ([v2.0.2](https://github.com/prettier/prettier/tree/v2.0.2)), distributed under the [MIT License](https://github.com/prettier/prettier/blob/v2.0.2/LICENSE):
 
 ```
 Copyright © James Long and contributors
