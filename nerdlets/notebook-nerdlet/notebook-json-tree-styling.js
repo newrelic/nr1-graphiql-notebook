@@ -4,71 +4,71 @@
 
 export function notebookJsonTreeStyling() {
   const palette = {
-    "brand-050": "#f0fcfc",
-    "brand-100": "#c9f3f5",
-    "brand-400": "#52c6cc",
-    "brand-800": "#007e8a",
-    "brand-900": "#005054",
+    'brand-050': '#f0fcfc',
+    'brand-100': '#c9f3f5',
+    'brand-400': '#52c6cc',
+    'brand-800': '#007e8a',
+    'brand-900': '#005054',
 
-    "neutral-050": "#fafbfb",
-    "neutral-100": "#f4f5f5",
-    "neutral-400": "#d5d7d7",
-    "neutral-800": "#2a3434",
-    "neutral-900": "#000e0e",
+    'neutral-050': '#fafbfb',
+    'neutral-100': '#f4f5f5',
+    'neutral-400': '#d5d7d7',
+    'neutral-800': '#2a3434',
+    'neutral-900': '#000e0e',
 
-    "neutral-extended-050": "#fafbfb",
-    "neutral-extended-100": "#f4f5f5",
-    "neutral-extended-200": "#edeeee",
-    "neutral-extended-300": "#e3e4e4",
-    "neutral-extended-400": "#d5d7d7",
-    "neutral-extended-500": "#b9bdbd",
-    "neutral-extended-600": "#8e9494",
-    "neutral-extended-700": "#464e4e",
-    "neutral-extended-800": "#2a3434",
-    "neutral-extended-900": "#000e0e",
+    'neutral-extended-050': '#fafbfb',
+    'neutral-extended-100': '#f4f5f5',
+    'neutral-extended-200': '#edeeee',
+    'neutral-extended-300': '#e3e4e4',
+    'neutral-extended-400': '#d5d7d7',
+    'neutral-extended-500': '#b9bdbd',
+    'neutral-extended-600': '#8e9494',
+    'neutral-extended-700': '#464e4e',
+    'neutral-extended-800': '#2a3434',
+    'neutral-extended-900': '#000e0e',
 
-    "blue-050": "#f2fafc",
-    "blue-100": "#d0f0ff",
-    "blue-400": "#6cf",
-    "blue-800": "#0079bf",
-    "blue-900": "#003555",
+    'blue-050': '#f2fafc',
+    'blue-100': '#d0f0ff',
+    'blue-400': '#6cf',
+    'blue-800': '#0079bf',
+    'blue-900': '#003555',
 
-    "green-050": "#f2fcf3",
-    "green-100": "#d0ffd1",
-    "green-400": "#68f261",
-    "green-800": "#11a600",
-    "green-900": "#085400",
+    'green-050': '#f2fcf3',
+    'green-100': '#d0ffd1',
+    'green-400': '#68f261',
+    'green-800': '#11a600',
+    'green-900': '#085400',
 
-    "yellow-050": "#fcf9f2",
-    "yellow-100": "#fff4d1",
-    "yellow-400": "#ffd966",
-    "yellow-800": "#bf9600",
-    "yellow-900": "#544c00",
+    'yellow-050': '#fcf9f2',
+    'yellow-100': '#fff4d1',
+    'yellow-400': '#ffd966',
+    'yellow-800': '#bf9600',
+    'yellow-900': '#544c00',
 
-    "red-050": "#fcf2f3",
-    "red-100": "#ffd1d7",
-    "red-400": "#ff667a",
-    "red-800": "#bf0016",
-    "red-900": "#54000b"
-  }
+    'red-050': '#fcf2f3',
+    'red-100': '#ffd1d7',
+    'red-400': '#ff667a',
+    'red-800': '#bf0016',
+    'red-900': '#54000b',
+  };
 
   const colors = {
-    BACKGROUND_COLOR: "none",
-    LABEL_COLOR: palette["blue-800"],
-    ARROW_COLOR: palette["neutral-extended-500"],
-    ITEM_STRING_EXPANDED_COLOR: palette["neutral-extended-500"],
-    ITEM_STRING_COLOR: palette["neutral-extended-500"],
-    STRING_COLOR: palette["red-800"],
-    DATE_COLOR: palette["green-400"],
-    NUMBER_COLOR: palette["blue-400"],
-    BOOLEAN_COLOR: palette["green-800"],
-    NULL_COLOR: palette["neutral-extended-500"],
-    UNDEFINED_COLOR: "#aaa",
-    FUNCTION_COLOR: "#aaa",
-    SYMBOL_COLOR: "#aaa",
-  }
+    BACKGROUND_COLOR: 'none',
+    LABEL_COLOR: palette['blue-800'],
+    ARROW_COLOR: palette['neutral-extended-500'],
+    ITEM_STRING_EXPANDED_COLOR: palette['neutral-extended-500'],
+    ITEM_STRING_COLOR: palette['neutral-extended-500'],
+    STRING_COLOR: palette['red-800'],
+    DATE_COLOR: palette['green-400'],
+    NUMBER_COLOR: palette['blue-400'],
+    BOOLEAN_COLOR: palette['green-800'],
+    NULL_COLOR: palette['neutral-extended-500'],
+    UNDEFINED_COLOR: '#aaa',
+    FUNCTION_COLOR: '#aaa',
+    SYMBOL_COLOR: '#aaa',
+  };
 
-  const valueColorMap = colors => ({
+  const valueColorMap = (colors) => ({
     String: colors.STRING_COLOR,
     Date: colors.DATE_COLOR,
     Number: colors.NUMBER_COLOR,
@@ -76,7 +76,7 @@ export function notebookJsonTreeStyling() {
     Null: colors.NULL_COLOR,
     Undefined: colors.UNDEFINED_COLOR,
     Function: colors.FUNCTION_COLOR,
-    Symbol: colors.SYMBOL_COLOR
+    Symbol: colors.SYMBOL_COLOR,
   });
 
   return {
@@ -92,7 +92,7 @@ export function notebookJsonTreeStyling() {
       fontSize: '14px',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
-      backgroundColor: colors.BACKGROUND_COLOR
+      backgroundColor: colors.BACKGROUND_COLOR,
     },
 
     value: ({ style }, nodeType, keyPath) => ({
@@ -107,34 +107,34 @@ export function notebookJsonTreeStyling() {
         // paddingLeft: keyPath.length > 1 ? '2.125em' : '1.25em',
         paddingLeft: '1.25em',
         textIndent: '0em',
-        wordBreak: 'break-all'
-      }
+        wordBreak: 'break-all',
+      },
     }),
 
     label: {
       display: 'inline-block',
       fontWeight: '600',
       color: colors.LABEL_COLOR,
-      verticalAlign: "top"
+      verticalAlign: 'top',
     },
 
     valueLabel: {
-      margin: '0 0.5em 0 0'
+      margin: '0 0.5em 0 0',
     },
 
     valueText: ({ style }, nodeType) => ({
       style: {
         ...style,
-        color: valueColorMap(colors)[nodeType]
-      }
+        color: valueColorMap(colors)[nodeType],
+      },
     }),
 
     itemRange: (styling, expanded) => ({
       style: {
         paddingTop: expanded ? 0 : '0.25em',
         cursor: 'pointer',
-        color: colors.LABEL_COLOR
-      }
+        color: colors.LABEL_COLOR,
+      },
     }),
 
     arrow: ({ style }, nodeType, expanded) => ({
@@ -152,8 +152,8 @@ export function notebookJsonTreeStyling() {
         MozTransformOrigin: '45% 50%',
         position: 'relative',
         lineHeight: '1.1em',
-        fontSize: '0.75em'
-      }
+        fontSize: '0.75em',
+      },
     }),
 
     arrowContainer: ({ style }, arrowStyle) => ({
@@ -162,18 +162,18 @@ export function notebookJsonTreeStyling() {
         display: 'inline-block',
         paddingRight: '0.5em',
         paddingLeft: arrowStyle === 'double' ? '1em' : 0,
-        cursor: 'pointer'
-      }
+        cursor: 'pointer',
+      },
     }),
 
     arrowSign: {
-      color: colors.ARROW_COLOR
+      color: colors.ARROW_COLOR,
     },
 
     arrowSignInner: {
       position: 'absolute',
       top: 0,
-      left: '-0.4em'
+      left: '-0.4em',
     },
 
     nestedNode: ({ style }, keyPath, nodeType, expanded, expandable) => ({
@@ -182,13 +182,13 @@ export function notebookJsonTreeStyling() {
         position: 'relative',
         paddingTop: '0.25em',
         marginLeft: keyPath.length > 1 ? '0.875em' : 0,
-        paddingLeft: !expandable ? '1.125em' : 0
-      }
+        paddingLeft: !expandable ? '1.125em' : 0,
+      },
     }),
 
     rootNode: {
       padding: 0,
-      margin: 0
+      margin: 0,
     },
 
     nestedNodeLabel: ({ style }, keyPath, nodeType, expanded, expandable) => ({
@@ -198,8 +198,8 @@ export function notebookJsonTreeStyling() {
         padding: 0,
         WebkitUserSelect: expandable ? 'inherit' : 'text',
         MozUserSelect: expandable ? 'inherit' : 'text',
-        cursor: expandable ? 'pointer' : 'default'
-      }
+        cursor: expandable ? 'pointer' : 'default',
+      },
     }),
 
     nestedNodeItemString: ({ style }, keyPath, nodeType, expanded) => ({
@@ -209,13 +209,13 @@ export function notebookJsonTreeStyling() {
         cursor: 'default',
         color: expanded
           ? colors.ITEM_STRING_EXPANDED_COLOR
-          : colors.ITEM_STRING_COLOR
-      }
+          : colors.ITEM_STRING_COLOR,
+      },
     }),
 
     nestedNodeItemType: {
       marginLeft: '0.3em',
-      marginRight: '0.3em'
+      marginRight: '0.3em',
     },
 
     nestedNodeChildren: ({ style }, nodeType, expanded) => ({
@@ -224,14 +224,14 @@ export function notebookJsonTreeStyling() {
         padding: 0,
         margin: 0,
         listStyle: 'none',
-        display: expanded ? 'block' : 'none'
-      }
+        display: expanded ? 'block' : 'none',
+      },
     }),
 
     rootNodeChildren: {
       padding: 0,
       margin: 0,
-      listStyle: 'none'
-    }
+      listStyle: 'none',
+    },
   };
-};
+}

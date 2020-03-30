@@ -3,13 +3,13 @@ import { navigation, Button } from 'nr1';
 
 export default class EntityGuidRenderer extends React.Component {
   static test(node) {
-    return node.__meta.typename == "EntityGuid"
+    return node.__meta.typename == 'EntityGuid';
   }
 
   render() {
-    let entityGuid = this.props.node.value
+    let entityGuid = this.props.node.value;
 
-    let { addCell } = this.props.util
+    let { addCell } = this.props.util;
     let suggestedQuery = `
 {
   actor {
@@ -26,37 +26,41 @@ export default class EntityGuidRenderer extends React.Component {
     }
   }
 }
-`
-    return <div className="json-tree-text-field json-tree-value-widget">
-      &nbsp;
-      "{entityGuid}"
-      <br />
-      <Button
+`;
+    return (
+      <div className="json-tree-text-field json-tree-value-widget">
+        &nbsp; "{entityGuid}"
+        <br />
+        <Button
           type={Button.TYPE.PLAIN_NEUTRAL}
           sizeType={Button.SIZE_TYPE.SMALL}
-          iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER__S_OK}
+          iconType={
+            Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__BROWSER__S_OK
+          }
           onClick={() => {
             navigation.openStackedNerdlet({
               id: 'slicer-dicer.apm-overview',
-              urlState: { entityId: entityGuid }
+              urlState: { entityId: entityGuid },
             });
-          }}>
+          }}
+        >
           Visit Entity
-      </Button>
-
-      <Button
-        type={Button.TYPE.PLAIN_NEUTRAL}
-        sizeType={Button.SIZE_TYPE.SMALL}
-        iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
-        onClick={() => {
-          addCell({
-            query: suggestedQuery,
-            notes: "The 'entity' field allows you to access more information about an entity than a simple entity search."
-          })
-        }}
-      >
-        Query NerdGraph for more details
-      </Button>
-    </div>
+        </Button>
+        <Button
+          type={Button.TYPE.PLAIN_NEUTRAL}
+          sizeType={Button.SIZE_TYPE.SMALL}
+          iconType={Button.ICON_TYPE.HARDWARE_AND_SOFTWARE__SOFTWARE__NODE}
+          onClick={() => {
+            addCell({
+              query: suggestedQuery,
+              notes:
+                "The 'entity' field allows you to access more information about an entity than a simple entity search.",
+            });
+          }}
+        >
+          Query NerdGraph for more details
+        </Button>
+      </div>
+    );
   }
 }

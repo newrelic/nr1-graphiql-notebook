@@ -1,5 +1,15 @@
 @import '~graphiql/graphiql.css';
 @import './_colors.scss';
+@import '~@newrelic/nr1-community/dist/index.css';
+
+.empty-state-container {
+  height: 100%;
+  background-color: #fff;
+}
+
+div[class*='style_empty-state'] {
+  height: calc(100% - 32px);
+}
 
 // I won't lie to you, this is a hodge-podge of hacks and
 // quick fixes produced during a hackathon.
