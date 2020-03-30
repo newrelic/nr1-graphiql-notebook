@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "Fri Nov 15 2019 16:36:01 GMT+0000 (Coordinated Universal Time)",
+  "lastUpdated": "Fri Mar 27 2020 19:27:14 GMT+0000 (Coordinated Universal Time)",
   "projectName": "nr1-graphiql-notebook",
   "projectUrl": "https://github.com/newrelic/nr1-graphiql-notebook",
   "includeDev": true,
   "dependencies": {
-    "graphiql@0.13.2": {
+    "graphiql@0.17.0": {
       "name": "graphiql",
-      "version": "0.13.2",
-      "range": "^0.13.2",
+      "version": "0.17.0",
+      "range": "^0.17.0",
       "licenses": "MIT",
-      "repoUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql",
-      "versionedRepoUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql/tree/v0.13.2",
+      "repoUrl": "https://github.com/graphql/graphiql",
+      "versionedRepoUrl": "https://github.com/graphql/graphiql/tree/v0.17.0",
       "licenseFile": "node_modules/graphiql/LICENSE",
-      "licenseUrl": "http://github.com/graphql/graphiql/tree/master/packages/graphiql/blob/v0.13.2/LICENSE",
+      "licenseUrl": "https://github.com/graphql/graphiql/blob/v0.17.0/LICENSE",
       "licenseTextSource": "file"
     },
     "graphql-tag@2.10.1": {
@@ -174,28 +174,28 @@
       "publisher": "Yannick Croissant",
       "email": "yannick.croissant+npm@gmail.com"
     },
-    "eslint@6.3.0": {
+    "eslint@6.8.0": {
       "name": "eslint",
-      "version": "6.3.0",
-      "range": "^6.3.0",
+      "version": "6.8.0",
+      "range": "^6.8.0",
       "licenses": "MIT",
       "repoUrl": "https://github.com/eslint/eslint",
-      "versionedRepoUrl": "https://github.com/eslint/eslint/tree/v6.3.0",
+      "versionedRepoUrl": "https://github.com/eslint/eslint/tree/v6.8.0",
       "licenseFile": "node_modules/eslint/LICENSE",
-      "licenseUrl": "https://github.com/eslint/eslint/blob/v6.3.0/LICENSE",
+      "licenseUrl": "https://github.com/eslint/eslint/blob/v6.8.0/LICENSE",
       "licenseTextSource": "file",
       "publisher": "Nicholas C. Zakas",
       "email": "nicholas+npm@nczconsulting.com"
     },
-    "prettier@1.18.2": {
+    "prettier@2.0.2": {
       "name": "prettier",
-      "version": "1.18.2",
-      "range": "^1.18.2",
+      "version": "2.0.2",
+      "range": "^2.0.2",
       "licenses": "MIT",
       "repoUrl": "https://github.com/prettier/prettier",
-      "versionedRepoUrl": "https://github.com/prettier/prettier/tree/v1.18.2",
+      "versionedRepoUrl": "https://github.com/prettier/prettier/tree/v2.0.2",
       "licenseFile": "node_modules/prettier/LICENSE",
-      "licenseUrl": "https://github.com/prettier/prettier/blob/v1.18.2/LICENSE",
+      "licenseUrl": "https://github.com/prettier/prettier/blob/v2.0.2/LICENSE",
       "licenseTextSource": "file",
       "publisher": "James Long"
     }
