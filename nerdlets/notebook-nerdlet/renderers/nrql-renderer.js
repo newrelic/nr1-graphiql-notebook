@@ -1,31 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { navigation, Button, LineChart, BarChart, PieChart } from 'nr1';
 import { searchAncestors } from '../results/util.js';
 
 export default class NRQLRenderer extends React.Component {
+  static test(node) {
+    return node.__meta.typename === 'Nrql';
+  }
+
+  static propTypes = {
+    node: PropTypes.object,
+    util: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
 
-    let accountId = searchAncestors(
+    const accountId = searchAncestors(
       this.props.node,
-      (ancestor) => ancestor.__meta.typename == 'Account',
-      (ancestor) =>
+      ancestor => ancestor.__meta.typename === 'Account',
+      ancestor =>
         ancestor.id || parseInt(ancestor.__meta.context.arguments.id.value)
     );
 
     this.state = {
       accountId: accountId,
       nrqlQuery: this.props.node.value,
-      chart: null,
+      chart: null
     };
   }
 
-  static test(node) {
-    return node.__meta.typename == 'Nrql';
-  }
-
   renderChart() {
-    let { nrqlQuery, accountId, chart } = this.state;
+    const { nrqlQuery, accountId, chart } = this.state;
     switch (chart) {
       case 'line':
         return (
@@ -54,9 +60,9 @@ export default class NRQLRenderer extends React.Component {
   }
 
   render() {
-    let { nrqlQuery, accountId } = this.state;
-    let { addCell } = this.props.util;
-    let suggestedQuery = `
+    const { nrqlQuery, accountId } = this.state;
+    const { addCell } = this.props.util;
+    const suggestedQuery = `
 {
   actor {
     account(id: ${accountId}) {
@@ -82,8 +88,8 @@ export default class NRQLRenderer extends React.Component {
                 urlState: {
                   initialActiveInterface: 'nrqlEditor',
                   initialNrqlValue: nrqlQuery,
-                  initialAccountId: accountId,
-                },
+                  initialAccountId: accountId
+                }
               });
             }}
           >
@@ -126,7 +132,7 @@ export default class NRQLRenderer extends React.Component {
             onClick={() => {
               addCell({
                 query: suggestedQuery,
-                notes: "It's easy to make NRQL queries in GraphQL.",
+                notes: "It's easy to make NRQL queries in GraphQL."
               });
             }}
           >

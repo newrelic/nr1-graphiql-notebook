@@ -1,8 +1,6 @@
 // Wraps localStorage so we can scope GraphiQL's storage
 // requests to a given cell.
 
-const storage = window.localStorage;
-
 export default class NotebookStorage {
   constructor(cell) {
     this.storage = window.localStorage;

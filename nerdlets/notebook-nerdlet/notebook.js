@@ -1,29 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { HeadingText, Button, Stack, StackItem, TextField, Modal } from 'nr1';
 import NotebookCell from './notebook-cell';
 import { v4 as uuidv4 } from 'uuid';
 
 export default class Notebook extends React.Component {
+  static propTypes = {
+    ephemeral: PropTypes.bool,
+    title: PropTypes.string,
+    cells: PropTypes.array,
+    onSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    uuid: PropTypes.string,
+    schema: PropTypes.object,
+    accounts: PropTypes.array
+  };
+
   constructor(props) {
     super(props);
 
-    let emptyCells = [this.createCell()];
+    const emptyCells = [this.createCell()];
     this.state = {
       title: this.props.ephemeral ? undefined : this.props.title,
       cells: this.props.cells
-        ? this.props.cells.map((cell) => {
+        ? this.props.cells.map(cell => {
             return this.createCell(cell);
           })
         : emptyCells,
       ephemeral: this.props.ephemeral,
       titleError: false,
       shareHidden: true,
-      sharedContents: '',
+      sharedContents: ''
     };
   }
 
-  createCell = (cell) => {
-    let defaultQuery = `
+  createCell = cell => {
+    const defaultQuery = `
 {
   actor {
     user {
@@ -33,11 +45,11 @@ export default class Notebook extends React.Component {
   }
 }
     `.trim();
-    let defaults = {
+    const defaults = {
       query: defaultQuery,
       uuid: uuidv4(),
       domRef: React.createRef(),
-      ref: React.createRef(),
+      ref: React.createRef()
     };
     return Object.assign(defaults, cell || {});
   };
@@ -55,58 +67,63 @@ export default class Notebook extends React.Component {
     this.props.onDelete(this.props.uuid);
   };
 
-  onDeleteCell = (cellUUID) => {
-    let cells = this.state.cells.filter((cell) => {
-      return cell.uuid != cellUUID;
+  onDeleteCell = cellUUID => {
+    const { cells } = this.state;
+    const newCells = cells.filter(cell => {
+      return cell.uuid !== cellUUID;
     });
-    this.setState({ cells });
+    this.setState({ cells: newCells });
   };
 
   serialize = () => {
-    let serializedCells = this.state.cells.map((cell) => {
+    const { cells } = this.state;
+    const serializedCells = cells.map(cell => {
       return cell.ref.current.serialize();
     });
 
     return {
       cells: serializedCells,
       uuid: this.props.uuid,
-      title: this.state.title,
+      title: this.state.title
     };
   };
 
-  onEditTitle = (evt) => {
-    let title = evt.target.value;
+  onEditTitle = evt => {
+    const title = evt.target.value;
     this.setState({ title: title, titleError: false });
   };
 
   popCell() {
-    this.setState({ cells: this.state.cells.slice(0, -1) });
+    const { cells } = this.state;
+    this.setState({ cells: cells.slice(0, -1) });
   }
 
-  addCell = (cell) => {
-    let cells = this.state.cells.map((cell) => {
+  addCell = cell => {
+    const { cells } = this.state;
+    const newCells = cells.map(cell => {
       return { ...cell, collapsed: true };
     });
 
     cell.query = cell.query && cell.query.trim();
 
-    let newCell = this.createCell(cell);
+    const newCell = this.createCell(cell);
 
-    cells.push(newCell);
+    newCells.push(newCell);
 
-    this.setState({ cells: cells }, () =>
+    this.setState({ cells: newCells }, () =>
       newCell.domRef.current.scrollIntoView()
     );
   };
 
   updateCell = (cellUUID, cellUpdate) => {
-    let cells = this.state.cells.map((cell) => {
-      if (cell.uuid == cellUUID) {
-        return Object.assign({}, cell, cellUpdate);
+    const { cells } = this.state;
+    const newCells = cells.map(cell => {
+      if (cell.uuid === cellUUID) {
+        return { ...cell, ...cellUpdate };
       }
       return cell;
     });
-    this.setState({ cells });
+    this.setState({ cells: newCells });
   };
 
   renderNotebookToolbar() {
@@ -121,7 +138,7 @@ export default class Notebook extends React.Component {
           onChange={this.onEditTitle}
         />
         <Stack fullWidth gapType={Stack.GAP_TYPE.BASE}>
-          <StackItem grow={true}>
+          <StackItem grow>
             <Button
               onClick={() => this.addCell({})}
               type={Button.TYPE.PRIMARY}
@@ -153,7 +170,7 @@ export default class Notebook extends React.Component {
               onClick={() => {
                 this.setState({
                   shareHidden: false,
-                  sharedContents: this.serialize(),
+                  sharedContents: this.serialize()
                 });
               }}
               type={Button.TYPE.NORMAL}
@@ -166,12 +183,13 @@ export default class Notebook extends React.Component {
       </div>
     );
   }
+
   closeModal = () => {
     this.setState({ shareHidden: true });
   };
 
   render() {
-    let { cells } = this.state;
+    const { cells } = this.state;
     return (
       <div>
         {this.renderNotebookToolbar()}
@@ -211,7 +229,7 @@ export default class Notebook extends React.Component {
           </div>
         )}
 
-        {/*TODO seems to cause an error but things... work...?  */}
+        {/* TODO seems to cause an error but things... work...?  */}
         <Modal hidden={this.state.shareHidden} onClose={this.closeModal}>
           <HeadingText>Copy the contents of the box below</HeadingText>
           <textarea

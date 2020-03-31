@@ -49,7 +49,7 @@ export function notebookJsonTreeStyling() {
     'red-100': '#ffd1d7',
     'red-400': '#ff667a',
     'red-800': '#bf0016',
-    'red-900': '#54000b',
+    'red-900': '#54000b'
   };
 
   const colors = {
@@ -65,10 +65,10 @@ export function notebookJsonTreeStyling() {
     NULL_COLOR: palette['neutral-extended-500'],
     UNDEFINED_COLOR: '#aaa',
     FUNCTION_COLOR: '#aaa',
-    SYMBOL_COLOR: '#aaa',
+    SYMBOL_COLOR: '#aaa'
   };
 
-  const valueColorMap = (colors) => ({
+  const valueColorMap = colors => ({
     String: colors.STRING_COLOR,
     Date: colors.DATE_COLOR,
     Number: colors.NUMBER_COLOR,
@@ -76,7 +76,7 @@ export function notebookJsonTreeStyling() {
     Null: colors.NULL_COLOR,
     Undefined: colors.UNDEFINED_COLOR,
     Function: colors.FUNCTION_COLOR,
-    Symbol: colors.SYMBOL_COLOR,
+    Symbol: colors.SYMBOL_COLOR
   });
 
   return {
@@ -92,9 +92,10 @@ export function notebookJsonTreeStyling() {
       fontSize: '14px',
       MozUserSelect: 'none',
       WebkitUserSelect: 'none',
-      backgroundColor: colors.BACKGROUND_COLOR,
+      backgroundColor: colors.BACKGROUND_COLOR
     },
 
+    /* eslint-disable no-unused-vars */
     value: ({ style }, nodeType, keyPath) => ({
       style: {
         ...style,
@@ -107,34 +108,35 @@ export function notebookJsonTreeStyling() {
         // paddingLeft: keyPath.length > 1 ? '2.125em' : '1.25em',
         paddingLeft: '1.25em',
         textIndent: '0em',
-        wordBreak: 'break-all',
-      },
+        wordBreak: 'break-all'
+      }
     }),
+    /* eslint-enable */
 
     label: {
       display: 'inline-block',
       fontWeight: '600',
       color: colors.LABEL_COLOR,
-      verticalAlign: 'top',
+      verticalAlign: 'top'
     },
 
     valueLabel: {
-      margin: '0 0.5em 0 0',
+      margin: '0 0.5em 0 0'
     },
 
     valueText: ({ style }, nodeType) => ({
       style: {
         ...style,
-        color: valueColorMap(colors)[nodeType],
-      },
+        color: valueColorMap(colors)[nodeType]
+      }
     }),
 
     itemRange: (styling, expanded) => ({
       style: {
         paddingTop: expanded ? 0 : '0.25em',
         cursor: 'pointer',
-        color: colors.LABEL_COLOR,
-      },
+        color: colors.LABEL_COLOR
+      }
     }),
 
     arrow: ({ style }, nodeType, expanded) => ({
@@ -152,8 +154,8 @@ export function notebookJsonTreeStyling() {
         MozTransformOrigin: '45% 50%',
         position: 'relative',
         lineHeight: '1.1em',
-        fontSize: '0.75em',
-      },
+        fontSize: '0.75em'
+      }
     }),
 
     arrowContainer: ({ style }, arrowStyle) => ({
@@ -162,18 +164,18 @@ export function notebookJsonTreeStyling() {
         display: 'inline-block',
         paddingRight: '0.5em',
         paddingLeft: arrowStyle === 'double' ? '1em' : 0,
-        cursor: 'pointer',
-      },
+        cursor: 'pointer'
+      }
     }),
 
     arrowSign: {
-      color: colors.ARROW_COLOR,
+      color: colors.ARROW_COLOR
     },
 
     arrowSignInner: {
       position: 'absolute',
       top: 0,
-      left: '-0.4em',
+      left: '-0.4em'
     },
 
     nestedNode: ({ style }, keyPath, nodeType, expanded, expandable) => ({
@@ -182,13 +184,13 @@ export function notebookJsonTreeStyling() {
         position: 'relative',
         paddingTop: '0.25em',
         marginLeft: keyPath.length > 1 ? '0.875em' : 0,
-        paddingLeft: !expandable ? '1.125em' : 0,
-      },
+        paddingLeft: !expandable ? '1.125em' : 0
+      }
     }),
 
     rootNode: {
       padding: 0,
-      margin: 0,
+      margin: 0
     },
 
     nestedNodeLabel: ({ style }, keyPath, nodeType, expanded, expandable) => ({
@@ -198,8 +200,8 @@ export function notebookJsonTreeStyling() {
         padding: 0,
         WebkitUserSelect: expandable ? 'inherit' : 'text',
         MozUserSelect: expandable ? 'inherit' : 'text',
-        cursor: expandable ? 'pointer' : 'default',
-      },
+        cursor: expandable ? 'pointer' : 'default'
+      }
     }),
 
     nestedNodeItemString: ({ style }, keyPath, nodeType, expanded) => ({
@@ -209,13 +211,13 @@ export function notebookJsonTreeStyling() {
         cursor: 'default',
         color: expanded
           ? colors.ITEM_STRING_EXPANDED_COLOR
-          : colors.ITEM_STRING_COLOR,
-      },
+          : colors.ITEM_STRING_COLOR
+      }
     }),
 
     nestedNodeItemType: {
       marginLeft: '0.3em',
-      marginRight: '0.3em',
+      marginRight: '0.3em'
     },
 
     nestedNodeChildren: ({ style }, nodeType, expanded) => ({
@@ -224,14 +226,14 @@ export function notebookJsonTreeStyling() {
         padding: 0,
         margin: 0,
         listStyle: 'none',
-        display: expanded ? 'block' : 'none',
-      },
+        display: expanded ? 'block' : 'none'
+      }
     }),
 
     rootNodeChildren: {
       padding: 0,
       margin: 0,
-      listStyle: 'none',
-    },
+      listStyle: 'none'
+    }
   };
 }

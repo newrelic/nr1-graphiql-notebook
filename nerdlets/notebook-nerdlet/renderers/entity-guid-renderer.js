@@ -1,16 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { navigation, Button } from 'nr1';
 
 export default class EntityGuidRenderer extends React.Component {
   static test(node) {
-    return node.__meta.typename == 'EntityGuid';
+    return node.__meta.typename === 'EntityGuid';
   }
 
-  render() {
-    let entityGuid = this.props.node.value;
+  static propTypes = {
+    node: PropTypes.object,
+    util: PropTypes.object
+  };
 
-    let { addCell } = this.props.util;
-    let suggestedQuery = `
+  render() {
+    const entityGuid = this.props.node.value;
+
+    const { addCell } = this.props.util;
+    const suggestedQuery = `
 {
   actor {
     entity(guid: "${entityGuid}") {
@@ -40,7 +46,7 @@ export default class EntityGuidRenderer extends React.Component {
           onClick={() => {
             navigation.openStackedNerdlet({
               id: 'slicer-dicer.apm-overview',
-              urlState: { entityId: entityGuid },
+              urlState: { entityId: entityGuid }
             });
           }}
         >
@@ -54,7 +60,7 @@ export default class EntityGuidRenderer extends React.Component {
             addCell({
               query: suggestedQuery,
               notes:
-                "The 'entity' field allows you to access more information about an entity than a simple entity search.",
+                "The 'entity' field allows you to access more information about an entity than a simple entity search."
             });
           }}
         >

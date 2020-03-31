@@ -1,16 +1,39 @@
 import React from 'react';
-import { NerdGraphQuery } from 'nr1';
+import PropTypes from 'prop-types';
+import {
+  NerdGraphQuery,
+  Spinner,
+  TextField,
+  Button,
+  Stack,
+  StackItem
+} from 'nr1';
 import GraphiQL from 'graphiql';
 import JSONTree from 'react-json-tree';
-import { Spinner, TextField, Button, Stack, StackItem } from 'nr1';
+
 import { expandResponse } from './results/augmentation.js';
-const NodeRenderer = require('./renderers/render.js');
 import { notebookJsonTreeStyling } from './notebook-json-tree-styling.js';
 import GraphiQLExplorer from 'graphiql-explorer';
 import NotebookStorage from './graphiql/notebook-storage.js';
 
+const NodeRenderer = require('./renderers/render.js');
+
 export default class NotebookCell extends React.Component {
-  static cellCounter = 0;
+  static propTypes = {
+    uuid: PropTypes.string,
+    notes: PropTypes.string,
+    query: PropTypes.string,
+    onChange: PropTypes.func,
+    accounts: PropTypes.array,
+    schema: PropTypes.object,
+    domRef: PropTypes.object,
+    cellIndex: PropTypes.number,
+    onDelete: PropTypes.func,
+    onExpand: PropTypes.func,
+    collapsed: PropTypes.bool,
+    onCollapse: PropTypes.func,
+    addCell: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
@@ -19,9 +42,11 @@ export default class NotebookCell extends React.Component {
     this.state = {
       notes: this.props.notes || undefined,
       query: this.props.query || '',
-      queryResponse: {},
+      queryResponse: {}
     };
   }
+
+  static cellCounter = 0;
 
   // Obviously the state of the children should be pulled up
   // but GraphiQL doesn't make that easy, especially combined with OneGraph's Explorer.
@@ -30,29 +55,29 @@ export default class NotebookCell extends React.Component {
     return {
       query: this.state.query,
       notes: this.state.notes,
-      uuid: this.props.uuid,
+      uuid: this.props.uuid
     };
   };
 
-  stripTypeName = (results) => {
+  stripTypeName = results => {
     const omitTypename = (key, value) =>
       key === '__typename' ? undefined : value;
     return JSON.parse(JSON.stringify(results), omitTypename);
   };
 
-  onEditQuery = (query) => {
+  onEditQuery = query => {
     this.setState({ query }, () => {
       this.props.onChange(this.serialize());
     });
   };
 
-  onEditNotes = (evt) => {
+  onEditNotes = evt => {
     this.setState({ notes: evt.target.value }, () => {
       this.props.onChange(this.serialize());
     });
   };
 
-  onClickDocsLink = (fieldOrType) => {
+  onClickDocsLink = fieldOrType => {
     this.graphiQLInstance &&
       this.graphiQLInstance.setState({ docExplorerOpen: true }, () => {
         this.graphiQLInstance.docExplorerComponent.showDoc(fieldOrType);
@@ -60,20 +85,20 @@ export default class NotebookCell extends React.Component {
   };
 
   getDefaultScalarArgValue = (parentField, arg, argType) => {
-    let defaultAccount = this.props.accounts[0];
-    if (parentField.name == 'account' && arg.name == 'id' && defaultAccount) {
+    const defaultAccount = this.props.accounts[0];
+    if (parentField.name === 'account' && arg.name === 'id' && defaultAccount) {
       return { kind: 'IntValue', value: defaultAccount.id };
     }
-    if (arg.name == 'accountId' && defaultAccount) {
+    if (arg.name === 'accountId' && defaultAccount) {
       return { kind: 'IntValue', value: defaultAccount.id };
     }
-    if (argType == 'Nrql') {
+    if (argType === 'Nrql') {
       return {
         kind: 'StringValue',
-        value: 'SELECT * FROM Transaction SINCE 1 hour ago LIMIT 10',
+        value: 'SELECT * FROM Transaction SINCE 1 hour ago LIMIT 10'
       };
     }
-    if (parentField.name == 'nrql' && arg.name == 'timeout') {
+    if (parentField.name === 'nrql' && arg.name === 'timeout') {
       return { kind: 'IntValue', value: 5 };
     }
     return GraphiQLExplorer.defaultValue(argType);
@@ -83,7 +108,7 @@ export default class NotebookCell extends React.Component {
     return NerdGraphQuery.query({
       query,
       variables,
-      fetchPolicyType: 'no-cache',
+      fetchPolicyType: 'no-cache'
     }).then(({ data, errors }) => {
       this.setState({ jsonTreeLoading: true }, () => {
         setTimeout(() => {
@@ -95,7 +120,7 @@ export default class NotebookCell extends React.Component {
               variables,
               data
             ),
-            errors: errors,
+            errors: errors
           });
         }, 0);
       });
@@ -103,21 +128,36 @@ export default class NotebookCell extends React.Component {
     });
   };
 
+  renderErrors() {
+    if (!this.state.errors) return null;
+    return (
+      <>
+        <div className="cell-out-error">Errors [{this.props.cellIndex}]</div>
+        <JSONTree
+          data={this.state.errors}
+          theme={notebookJsonTreeStyling()}
+          hideRoot
+          shouldExpandNode={() => true}
+        />
+      </>
+    );
+  }
+
   render() {
     if (!this.props.schema) return <Spinner fillContainer />;
     return (
       <div ref={this.props.domRef} className="notebook-cell">
         <div className="notebook-cell-header">
           <Stack fullWidth gapType={Stack.GAP_TYPE.NONE}>
-            <StackItem shrink={true}>
+            <StackItem shrink>
               <div className="cell-in-label">In [{this.props.cellIndex}]</div>
             </StackItem>
-            <StackItem grow={true} style={{ textAlign: 'right' }}>
+            <StackItem grow style={{ textAlign: 'right' }}>
               <Button
                 style={{ paddingRight: '0px' }}
                 onClick={this.props.onDelete}
                 type={Button.TYPE.PLAIN_NEUTRAL}
-                disabled={this.props.cellIndex == 0}
+                disabled={this.props.cellIndex === 0}
                 iconType={Button.ICON_TYPE.DOCUMENTS__DOCUMENTS__FILE__A_REMOVE}
               />
             </StackItem>
@@ -141,7 +181,7 @@ export default class NotebookCell extends React.Component {
           style={{ display: this.props.collapsed ? null : 'none' }}
         >
           <Stack fullWidth horizontalType={Stack.HORIZONTAL_TYPE.BOTTOM}>
-            <StackItem grow={true} className="notebook-cell-input-summary">
+            <StackItem grow className="notebook-cell-input-summary">
               {this.state.query}
             </StackItem>
             <StackItem>
@@ -157,7 +197,7 @@ export default class NotebookCell extends React.Component {
         <div
           style={{
             textAlign: 'right',
-            display: this.props.collapsed ? 'none' : null,
+            display: this.props.collapsed ? 'none' : null
           }}
         >
           <Button
@@ -178,12 +218,12 @@ export default class NotebookCell extends React.Component {
               query={this.state.query}
               onEdit={this.onEditQuery}
               onClickDocsLink={this.onClickDocsLink}
-              explorerIsOpen={true}
+              explorerIsOpen
               getDefaultScalarArgValue={this.getDefaultScalarArgValue}
             />
           </div>
           <GraphiQL
-            ref={(ref) => {
+            ref={ref => {
               this.graphiQLInstance = ref;
             }}
             fetcher={this.fetcher}
@@ -192,7 +232,9 @@ export default class NotebookCell extends React.Component {
             query={this.state.query}
             onEditQuery={this.onEditQuery}
           >
-            <GraphiQL.Logo>{<span></span>}</GraphiQL.Logo>
+            <GraphiQL.Logo>
+              <span />
+            </GraphiQL.Logo>
           </GraphiQL>
         </div>
 
@@ -207,14 +249,14 @@ export default class NotebookCell extends React.Component {
                 sortObjectKeys={false}
                 postprocessValue={treeHelpers.postprocessValue}
                 valueRenderer={treeHelpers.valueRenderer}
-                isCustomNode={(node) =>
+                isCustomNode={node =>
                   node && node.__custom && React.isValidElement(node.__custom)
                 }
                 data={NodeRenderer.renderTree(this.state.queryResponse, {
-                  addCell: this.props.addCell,
+                  addCell: this.props.addCell
                 })}
                 theme={notebookJsonTreeStyling()}
-                hideRoot={true}
+                hideRoot
                 shouldExpandNode={() => true}
               />
             )}
@@ -227,32 +269,17 @@ export default class NotebookCell extends React.Component {
       </div>
     );
   }
-
-  renderErrors() {
-    if (!this.state.errors) return null;
-    return (
-      <>
-        <div className="cell-out-error">Errors [{this.props.cellIndex}]</div>
-        <JSONTree
-          data={this.state.errors}
-          theme={notebookJsonTreeStyling()}
-          hideRoot={true}
-          shouldExpandNode={() => true}
-        />
-      </>
-    );
-  }
 }
 
-let treeHelpers = {
-  postprocessValue: (node) => {
+const treeHelpers = {
+  postprocessValue: node => {
     if (node && node.__meta) {
-      let { __meta, ...nodeWithoutMeta } = node;
+      const { __meta, ...nodeWithoutMeta } = node;
       return nodeWithoutMeta;
     } else {
       return node;
     }
   },
 
-  valueRenderer: (node) => node.__custom || node,
+  valueRenderer: node => node.__custom || node
 };

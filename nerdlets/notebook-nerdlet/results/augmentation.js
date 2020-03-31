@@ -1,11 +1,12 @@
+import gql from 'graphql-tag';
+
 const {
   isListType,
   getNamedType,
   isLeafType,
-  isNonNullType,
+  isNonNullType
 } = require('graphql/type/definition');
 const QueryDocumentContext = require('./query-document-context.js');
-import gql from 'graphql-tag';
 
 // Oh dear, what's all this?
 // To provide "custom renderers" with enough context to do interesting things
@@ -19,11 +20,11 @@ import gql from 'graphql-tag';
 // To achieve this, the JSON results of an introspection query, the AST of the
 // original query document, and the data itself have to be traversed and merged.
 
-//TODO: Don't assume this is a Query document (could be mutation, subscription)
+// TODO: Don't assume this is a Query document (could be mutation, subscription)
 export function expandResponse(schema, query, _variables, root) {
   // This simplified version of the query document allows us to
   // attach things like field arguments to the final, augmented response data
-  let context = QueryDocumentContext.generate(gql(query));
+  const context = QueryDocumentContext.generate(gql(query));
   let operationType;
 
   switch (context.operation) {
@@ -45,23 +46,23 @@ export function expandResponse(schema, query, _variables, root) {
 // TODO: Aliases aren't handled yet but that shouldn't be hard.
 function expandNode(parent, currentFieldName, node, path, typeMap, context) {
   if (node == null) return null;
-  let typeName = node.__typename;
-  let type = typeMap[typeName];
-  let fields = type.getFields();
-  let expandedNode = {
+  const typeName = node.__typename;
+  const type = typeMap[typeName];
+  const fields = type.getFields();
+  const expandedNode = {
     __meta: {
       typename: typeName,
       fieldName: currentFieldName,
       path: path,
       context: QueryDocumentContext.findFieldContext(context, path),
-      parent: parent,
-    },
+      parent: parent
+    }
   };
 
   Object.entries(node).forEach(([fieldName, fieldValue]) => {
     if (fieldName === '__typename') return;
-    let field = fields[fieldName];
-    let fieldPath = [fieldName, ...path];
+    const field = fields[fieldName];
+    const fieldPath = [fieldName, ...path];
 
     if (isListOfLeaves(field.type)) {
       expandedNode[fieldName] = expandListLeaves(
@@ -115,15 +116,15 @@ function expandListNodes(
   typeMap,
   context
 ) {
-  let unwrappedType = getNamedType(type);
-  let listNode = {
+  const unwrappedType = getNamedType(type);
+  const listNode = {
     __meta: {
       fieldName: fieldName,
       ofTypeName: unwrappedType.name,
       list: true,
       path: path,
-      parent: parent,
-    },
+      parent: parent
+    }
   };
   listNode.value = list.map((node, i) =>
     expandNode(listNode, i, node, [i, ...path], typeMap, context)
@@ -132,15 +133,15 @@ function expandListNodes(
 }
 
 function expandListLeaves(parent, fieldName, list, type, path, context) {
-  let unwrappedType = getNamedType(type);
-  let listNode = {
+  const unwrappedType = getNamedType(type);
+  const listNode = {
     __meta: {
       fieldName: fieldName,
       ofTypeName: unwrappedType.name,
       list: true,
       path: path,
-      parent: parent,
-    },
+      parent: parent
+    }
   };
 
   listNode.value = list.map((leafNode, i) =>
@@ -150,7 +151,7 @@ function expandListLeaves(parent, fieldName, list, type, path, context) {
 }
 
 function expandLeafNode(parent, fieldName, value, type, path, context) {
-  let unwrappedType = getNamedType(type);
+  const unwrappedType = getNamedType(type);
   return {
     __meta: {
       typename: unwrappedType.name,
@@ -158,16 +159,16 @@ function expandLeafNode(parent, fieldName, value, type, path, context) {
       leaf: true,
       path: path,
       parent: parent,
-      context: QueryDocumentContext.findFieldContext(context, path),
+      context: QueryDocumentContext.findFieldContext(context, path)
     },
-    value: value,
+    value: value
   };
 }
 
-const isDefinitelyListType = (type) =>
+const isDefinitelyListType = type =>
   (isNonNullType(type) && isListType(type.ofType)) || isListType(type);
-const isDefinitelyLeafType = (type) => isLeafType(getNamedType(type));
-const isListOfLeaves = (type) =>
+const isDefinitelyLeafType = type => isLeafType(getNamedType(type));
+const isListOfLeaves = type =>
   isDefinitelyListType(type) && isDefinitelyLeafType(type);
-const isListOfNodes = (type) =>
+const isListOfNodes = type =>
   isDefinitelyListType(type) && !isDefinitelyLeafType(type);
