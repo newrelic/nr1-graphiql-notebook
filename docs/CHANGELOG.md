@@ -1,3 +1,18 @@
+# [0.6.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.5.1...v0.6.0) (2020-04-01)
+
+
+### Bug Fixes
+
+* eslint errors + logic concerns on the shift to a declarative implementation. ([6d8bcdf](https://github.com/newrelic/nr1-graphiql-notebook/commit/6d8bcdf7a80b97e8babc35924fd5e5207b4d937a))
+* eslint errors for failing CL chec. ([a0ebc11](https://github.com/newrelic/nr1-graphiql-notebook/commit/a0ebc113410f842191fd67641cd3dc3905ec5119))
+
+
+### Features
+
+* moving to uuid lib + eslint fixes. ([29752e5](https://github.com/newrelic/nr1-graphiql-notebook/commit/29752e53ee51cde7ab6b181c13c768b2021770aa))
+* moving to uuid lib and nr1-community usage for NerdGraphErrors. ([142ddfb](https://github.com/newrelic/nr1-graphiql-notebook/commit/142ddfb948c92b686690fb591e53a9817aa6727f))
+* refactoring imperative vs. declarative logic w/r/t to context states and queries. Moved to uuid lib and nr1-community. eslint fixes. ([a8e95a1](https://github.com/newrelic/nr1-graphiql-notebook/commit/a8e95a1e199013fabcc727cd879345179e1ee465))
+
 ## [0.5.1](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.5.0...v0.5.1) (2020-03-27)
 
 
