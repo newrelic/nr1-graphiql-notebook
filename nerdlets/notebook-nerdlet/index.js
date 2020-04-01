@@ -29,7 +29,7 @@ export default class NotebookNerdlet extends React.PureComponent {
     const emptyNotebook = this.newEmptyNotebook();
     this.state = {
       emptyNotebook: emptyNotebook,
-      //currentNotebook: defaultGettingStartedNotebook,
+      // currentNotebook: defaultGettingStartedNotebook,
       importHidden: true
     };
   }
@@ -46,7 +46,7 @@ export default class NotebookNerdlet extends React.PureComponent {
 
   async getNotebook(uuid) {
     const notebooks = await this.getNotebooks();
-    //console.debug("getNotebook", [notebooks, uuid]);
+    // console.debug("getNotebook", [notebooks, uuid]);
     // debugger;
     return notebooks.find(notebook => {
       return notebook.uuid === uuid;
@@ -60,7 +60,7 @@ export default class NotebookNerdlet extends React.PureComponent {
     });
     const { emptyNotebook } = this.state;
     const notebooks = collection.data.map(({ document }) => document);
-    if (notebooks.length == 0) {
+    if (notebooks.length === 0) {
       return [emptyNotebook, defaultGettingStartedNotebook];
     } else {
       return [emptyNotebook, ...notebooks];
@@ -80,15 +80,9 @@ export default class NotebookNerdlet extends React.PureComponent {
           ? this.newEmptyNotebook()
           : oldEmptyNotebook;
 
-      this.setState(
-        {
-          currentNotebook: newNotebook,
-          emptyNotebook
-        },
-        () => {
-          nerdlet.setUrlState({ notebook: newNotebook.uuid });
-        }
-      );
+      this.setState({ emptyNotebook }, () => {
+        nerdlet.setUrlState({ notebook: newNotebook.uuid });
+      });
     });
   };
 
@@ -100,21 +94,12 @@ export default class NotebookNerdlet extends React.PureComponent {
     }).then(() => {
       const { emptyNotebook } = this.state;
       nerdlet.setUrlState({ notebook: emptyNotebook.uuid });
-      /*
-      this.setState({ currentNotebook: emptyNotebook }, () => {
-        nerdlet.setUrlState({ notebook: emptyNotebook.uuid });
-      });
-      */
     });
   };
 
   onNotebookSelect = async ({ value: selectedUUID }) => {
-    //console.debug(selectedUUID);
+    // console.debug(selectedUUID);
     nerdlet.setUrlState({ notebook: selectedUUID });
-    /*const currentNotebook = await this.getNotebook(selectedUUID);
-    this.setState({ currentNotebook }, () => {
-      nerdlet.setUrlState({ notebook: currentNotebook.uuid });
-    });*/
   };
 
   closeImportModal = () => this.setState({ importHidden: true });
@@ -217,19 +202,35 @@ export default class NotebookNerdlet extends React.PureComponent {
                         return (
                           <NerdletStateContext.Consumer>
                             {nerdletUrlState => {
-                              const accountId = accounts && accounts[0] ? accounts[0].id : 1;
-                              const defaultNotebook = gettingStartedNotebook(accountId);
-                              const selectedNotebookUUID = nerdletUrlState.notebook;
-                              const storageNotebooks = userStorage.map(({ document }) => document);
+                              const accountId =
+                                accounts && accounts[0] ? accounts[0].id : 1;
+                              const defaultNotebook = gettingStartedNotebook(
+                                accountId
+                              );
+                              const selectedNotebookUUID =
+                                nerdletUrlState.notebook;
+                              const storageNotebooks = userStorage.map(
+                                ({ document }) => document
+                              );
                               // create our array of notebooks
-                              const notebooks = storageNotebooks.length == 0 ? [emptyNotebook, defaultNotebook] : [emptyNotebook, ...storageNotebooks];
-                              //select current notebook
-                              let currentNotebook = notebooks.find(notebook => notebook.uuid == selectedNotebookUUID);
-                              currentNotebook = currentNotebook || defaultNotebook;
+                              const notebooks =
+                                storageNotebooks.length === 0
+                                  ? [emptyNotebook, defaultNotebook]
+                                  : [emptyNotebook, ...storageNotebooks];
+                              // select current notebook
+                              let currentNotebook = notebooks.find(
+                                notebook =>
+                                  notebook.uuid === selectedNotebookUUID
+                              );
+                              currentNotebook =
+                                currentNotebook || defaultNotebook;
 
                               return (
                                 <div className="notebook">
-                                  {this.renderHeader(currentNotebook, notebooks)}
+                                  {this.renderHeader(
+                                    currentNotebook,
+                                    notebooks
+                                  )}
                                   <Notebook
                                     key={currentNotebook.uuid}
                                     uuid={currentNotebook.uuid}
