@@ -1,40 +1,52 @@
 {
-  "lastUpdated": "Fri Mar 27 2020 19:27:14 GMT+0000 (Coordinated Universal Time)",
+  "lastUpdated": "Fri Jun 05 2020 14:57:26 GMT+0000 (Coordinated Universal Time)",
   "projectName": "nr1-graphiql-notebook",
   "projectUrl": "https://github.com/newrelic/nr1-graphiql-notebook",
   "includeDev": true,
   "dependencies": {
-    "graphiql@0.17.0": {
+    "@newrelic/nr1-community@1.1.1": {
+      "name": "@newrelic/nr1-community",
+      "version": "1.1.1",
+      "range": "^1.1.1",
+      "licenses": "Apache-2.0",
+      "repoUrl": "https://github.com/newrelic/nr1-community",
+      "versionedRepoUrl": "https://github.com/newrelic/nr1-community/tree/v1.1.1",
+      "licenseFile": "node_modules/@newrelic/nr1-community/LICENSE",
+      "licenseUrl": "https://github.com/newrelic/nr1-community/blob/v1.1.1/LICENSE",
+      "licenseTextSource": "file",
+      "publisher": "newrelic"
+    },
+    "graphiql@0.17.5": {
       "name": "graphiql",
-      "version": "0.17.0",
+      "version": "0.17.5",
       "range": "^0.17.0",
       "licenses": "MIT",
       "repoUrl": "https://github.com/graphql/graphiql",
-      "versionedRepoUrl": "https://github.com/graphql/graphiql/tree/v0.17.0",
+      "versionedRepoUrl": "https://github.com/graphql/graphiql/tree/v0.17.5",
       "licenseFile": "node_modules/graphiql/LICENSE",
-      "licenseUrl": "https://github.com/graphql/graphiql/blob/v0.17.0/LICENSE",
+      "licenseUrl": "https://github.com/graphql/graphiql/blob/v0.17.5/LICENSE",
       "licenseTextSource": "file"
     },
-    "graphql-tag@2.10.1": {
+    "graphql-tag@2.10.3": {
       "name": "graphql-tag",
-      "version": "2.10.1",
+      "version": "2.10.3",
       "range": "^2.10.1",
       "licenses": "MIT",
-      "repoUrl": "https://github.com/apollostack/graphql-tag",
-      "versionedRepoUrl": "https://github.com/apollostack/graphql-tag/tree/v2.10.1",
+      "repoUrl": "https://github.com/apollographql/graphql-tag",
+      "versionedRepoUrl": "https://github.com/apollographql/graphql-tag/tree/v2.10.3",
       "licenseFile": "node_modules/graphql-tag/LICENSE",
-      "licenseUrl": "https://github.com/apollostack/graphql-tag/blob/v2.10.1/LICENSE",
+      "licenseUrl": "https://github.com/apollographql/graphql-tag/blob/v2.10.3/LICENSE",
       "licenseTextSource": "file"
     },
-    "graphql@14.5.4": {
+    "graphql@14.6.0": {
       "name": "graphql",
-      "version": "14.5.4",
+      "version": "14.6.0",
       "range": "^14.0.2",
       "licenses": "MIT",
       "repoUrl": "https://github.com/graphql/graphql-js",
-      "versionedRepoUrl": "https://github.com/graphql/graphql-js/tree/v14.5.4",
+      "versionedRepoUrl": "https://github.com/graphql/graphql-js/tree/v14.6.0",
       "licenseFile": "node_modules/graphql/LICENSE",
-      "licenseUrl": "https://github.com/graphql/graphql-js/blob/v14.5.4/LICENSE",
+      "licenseUrl": "https://github.com/graphql/graphql-js/blob/v14.6.0/LICENSE",
       "licenseTextSource": "file"
     },
     "prop-types@15.7.2": {
@@ -48,15 +60,15 @@
       "licenseUrl": "https://github.com/facebook/prop-types/blob/v15.7.2/LICENSE",
       "licenseTextSource": "file"
     },
-    "react-dom@16.9.0": {
+    "react-dom@16.13.1": {
       "name": "react-dom",
-      "version": "16.9.0",
+      "version": "16.13.1",
       "range": "^16.6.3",
       "licenses": "MIT",
       "repoUrl": "https://github.com/facebook/react",
-      "versionedRepoUrl": "https://github.com/facebook/react/tree/v16.9.0",
+      "versionedRepoUrl": "https://github.com/facebook/react/tree/v16.13.1",
       "licenseFile": "node_modules/react-dom/LICENSE",
-      "licenseUrl": "https://github.com/facebook/react/blob/v16.9.0/LICENSE",
+      "licenseUrl": "https://github.com/facebook/react/blob/v16.13.1/LICENSE",
       "licenseTextSource": "file"
     },
     "react-json-tree@0.11.2": {
@@ -73,40 +85,63 @@
       "email": "shu@chibicode.com",
       "url": "http://github.com/chibicode"
     },
-    "react-select@3.0.4": {
+    "react-select@3.1.0": {
       "name": "react-select",
-      "version": "3.0.4",
+      "version": "3.1.0",
       "range": "^3.0.4",
       "licenses": "MIT",
       "repoUrl": "https://github.com/JedWatson/react-select",
-      "versionedRepoUrl": "https://github.com/JedWatson/react-select/tree/v3.0.4",
+      "versionedRepoUrl": "https://github.com/JedWatson/react-select/tree/v3.1.0",
       "licenseFile": "node_modules/react-select/README.md",
-      "licenseUrl": "https://github.com/JedWatson/react-select/blob/v3.0.4/README.md",
+      "licenseUrl": "https://github.com/JedWatson/react-select/blob/v3.1.0/README.md",
       "licenseTextSource": "spdx",
       "publisher": "Jed Watson"
     },
-    "react@16.9.0": {
+    "react@16.13.1": {
       "name": "react",
-      "version": "16.9.0",
+      "version": "16.13.1",
       "range": "^16.6.3",
       "licenses": "MIT",
       "repoUrl": "https://github.com/facebook/react",
-      "versionedRepoUrl": "https://github.com/facebook/react/tree/v16.9.0",
+      "versionedRepoUrl": "https://github.com/facebook/react/tree/v16.13.1",
       "licenseFile": "node_modules/react/LICENSE",
-      "licenseUrl": "https://github.com/facebook/react/blob/v16.9.0/LICENSE",
+      "licenseUrl": "https://github.com/facebook/react/blob/v16.13.1/LICENSE",
+      "licenseTextSource": "file"
+    },
+    "uuid@7.0.2": {
+      "name": "uuid",
+      "version": "7.0.2",
+      "range": "^7.0.2",
+      "licenses": "MIT",
+      "repoUrl": "https://github.com/uuidjs/uuid",
+      "versionedRepoUrl": "https://github.com/uuidjs/uuid/tree/v7.0.2",
+      "licenseFile": "node_modules/uuid/LICENSE.md",
+      "licenseUrl": "https://github.com/uuidjs/uuid/blob/v7.0.2/LICENSE.md",
       "licenseTextSource": "file"
     }
   },
   "devDependencies": {
-    "@semantic-release/changelog@3.0.5": {
+    "@newrelic/eslint-plugin-newrelic@0.3.0": {
+      "name": "@newrelic/eslint-plugin-newrelic",
+      "version": "0.3.0",
+      "range": "^0.3.0",
+      "licenses": "Apache-2.0",
+      "repoUrl": "https://github.com/NewRelic/eslint-plugin-newrelic",
+      "versionedRepoUrl": "https://github.com/NewRelic/eslint-plugin-newrelic/tree/v0.3.0",
+      "licenseFile": "node_modules/@newrelic/eslint-plugin-newrelic/LICENSE",
+      "licenseUrl": "https://github.com/NewRelic/eslint-plugin-newrelic/blob/v0.3.0/LICENSE",
+      "licenseTextSource": "file",
+      "publisher": "New Relic"
+    },
+    "@semantic-release/changelog@3.0.6": {
       "name": "@semantic-release/changelog",
-      "version": "3.0.5",
+      "version": "3.0.6",
       "range": "^3.0.5",
       "licenses": "MIT",
       "repoUrl": "https://github.com/semantic-release/changelog",
-      "versionedRepoUrl": "https://github.com/semantic-release/changelog/tree/v3.0.5",
+      "versionedRepoUrl": "https://github.com/semantic-release/changelog/tree/v3.0.6",
       "licenseFile": "node_modules/@semantic-release/changelog/LICENSE",
-      "licenseUrl": "https://github.com/semantic-release/changelog/blob/v3.0.5/LICENSE",
+      "licenseUrl": "https://github.com/semantic-release/changelog/blob/v3.0.6/LICENSE",
       "licenseTextSource": "file",
       "publisher": "Pierre Vanduynslager",
       "url": "https://github.com/pvdlg"
@@ -124,56 +159,6 @@
       "publisher": "Pierre Vanduynslager",
       "url": "https://github.com/pvdlg"
     },
-    "babel-eslint@10.0.3": {
-      "name": "babel-eslint",
-      "version": "10.0.3",
-      "range": "^10.0.3",
-      "licenses": "MIT",
-      "repoUrl": "https://github.com/babel/babel-eslint",
-      "versionedRepoUrl": "https://github.com/babel/babel-eslint/tree/v10.0.3",
-      "licenseFile": "node_modules/babel-eslint/LICENSE",
-      "licenseUrl": "https://github.com/babel/babel-eslint/blob/v10.0.3/LICENSE",
-      "licenseTextSource": "file",
-      "publisher": "Sebastian McKenzie",
-      "email": "sebmck@gmail.com"
-    },
-    "eslint-config-prettier@6.2.0": {
-      "name": "eslint-config-prettier",
-      "version": "6.2.0",
-      "range": "^6.2.0",
-      "licenses": "MIT",
-      "repoUrl": "https://github.com/prettier/eslint-config-prettier",
-      "versionedRepoUrl": "https://github.com/prettier/eslint-config-prettier/tree/v6.2.0",
-      "licenseFile": "node_modules/eslint-config-prettier/LICENSE",
-      "licenseUrl": "https://github.com/prettier/eslint-config-prettier/blob/v6.2.0/LICENSE",
-      "licenseTextSource": "file",
-      "publisher": "Simon Lydell"
-    },
-    "eslint-plugin-prettier@3.1.0": {
-      "name": "eslint-plugin-prettier",
-      "version": "3.1.0",
-      "range": "^3.1.0",
-      "licenses": "MIT",
-      "repoUrl": "https://github.com/prettier/eslint-plugin-prettier",
-      "versionedRepoUrl": "https://github.com/prettier/eslint-plugin-prettier/tree/v3.1.0",
-      "licenseFile": "node_modules/eslint-plugin-prettier/LICENSE.md",
-      "licenseUrl": "https://github.com/prettier/eslint-plugin-prettier/blob/v3.1.0/LICENSE.md",
-      "licenseTextSource": "file",
-      "publisher": "Teddy Katz"
-    },
-    "eslint-plugin-react@7.14.3": {
-      "name": "eslint-plugin-react",
-      "version": "7.14.3",
-      "range": "^7.14.3",
-      "licenses": "MIT",
-      "repoUrl": "https://github.com/yannickcr/eslint-plugin-react",
-      "versionedRepoUrl": "https://github.com/yannickcr/eslint-plugin-react/tree/v7.14.3",
-      "licenseFile": "node_modules/eslint-plugin-react/LICENSE",
-      "licenseUrl": "https://github.com/yannickcr/eslint-plugin-react/blob/v7.14.3/LICENSE",
-      "licenseTextSource": "file",
-      "publisher": "Yannick Croissant",
-      "email": "yannick.croissant+npm@gmail.com"
-    },
     "eslint@6.8.0": {
       "name": "eslint",
       "version": "6.8.0",
@@ -187,15 +172,15 @@
       "publisher": "Nicholas C. Zakas",
       "email": "nicholas+npm@nczconsulting.com"
     },
-    "prettier@2.0.2": {
+    "prettier@1.19.1": {
       "name": "prettier",
-      "version": "2.0.2",
-      "range": "^2.0.2",
+      "version": "1.19.1",
+      "range": "^1.19.1",
       "licenses": "MIT",
       "repoUrl": "https://github.com/prettier/prettier",
-      "versionedRepoUrl": "https://github.com/prettier/prettier/tree/v2.0.2",
+      "versionedRepoUrl": "https://github.com/prettier/prettier/tree/v1.19.1",
       "licenseFile": "node_modules/prettier/LICENSE",
-      "licenseUrl": "https://github.com/prettier/prettier/blob/v2.0.2/LICENSE",
+      "licenseUrl": "https://github.com/prettier/prettier/blob/v1.19.1/LICENSE",
       "licenseTextSource": "file",
       "publisher": "James Long"
     }
