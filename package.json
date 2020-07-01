@@ -13,7 +13,7 @@
     "eslint-fix": "eslint nerdlets/ --fix"
   },
   "dependencies": {
-    "@newrelic/nr1-community": "^1.1.1",
+    "@newrelic/nr1-community": "^1.2.0",
     "graphiql": "^0.17.0",
     "graphiql-explorer": "https://github.com/mattbaker/graphiql-explorer.git",
     "graphql": "^14.0.2",
