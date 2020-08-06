@@ -1,3 +1,13 @@
+## [0.6.1](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.0...v0.6.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* upgrade @newrelic/nr1-community from 1.1.1 to 1.2.0 ([aaa4a45](https://github.com/newrelic/nr1-graphiql-notebook/commit/aaa4a45a155f44c296907ebea9452cb96e7a6434))
+* upgrade graphql-tag from 2.10.3 to 2.10.4 ([#46](https://github.com/newrelic/nr1-graphiql-notebook/issues/46)) ([cbbea21](https://github.com/newrelic/nr1-graphiql-notebook/commit/cbbea21ac7b7dfbfbe180bfe3d9f8ad1fd31246f))
+* upgrade uuid from 7.0.2 to 7.0.3 ([51e6132](https://github.com/newrelic/nr1-graphiql-notebook/commit/51e613240c980c47a0a397136b13699339242a28))
+* upgrade uuid from 7.0.2 to 7.0.3 ([df5b89c](https://github.com/newrelic/nr1-graphiql-notebook/commit/df5b89c020b9538cfece581b2a07dd6ac25667a9))
+
 # [0.6.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.5.1...v0.6.0) (2020-04-01)
 
 
