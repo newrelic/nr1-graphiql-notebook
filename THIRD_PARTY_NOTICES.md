@@ -38,7 +38,7 @@ code, the source code can be found at [https://github.com/newrelic/nr1-graphiql-
 
 ### @newrelic/nr1-community
 
-This product includes source derived from [@newrelic/nr1-community](https://github.com/newrelic/nr1-community) ([v1.1.1](https://github.com/newrelic/nr1-community/tree/v1.1.1)), distributed under the [Apache-2.0 License](https://github.com/newrelic/nr1-community/blob/v1.1.1/LICENSE):
+This product includes source derived from [@newrelic/nr1-community](https://github.com/newrelic/nr1-community) ([v1.2.0](https://github.com/newrelic/nr1-community/tree/v1.2.0)), distributed under the [Apache-2.0 License](https://github.com/newrelic/nr1-community/blob/v1.2.0/LICENSE):
 
 ```
                                  Apache License
@@ -276,7 +276,7 @@ SOFTWARE.
 
 ### graphql-tag
 
-This product includes source derived from [graphql-tag](https://github.com/apollographql/graphql-tag) ([v2.10.3](https://github.com/apollographql/graphql-tag/tree/v2.10.3)), distributed under the [MIT License](https://github.com/apollographql/graphql-tag/blob/v2.10.3/LICENSE):
+This product includes source derived from [graphql-tag](https://github.com/apollographql/graphql-tag) ([v2.10.4](https://github.com/apollographql/graphql-tag/tree/v2.10.4)), distributed under the [MIT License](https://github.com/apollographql/graphql-tag/blob/v2.10.4/LICENSE):
 
 ```
 The MIT License (MIT)
@@ -465,7 +465,7 @@ SOFTWARE.
 
 ### uuid
 
-This product includes source derived from [uuid](https://github.com/uuidjs/uuid) ([v7.0.2](https://github.com/uuidjs/uuid/tree/v7.0.2)), distributed under the [MIT License](https://github.com/uuidjs/uuid/blob/v7.0.2/LICENSE.md):
+This product includes source derived from [uuid](https://github.com/uuidjs/uuid) ([v7.0.3](https://github.com/uuidjs/uuid/tree/v7.0.3)), distributed under the [MIT License](https://github.com/uuidjs/uuid/blob/v7.0.3/LICENSE.md):
 
 ```
 The MIT License (MIT)

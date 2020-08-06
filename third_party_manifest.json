@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "Fri Jun 05 2020 14:57:26 GMT+0000 (Coordinated Universal Time)",
+  "lastUpdated": "Thu Aug 06 2020 15:36:58 GMT+0000 (Coordinated Universal Time)",
   "projectName": "nr1-graphiql-notebook",
   "projectUrl": "https://github.com/newrelic/nr1-graphiql-notebook",
   "includeDev": true,
   "dependencies": {
-    "@newrelic/nr1-community@1.1.1": {
+    "@newrelic/nr1-community@1.2.0": {
       "name": "@newrelic/nr1-community",
-      "version": "1.1.1",
-      "range": "^1.1.1",
+      "version": "1.2.0",
+      "range": "^1.2.0",
       "licenses": "Apache-2.0",
       "repoUrl": "https://github.com/newrelic/nr1-community",
-      "versionedRepoUrl": "https://github.com/newrelic/nr1-community/tree/v1.1.1",
+      "versionedRepoUrl": "https://github.com/newrelic/nr1-community/tree/v1.2.0",
       "licenseFile": "node_modules/@newrelic/nr1-community/LICENSE",
-      "licenseUrl": "https://github.com/newrelic/nr1-community/blob/v1.1.1/LICENSE",
+      "licenseUrl": "https://github.com/newrelic/nr1-community/blob/v1.2.0/LICENSE",
       "licenseTextSource": "file",
       "publisher": "newrelic"
     },
@@ -27,15 +27,15 @@
       "licenseUrl": "https://github.com/graphql/graphiql/blob/v0.17.5/LICENSE",
       "licenseTextSource": "file"
     },
-    "graphql-tag@2.10.3": {
+    "graphql-tag@2.10.4": {
       "name": "graphql-tag",
-      "version": "2.10.3",
-      "range": "^2.10.1",
+      "version": "2.10.4",
+      "range": "^2.10.4",
       "licenses": "MIT",
       "repoUrl": "https://github.com/apollographql/graphql-tag",
-      "versionedRepoUrl": "https://github.com/apollographql/graphql-tag/tree/v2.10.3",
+      "versionedRepoUrl": "https://github.com/apollographql/graphql-tag/tree/v2.10.4",
       "licenseFile": "node_modules/graphql-tag/LICENSE",
-      "licenseUrl": "https://github.com/apollographql/graphql-tag/blob/v2.10.3/LICENSE",
+      "licenseUrl": "https://github.com/apollographql/graphql-tag/blob/v2.10.4/LICENSE",
       "licenseTextSource": "file"
     },
     "graphql@14.6.0": {
@@ -108,15 +108,15 @@
       "licenseUrl": "https://github.com/facebook/react/blob/v16.13.1/LICENSE",
       "licenseTextSource": "file"
     },
-    "uuid@7.0.2": {
+    "uuid@7.0.3": {
       "name": "uuid",
-      "version": "7.0.2",
-      "range": "^7.0.2",
+      "version": "7.0.3",
+      "range": "^7.0.3",
       "licenses": "MIT",
       "repoUrl": "https://github.com/uuidjs/uuid",
-      "versionedRepoUrl": "https://github.com/uuidjs/uuid/tree/v7.0.2",
+      "versionedRepoUrl": "https://github.com/uuidjs/uuid/tree/v7.0.3",
       "licenseFile": "node_modules/uuid/LICENSE.md",
-      "licenseUrl": "https://github.com/uuidjs/uuid/blob/v7.0.2/LICENSE.md",
+      "licenseUrl": "https://github.com/uuidjs/uuid/blob/v7.0.3/LICENSE.md",
       "licenseTextSource": "file"
     }
   },
