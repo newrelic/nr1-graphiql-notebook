@@ -1,3 +1,10 @@
+## [0.6.2](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.1...v0.6.2) (2020-08-06)
+
+
+### Bug Fixes
+
+* upgrade graphql from 14.6.0 to 14.7.0 ([#45](https://github.com/newrelic/nr1-graphiql-notebook/issues/45)) ([88f279e](https://github.com/newrelic/nr1-graphiql-notebook/commit/88f279e310f6e08945987e59002432896d352251))
+
 ## [0.6.1](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.0...v0.6.1) (2020-08-06)
 
 
