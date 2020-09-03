@@ -1,3 +1,10 @@
+## [0.6.3](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.2...v0.6.3) (2020-09-03)
+
+
+### Bug Fixes
+
+* Trigger release and changelog generation (via GH Actions) ([8cd6bb9](https://github.com/newrelic/nr1-graphiql-notebook/commit/8cd6bb98687ca43b44083f351ccb71810ad2e8dd))
+
 ## [0.6.2](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.1...v0.6.2) (2020-08-06)
 
 
