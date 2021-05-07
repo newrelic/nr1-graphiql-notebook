@@ -1,3 +1,10 @@
+## [0.6.4](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.3...v0.6.4) (2021-05-07)
+
+
+### Bug Fixes
+
+* upgrade react-json-tree from 0.11.2 to 0.15.0 ([925ce6e](https://github.com/newrelic/nr1-graphiql-notebook/commit/925ce6e8e8704f664f27887d15531e3ba684901b))
+
 ## [0.6.3](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.2...v0.6.3) (2020-09-03)
 
 
