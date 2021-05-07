@@ -1,3 +1,10 @@
+## [0.6.5](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.4...v0.6.5) (2021-05-07)
+
+
+### Bug Fixes
+
+* upgrade react-select from 3.1.0 to 3.2.0 ([7538bbf](https://github.com/newrelic/nr1-graphiql-notebook/commit/7538bbff5bb11e3cdb04ae673f0ee51b6f6c08b7))
+
 ## [0.6.4](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.3...v0.6.4) (2021-05-07)
 
 
