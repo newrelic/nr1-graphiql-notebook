@@ -12,9 +12,15 @@ export function generate(queryDoc) {
 // value of that node in the augmented response. The context property
 // includes things like the argument the field was queried with.
 export function findFieldContext(contextNode, path) {
-  if (Number.isInteger(last(path)))
+  if (Number.isInteger(last(path))) {
     return findFieldContext(contextNode, path.slice(0, -1));
-  if (path.length === 0) return contextNode.context || {};
+  }
+  if (path.length === 0) {
+    if (contextNode && contextNode.context) {
+      return contextNode.context;
+    }
+    return {};
+  }
   const [nextField, remainingPath] = pop(path);
   const nextNode = contextNode.selectionSet[nextField];
   return findFieldContext(nextNode, remainingPath);
@@ -41,7 +47,7 @@ const buildNamedFragmentMap = queryDoc => {
       const fragmentName = node.name.value;
       const fragmentFields = node.selectionSet.selections;
       namedFragments[fragmentName] = fragmentFields;
-    }
+    },
   });
 
   return namedFragments;
@@ -56,7 +62,7 @@ const inlineFragments = queryDoc => {
       },
       InlineFragment(node) {
         return node.selectionSet && node.selectionSet.selections;
-      }
+      },
     },
 
     leave: {
@@ -65,8 +71,8 @@ const inlineFragments = queryDoc => {
           node.selectionSet.selections = flatten(node.selectionSet.selections);
         }
         return node;
-      }
-    }
+      },
+    },
   });
 };
 
@@ -75,13 +81,13 @@ const buildContextTree = queryDoc => {
     enter: {
       FragmentDefinition() {
         return null;
-      }
+      },
     },
     leave: {
       Document(node) {
         return {
           ...node.definitions[0],
-          context: {}
+          context: {},
         }; // TODO too fragile?
       },
 
@@ -97,7 +103,7 @@ const buildContextTree = queryDoc => {
         return {
           name: node.name,
           kind: node.value.kind,
-          value: node.value.value
+          value: node.value.value,
         };
       },
 
@@ -106,12 +112,12 @@ const buildContextTree = queryDoc => {
         return {
           name,
           context: {
-            arguments: listToMap(node.arguments, ({ name }) => name)
+            arguments: listToMap(node.arguments, ({ name }) => name),
           },
-          selectionSet: node.selectionSet
+          selectionSet: node.selectionSet,
         };
-      }
-    }
+      },
+    },
   });
 };
 
