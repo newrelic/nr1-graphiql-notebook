@@ -1,3 +1,10 @@
+## [0.6.9](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.8...v0.6.9) (2021-11-12)
+
+
+### Bug Fixes
+
+* issue with html tag in catalog documentation ([7dc818d](https://github.com/newrelic/nr1-graphiql-notebook/commit/7dc818dc933e8665e96199443c7184dcfd1a55b4))
+
 ## [0.6.8](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.7...v0.6.8) (2021-11-12)
 
 
