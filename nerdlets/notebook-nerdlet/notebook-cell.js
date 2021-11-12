@@ -167,7 +167,6 @@ export default class NotebookCell extends React.Component {
         <div className="notebook-cell-notes">
           <TextField
             style={{ marginBottom: '7px' }}
-            multiline
             label="Notes"
             placeholder="e.g. Lorem Ipsum"
             value={this.state.notes}
