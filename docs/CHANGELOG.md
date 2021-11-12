@@ -1,3 +1,10 @@
+## [0.6.7](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.6...v0.6.7) (2021-11-12)
+
+
+### Bug Fixes
+
+* reduce size of images for catalog ([d8b01f5](https://github.com/newrelic/nr1-graphiql-notebook/commit/d8b01f54147c078f26a06f2a31d969e3aa6b1750))
+
 ## [0.6.6](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.5...v0.6.6) (2021-11-12)
 
 
