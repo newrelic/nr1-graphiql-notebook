@@ -1,5 +1,3 @@
-// import webpack from 'webpack';
-
 module.exports =  {
   resolve: {
     // .mjs needed for https://github.com/graphql/graphql-js/issues/1272
