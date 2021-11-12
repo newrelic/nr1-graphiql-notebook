@@ -47,7 +47,7 @@ const buildNamedFragmentMap = queryDoc => {
       const fragmentName = node.name.value;
       const fragmentFields = node.selectionSet.selections;
       namedFragments[fragmentName] = fragmentFields;
-    },
+    }
   });
 
   return namedFragments;
@@ -62,7 +62,7 @@ const inlineFragments = queryDoc => {
       },
       InlineFragment(node) {
         return node.selectionSet && node.selectionSet.selections;
-      },
+      }
     },
 
     leave: {
@@ -71,8 +71,8 @@ const inlineFragments = queryDoc => {
           node.selectionSet.selections = flatten(node.selectionSet.selections);
         }
         return node;
-      },
-    },
+      }
+    }
   });
 };
 
@@ -81,13 +81,13 @@ const buildContextTree = queryDoc => {
     enter: {
       FragmentDefinition() {
         return null;
-      },
+      }
     },
     leave: {
       Document(node) {
         return {
           ...node.definitions[0],
-          context: {},
+          context: {}
         }; // TODO too fragile?
       },
 
@@ -103,7 +103,7 @@ const buildContextTree = queryDoc => {
         return {
           name: node.name,
           kind: node.value.kind,
-          value: node.value.value,
+          value: node.value.value
         };
       },
 
@@ -112,12 +112,12 @@ const buildContextTree = queryDoc => {
         return {
           name,
           context: {
-            arguments: listToMap(node.arguments, ({ name }) => name),
+            arguments: listToMap(node.arguments, ({ name }) => name)
           },
-          selectionSet: node.selectionSet,
+          selectionSet: node.selectionSet
         };
-      },
-    },
+      }
+    }
   });
 };
 
