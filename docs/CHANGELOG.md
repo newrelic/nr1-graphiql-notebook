@@ -1,3 +1,11 @@
+## [0.6.8](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.7...v0.6.8) (2021-11-12)
+
+
+### Bug Fixes
+
+* check for contextNode ([0b7f679](https://github.com/newrelic/nr1-graphiql-notebook/commit/0b7f6791fd28558b6e34d9a1059456e6b7b801df))
+* eslint issues ([f2069c1](https://github.com/newrelic/nr1-graphiql-notebook/commit/f2069c17e000f3a6ee59150fd663c1c9c7e2321e))
+
 ## [0.6.7](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.6...v0.6.7) (2021-11-12)
 
 
