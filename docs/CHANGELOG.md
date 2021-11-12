@@ -1,3 +1,10 @@
+## [0.6.10](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.9...v0.6.10) (2021-11-12)
+
+
+### Bug Fixes
+
+* error with gql import ([740903a](https://github.com/newrelic/nr1-graphiql-notebook/commit/740903afdd52942a7ba8d4e5507516c15f8773ac))
+
 ## [0.6.9](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.8...v0.6.9) (2021-11-12)
 
 
