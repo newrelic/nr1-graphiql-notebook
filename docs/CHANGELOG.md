@@ -1,3 +1,11 @@
+## [0.6.6](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.5...v0.6.6) (2021-11-12)
+
+
+### Bug Fixes
+
+* remove deprecated paramter from TextField ([efd2021](https://github.com/newrelic/nr1-graphiql-notebook/commit/efd2021dbbc0ca15b00d3e755b4530802fc4b789))
+* use node 14 and speicifc version of semantic release ([233597a](https://github.com/newrelic/nr1-graphiql-notebook/commit/233597a3b7cd0068475e43435a2d88af60eab744))
+
 ## [0.6.5](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.4...v0.6.5) (2021-05-07)
 
 
