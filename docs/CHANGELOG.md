@@ -1,3 +1,15 @@
+# [0.7.0](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.10...v0.7.0) (2021-11-15)
+
+
+### Bug Fixes
+
+* revert id change ([7fb79db](https://github.com/newrelic/nr1-graphiql-notebook/commit/7fb79dbd50aaddc03a3bd5a6ed2eb2f9c6f11695))
+
+
+### Features
+
+* add catalog keywords and categoryTerms ([09b0982](https://github.com/newrelic/nr1-graphiql-notebook/commit/09b0982adc96e5e082bcd2d44b44ac933e01c038))
+
 ## [0.6.10](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.9...v0.6.10) (2021-11-12)
 
 
