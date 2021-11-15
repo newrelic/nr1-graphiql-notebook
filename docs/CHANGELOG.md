@@ -1,3 +1,40 @@
+## [0.6.10](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.9...v0.6.10) (2021-11-12)
+
+
+### Bug Fixes
+
+* error with gql import ([740903a](https://github.com/newrelic/nr1-graphiql-notebook/commit/740903afdd52942a7ba8d4e5507516c15f8773ac))
+
+## [0.6.9](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.8...v0.6.9) (2021-11-12)
+
+
+### Bug Fixes
+
+* issue with html tag in catalog documentation ([7dc818d](https://github.com/newrelic/nr1-graphiql-notebook/commit/7dc818dc933e8665e96199443c7184dcfd1a55b4))
+
+## [0.6.8](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.7...v0.6.8) (2021-11-12)
+
+
+### Bug Fixes
+
+* check for contextNode ([0b7f679](https://github.com/newrelic/nr1-graphiql-notebook/commit/0b7f6791fd28558b6e34d9a1059456e6b7b801df))
+* eslint issues ([f2069c1](https://github.com/newrelic/nr1-graphiql-notebook/commit/f2069c17e000f3a6ee59150fd663c1c9c7e2321e))
+
+## [0.6.7](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.6...v0.6.7) (2021-11-12)
+
+
+### Bug Fixes
+
+* reduce size of images for catalog ([d8b01f5](https://github.com/newrelic/nr1-graphiql-notebook/commit/d8b01f54147c078f26a06f2a31d969e3aa6b1750))
+
+## [0.6.6](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.5...v0.6.6) (2021-11-12)
+
+
+### Bug Fixes
+
+* remove deprecated paramter from TextField ([efd2021](https://github.com/newrelic/nr1-graphiql-notebook/commit/efd2021dbbc0ca15b00d3e755b4530802fc4b789))
+* use node 14 and speicifc version of semantic release ([233597a](https://github.com/newrelic/nr1-graphiql-notebook/commit/233597a3b7cd0068475e43435a2d88af60eab744))
+
 ## [0.6.5](https://github.com/newrelic/nr1-graphiql-notebook/compare/v0.6.4...v0.6.5) (2021-05-07)
 
 

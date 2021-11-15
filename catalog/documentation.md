@@ -72,37 +72,7 @@ Renderers are simply React component classes with an additional static method, `
 Documentation is a little lacking at the moment but you _could_ drop your own renderer in today! Here's one you can try out that will link account IDs on account objects to the account page in APM.
 
 Add this file to the `nerdlets/notebook-nerdlet/renderers` directory.
-
-```javascript
-import React from 'react';
-
-// Render account IDs as links to the account page in APM
-export default class AccountIdRenderer extends React.Component {
-  static test(node) {
-    let parent = node.__meta.parent;
-
-    if (!parent) return false;
-
-    let isAccountTypeObject =
-      parent.__meta.typename == 'Account' ||
-      parent.__meta.typename == 'AccountOutline';
-
-    return isAccountTypeObject && node.__meta.fieldName == 'id';
-  }
-
-  render() {
-    let accountId = this.props.node.value;
-    return (
-      <a
-        target="_blank"
-        href={`https://rpm.newrelic.com/accounts/${accountId}`}
-      >
-        Visit Account {accountId}
-      </a>
-    );
-  }
-}
-```
+ - https://github.com/newrelic/nr1-graphiql-notebook/tree/main/nerdlets/notebook-nerdlet/context-render-example.txt
 
 Next, import this class into `nerdlets/notebook-nerdlet/renderers/render.js` and add it to the `RENDERERS` array.
 

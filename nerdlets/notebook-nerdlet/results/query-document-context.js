@@ -12,9 +12,15 @@ export function generate(queryDoc) {
 // value of that node in the augmented response. The context property
 // includes things like the argument the field was queried with.
 export function findFieldContext(contextNode, path) {
-  if (Number.isInteger(last(path)))
+  if (Number.isInteger(last(path))) {
     return findFieldContext(contextNode, path.slice(0, -1));
-  if (path.length === 0) return contextNode.context || {};
+  }
+  if (path.length === 0) {
+    if (contextNode && contextNode.context) {
+      return contextNode.context;
+    }
+    return {};
+  }
   const [nextField, remainingPath] = pop(path);
   const nextNode = contextNode.selectionSet[nextField];
   return findFieldContext(nextNode, remainingPath);

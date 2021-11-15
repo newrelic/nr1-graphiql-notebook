@@ -1,8 +1,6 @@
-// import webpack from 'webpack';
-
 module.exports =  {
   resolve: {
-    // .mjs needed for https://github.com/graphql/graphql-js/issues/1272
+    // .mjs needed to fix for https://github.com/graphql/graphql-js/issues/1272
     extensions: ['*', '.mjs', '.js', '.json', '.gql', '.graphql']
   },
   module: {

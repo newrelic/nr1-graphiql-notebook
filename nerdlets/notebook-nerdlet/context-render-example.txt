@@ -1,0 +1,29 @@
+import React from 'react';
+
+// Render account IDs as links to the account page in APM
+export default class AccountIdRenderer extends React.Component {
+  static test(node) {
+    const parent = node.__meta.parent;
+
+    if (!parent) return false;
+
+    const isAccountTypeObject =
+      parent.__meta.typename === 'Account' ||
+      parent.__meta.typename === 'AccountOutline';
+
+    return isAccountTypeObject && node.__meta.fieldName === 'id';
+  }
+
+  render() {
+    const accountId = this.props.node.value;
+    return (
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={`https://rpm.newrelic.com/accounts/${accountId}`}
+      >
+        Visit Account {accountId}
+      </a>
+    );
+  }
+}
